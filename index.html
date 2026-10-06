@@ -468,67 +468,65 @@
             }
         }
 
-        async function loadDatabaseData() {
+                async function loadDatabaseData() {
             if (!supabaseClient) return;
             try {
-                // Query Banks
-                const { data: banks, error: bErr } = await supabaseClient.from("banks").select("*").order("display_order");
-                // Query Managers with Channel Partners and Card Issuances
-                const { data: managers, error: mErr } = await supabaseClient
-                    .from("managers")
-                    .select(`
-                        id,
-                        name,
-                        channel_partners (
-                            id,
-                            name,
-                            working_capital,
-                            card_issuances (
-                                id,
-                                bank_id,
-                                lm_count,
-                                cm_count
-                            )
-                        )
-                    `)
-                    .order("name");
+                // Fetch tables using flat parallel queries (immune to PostgREST schema cache issues)
+                const [banksRes, managersRes, partnersRes, issuancesRes] = await Promise.all([
+                    supabaseClient.from("banks").select("*").order("display_order"),
+                    supabaseClient.from("managers").select("*").order("name"),
+                    supabaseClient.from("channel_partners").select("*").order("name"),
+                    supabaseClient.from("card_issuances").select("*")
+                ]);
 
-                if (bErr || mErr) {
-                    const errDetail = (bErr ? bErr.message : '') || (mErr ? mErr.message : '');
-                    console.error("Supabase load error:", bErr || mErr);
-                    if (errDetail.includes("relation") || errDetail.includes("does not exist") || errDetail.includes("404")) {
-                        showToast("Tables not found in Supabase. Please run the SQL in Supabase SQL Editor!", "error");
-                    } else {
-                        showToast("Supabase: " + errDetail, "error");
-                    }
+                if (banksRes.error || managersRes.error || partnersRes.error) {
+                    const err = banksRes.error || managersRes.error || partnersRes.error || issuancesRes.error;
+                    console.error("Supabase load error:", err);
+                    showToast("Supabase Error: " + err.message, "error");
                     loadLocalDataFallback();
                     return;
                 }
 
-                // Format structure
-                dbData.banks = banks || [];
-                dbData.managers = (managers || []).map(m => ({
-                    id: m.id,
-                    manager_name: m.name,
-                    partners: (m.channel_partners || []).map(cp => {
-                        let bObj = {};
-                        (cp.card_issuances || []).forEach(ci => {
-                            bObj[ci.bank_id] = { lm: ci.lm_count || 0, cm: ci.cm_count || 0, record_id: ci.id };
-                        });
-                        return {
-                            id: cp.id,
-                            name: cp.name,
-                            working_capital: cp.working_capital || 0,
-                            banks: bObj
-                        };
-                    })
-                }));
+                const banks = banksRes.data || [];
+                const managers = managersRes.data || [];
+                const partners = partnersRes.data || [];
+                const issuances = issuancesRes.data || [];
+
+                // Build fast lookup map for issuances: partner_id -> { bank_id: { lm, cm, record_id } }
+                const issuanceMap = {};
+                issuances.forEach(ci => {
+                    if (!issuanceMap[ci.partner_id]) issuanceMap[ci.partner_id] = {};
+                    issuanceMap[ci.partner_id][ci.bank_id] = {
+                        lm: ci.lm_count || 0,
+                        cm: ci.cm_count || 0,
+                        record_id: ci.id
+                    };
+                });
+
+                // Assemble Managers and their Channel Partners
+                dbData.banks = banks;
+                dbData.managers = managers.map(m => {
+                    const mappedPartners = partners.filter(p => p.manager_id === m.id).map(p => ({
+                        id: p.id,
+                        name: p.name,
+                        working_capital: p.working_capital || 0,
+                        banks: issuanceMap[p.id] || {}
+                    }));
+
+                    return {
+                        id: m.id,
+                        manager_name: m.name,
+                        partners: mappedPartners
+                    };
+                });
 
                 recalculateAll();
                 renderAll();
-                showToast("Synced with Supabase PostgreSQL!", "success");
+                updateStatus(true, "Supabase Connected");
+                showToast("Connected & synced with Supabase!", "success");
             } catch (err) {
-                console.error("Fetch error:", err);
+                console.error("Database connection exception:", err);
+                showToast("Connection error: " + err.message, "error");
                 loadLocalDataFallback();
             }
         }
