@@ -687,8 +687,18 @@
             checkAuthSession();
         });
 
+        function cleanSupabaseUrl(url) {
+            if (!url) return "";
+            let cleaned = url.trim();
+            cleaned = cleaned.replace(/\/rest\/v1\/?$/i, "");
+            cleaned = cleaned.replace(/\/+$/, "");
+            return cleaned;
+        }
+
         function initSupabase() {
-            const savedUrl = localStorage.getItem("sb_url") || "https://zcsijzfhrsjnmgrtupqd.supabase.co";
+            let savedUrl = localStorage.getItem("sb_url") || "https://zcsijzfhrsjnmgrtupqd.supabase.co";
+            savedUrl = cleanSupabaseUrl(savedUrl);
+            localStorage.setItem("sb_url", savedUrl);
             const savedKey = localStorage.getItem("sb_key");
 
             if (savedUrl && savedKey) {
@@ -1235,7 +1245,8 @@
 
         function handleSaveSettings(e) {
             e.preventDefault();
-            const url = document.getElementById("supabaseUrlInput").value.trim();
+            let url = document.getElementById("supabaseUrlInput").value.trim();
+            url = cleanSupabaseUrl(url);
             const key = document.getElementById("supabaseKeyInput").value.trim();
             if (url && key) {
                 localStorage.setItem("sb_url", url);
