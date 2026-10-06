@@ -1,0 +1,1050 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Credit Card Issuance Portal - Supabase Connected</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        manager: {
+                            light: '#FED7AA',
+                            border: '#EA580C',
+                            text: '#7C2D12'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Supabase JS Client -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <!-- SheetJS for client-side Excel Export -->
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+    <style>
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; height: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: #f1f5f9; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        .manager-header-row {
+            background-color: #FED7AA !important; /* Standard Light Orange */
+            border-top: 2px solid #EA580C;
+            border-bottom: 2px solid #EA580C;
+            color: #7C2D12;
+            font-weight: 700;
+        }
+        .editable-input:focus {
+            background-color: #FEF08A !important;
+            outline: 2px solid #CA8A04;
+        }
+        .sticky-col-1 { position: sticky; left: 0; z-index: 20; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased min-h-screen">
+
+    <!-- Top Navigation Header -->
+    <header class="bg-slate-900 text-white sticky top-0 z-50 shadow-md">
+        <div class="max-w-[1700px] mx-auto px-4 sm:px-6 py-3 flex flex-wrap items-center justify-between gap-3">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-xl bg-orange-500 flex items-center justify-center text-white font-bold text-xl shadow-inner">
+                    <i class="fa-solid fa-credit-card"></i>
+                </div>
+                <div>
+                    <h1 class="text-base font-bold tracking-tight text-white flex items-center gap-2">
+                        <span>Credit Card Issuance Portal</span>
+                        <span id="supabaseStatusBadge" class="text-[11px] px-2 py-0.5 rounded-full font-medium bg-amber-500/20 text-amber-300 border border-amber-500/30 flex items-center gap-1">
+                            <i class="fa-solid fa-circle-dot text-[9px] animate-pulse"></i>
+                            <span id="supabaseStatusText">Connecting to Supabase...</span>
+                        </span>
+                    </h1>
+                    <p class="text-xs text-slate-400">Database-First Architecture • Supabase PostgreSQL</p>
+                </div>
+            </div>
+
+            <!-- Login / Role Selector & Actions -->
+            <div class="flex items-center flex-wrap gap-2.5">
+                <!-- User / Manager Switcher -->
+                <div class="flex items-center bg-slate-800 border border-slate-700 rounded-lg px-2.5 py-1">
+                    <i class="fa-solid fa-user-shield text-slate-400 mr-2 text-xs"></i>
+                    <label class="text-xs text-slate-400 mr-2 font-medium">Viewing as:</label>
+                    <select id="userRoleSelect" onchange="handleRoleChange()" class="bg-slate-900 text-white text-xs font-semibold rounded px-2 py-1 border border-slate-600 focus:outline-none focus:ring-1 focus:ring-orange-500">
+                        <option value="ADMIN">👑 Backend Admin (All Managers)</option>
+                        <!-- Populated with managers from DB -->
+                    </select>
+                </div>
+
+                <button onclick="openSettingsModal()" class="inline-flex items-center gap-1.5 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 px-3 py-1.5 rounded-lg text-xs font-medium transition">
+                    <i class="fa-solid fa-database text-emerald-400"></i>
+                    <span>Supabase Settings</span>
+                </button>
+                <button onclick="exportToExcelClientSide()" class="inline-flex items-center gap-1.5 bg-emerald-600 hover:bg-emerald-700 text-white px-3 py-1.5 rounded-lg text-xs font-semibold shadow-sm transition">
+                    <i class="fa-solid fa-file-excel"></i>
+                    <span>Export .xlsx</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="max-w-[1700px] mx-auto px-4 sm:px-6 py-5 space-y-5">
+
+        <!-- Top Stat Cards -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3.5">
+            <div class="bg-white rounded-xl p-4 border border-slate-200 shadow-sm flex items-center justify-between">
+                <div>
+                    <span class="text-[11px] font-semibold text-slate-500 uppercase tracking-wider">Current Month (CMT)</span>
+                    <h3 id="statCMT" class="text-2xl font-black text-slate-900 mt-0.5">0</h3>
+                    <div id="statGrowthBadge" class="mt-1 text-xs font-medium text-emerald-600 flex items-center gap-1">
+                        <i class="fa-solid fa-arrow-trend-up"></i>
+                        <span>Calculating...</span>
+                    </div>
+                </div>
+                <div class="w-11 h-11 rounded-xl bg-orange-100 text-orange-600 flex items-center justify-center text-lg">
+                    <i class="fa-solid fa-bolt"></i>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-xl p-4 border border-slate-200 shadow-sm flex items-center justify-between">
+                <div>
+                    <span class="text-[11px] font-semibold text-slate-500 uppercase tracking-wider">Last Month (LMT)</span>
+                    <h3 id="statLMT" class="text-2xl font-black text-slate-700 mt-0.5">0</h3>
+                    <p class="text-xs text-slate-400 mt-1">Previous Month Total</p>
+                </div>
+                <div class="w-11 h-11 rounded-xl bg-slate-100 text-slate-600 flex items-center justify-center text-lg">
+                    <i class="fa-regular fa-calendar-check"></i>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-xl p-4 border border-slate-200 shadow-sm flex items-center justify-between">
+                <div>
+                    <span class="text-[11px] font-semibold text-slate-500 uppercase tracking-wider">Managers in Scope</span>
+                    <h3 id="statManagers" class="text-2xl font-black text-slate-900 mt-0.5">0</h3>
+                    <p class="text-xs text-orange-600 font-medium mt-1">Light Orange Groups</p>
+                </div>
+                <div class="w-11 h-11 rounded-xl bg-amber-100 text-amber-700 flex items-center justify-center text-lg">
+                    <i class="fa-solid fa-user-tie"></i>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-xl p-4 border border-slate-200 shadow-sm flex items-center justify-between">
+                <div>
+                    <span class="text-[11px] font-semibold text-slate-500 uppercase tracking-wider">Channel Partners (CP)</span>
+                    <h3 id="statPartners" class="text-2xl font-black text-slate-900 mt-0.5">0</h3>
+                    <p class="text-xs text-slate-400 mt-1">Active under Managers</p>
+                </div>
+                <div class="w-11 h-11 rounded-xl bg-blue-100 text-blue-600 flex items-center justify-center text-lg">
+                    <i class="fa-solid fa-users"></i>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-xl p-4 border border-slate-200 shadow-sm flex items-center justify-between">
+                <div>
+                    <span class="text-[11px] font-semibold text-slate-500 uppercase tracking-wider">Working Capital</span>
+                    <h3 id="statWorkingCapital" class="text-2xl font-black text-emerald-700 mt-0.5">₹0</h3>
+                    <p class="text-xs text-emerald-600 font-medium mt-1">Capital Allocated</p>
+                </div>
+                <div class="w-11 h-11 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center text-lg">
+                    <i class="fa-solid fa-indian-rupee-sign"></i>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation Tabs -->
+        <div class="flex items-center justify-between border-b border-slate-200 bg-white px-4 py-2 rounded-xl shadow-sm">
+            <nav class="flex space-x-2">
+                <button onclick="switchTab('sheetTab')" id="tabBtn-sheetTab" class="tab-btn px-4 py-2 text-xs font-bold rounded-lg bg-orange-500 text-white shadow-sm flex items-center gap-2">
+                    <i class="fa-solid fa-table-cells"></i>
+                    <span>Master Sheet</span>
+                </button>
+                <button onclick="switchTab('insightsTab')" id="tabBtn-insightsTab" class="tab-btn px-4 py-2 text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-100 rounded-lg flex items-center gap-2">
+                    <i class="fa-solid fa-chart-line text-orange-500"></i>
+                    <span>Insights & Timeline</span>
+                </button>
+                <button onclick="switchTab('adminTab')" id="tabBtn-adminTab" class="tab-btn px-4 py-2 text-xs font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-100 rounded-lg flex items-center gap-2">
+                    <i class="fa-solid fa-sliders text-blue-600"></i>
+                    <span>Manage Data</span>
+                </button>
+            </nav>
+
+            <!-- Search & Filter -->
+            <div class="flex items-center gap-2">
+                <div class="relative">
+                    <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
+                    <input type="text" id="searchInput" oninput="filterTable()" placeholder="Search CP or Bank..." class="pl-8 pr-3 py-1.5 text-xs bg-slate-100 border border-slate-300 rounded-lg focus:bg-white focus:outline-none focus:ring-2 focus:ring-orange-500 w-48">
+                </div>
+                <button onclick="openAddCPModal()" class="bg-orange-600 hover:bg-orange-700 text-white px-3 py-1.5 rounded-lg text-xs font-semibold shadow-sm transition flex items-center gap-1.5">
+                    <i class="fa-solid fa-user-plus"></i>
+                    <span>+ Add CP</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- TAB 1: Master Spreadsheet -->
+        <div id="sheetTab" class="tab-content space-y-3">
+            <div class="bg-amber-50 border border-amber-200 rounded-xl p-2.5 px-4 flex flex-wrap items-center justify-between text-xs text-amber-900">
+                <div class="flex items-center gap-2">
+                    <span class="inline-flex items-center gap-1.5 font-bold text-orange-800 bg-orange-200 px-2 py-0.5 rounded border border-orange-300">
+                        <span class="w-2.5 h-2.5 rounded-full bg-orange-500"></span> Manager Row (Light Orange)
+                    </span>
+                    <span>= Live sum of partners under each manager. Edit any number cell directly to save to Supabase!</span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <button onclick="toggleAllManagers(true)" class="text-orange-700 font-bold hover:underline">Expand All</button>
+                    <span>•</span>
+                    <button onclick="toggleAllManagers(false)" class="text-orange-700 font-bold hover:underline">Collapse All</button>
+                </div>
+            </div>
+
+            <!-- Table -->
+            <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
+                <div class="overflow-x-auto max-h-[720px] custom-scrollbar">
+                    <table id="portalTable" class="w-full text-left text-xs border-collapse">
+                        <thead id="tableHead" class="sticky top-0 z-30"></thead>
+                        <tbody id="tableBody" class="divide-y divide-slate-200"></tbody>
+                        <tfoot id="tableFoot" class="sticky bottom-0 z-30"></tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- TAB 2: Insights & Timeline Page -->
+        <div id="insightsTab" class="tab-content hidden space-y-6">
+            
+            <!-- Insight 1: Cards Issued per Bank -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-5">
+                <div class="lg:col-span-2 bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
+                    <div class="flex items-center justify-between mb-3">
+                        <h3 class="font-bold text-slate-800 text-sm flex items-center gap-2">
+                            <i class="fa-solid fa-building-columns text-orange-500"></i>
+                            <span>1. Cards Issued per Bank (LM vs CM)</span>
+                        </h3>
+                        <span class="text-xs text-slate-400">Total cards issued across all partners</span>
+                    </div>
+                    <div class="h-64">
+                        <canvas id="bankComparisonChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
+                    <div class="flex items-center justify-between mb-3">
+                        <h3 class="font-bold text-slate-800 text-sm flex items-center gap-2">
+                            <i class="fa-solid fa-chart-pie text-amber-500"></i>
+                            <span>Bank Volume Share %</span>
+                        </h3>
+                    </div>
+                    <div class="h-64">
+                        <canvas id="bankSharePieChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Insight 2: Cards per Channel Partner (Top Leaders & Distribution) -->
+            <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="font-bold text-slate-800 text-sm flex items-center gap-2">
+                        <i class="fa-solid fa-trophy text-yellow-500"></i>
+                        <span>2. Cards per Channel Partner (Top Performers & Top Issuing Bank)</span>
+                    </h3>
+                    <span class="text-xs text-slate-400">Ranked by Current Month Issuance</span>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-xs">
+                        <thead class="bg-slate-100 text-slate-700 font-semibold border-b">
+                            <tr>
+                                <th class="py-2.5 px-4">Rank</th>
+                                <th class="py-2.5 px-4">Channel Partner (CP)</th>
+                                <th class="py-2.5 px-4">Assigned Manager</th>
+                                <th class="py-2.5 px-4 text-right">Last Month (LM)</th>
+                                <th class="py-2.5 px-4 text-right">Current Month (CM)</th>
+                                <th class="py-2.5 px-4 text-right">MoM Growth</th>
+                                <th class="py-2.5 px-4 text-right">Top Issuing Bank</th>
+                            </tr>
+                        </thead>
+                        <tbody id="topCPTableBody" class="divide-y divide-slate-200"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Insight 3: Timeline & Bank Settlement Cutoff -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-5">
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
+                    <h3 class="font-bold text-slate-800 text-sm mb-3 flex items-center gap-2">
+                        <i class="fa-regular fa-clock text-blue-600"></i>
+                        <span>3. Bank Cutoff & Settlement Schedule</span>
+                    </h3>
+                    <div id="bankCutoffTimelineList" class="space-y-2"></div>
+                </div>
+
+                <div class="lg:col-span-2 bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
+                    <div class="flex items-center justify-between mb-3">
+                        <h3 class="font-bold text-slate-800 text-sm flex items-center gap-2">
+                            <i class="fa-solid fa-timeline text-emerald-600"></i>
+                            <span>Issuance Velocity & Monthly Milestone Trajectory</span>
+                        </h3>
+                        <span class="text-xs font-semibold bg-emerald-50 text-emerald-700 px-2 py-0.5 rounded">September Cycle</span>
+                    </div>
+                    <div class="h-64">
+                        <canvas id="timelineRunRateChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- TAB 3: Manage Data (Admin) -->
+        <div id="adminTab" class="tab-content hidden space-y-5">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-5">
+                <!-- Add Manager Form -->
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm space-y-3">
+                    <h3 class="font-bold text-slate-800 text-sm flex items-center gap-2">
+                        <i class="fa-solid fa-user-tie text-orange-600"></i>
+                        <span>Add New Manager</span>
+                    </h3>
+                    <form onsubmit="handleCreateManager(event)" class="space-y-3">
+                        <div>
+                            <label class="text-xs text-slate-600 block mb-1">Manager Name</label>
+                            <input type="text" id="adminNewManagerName" required placeholder="e.g. ROHIT SHARMA" class="w-full text-xs p-2.5 bg-slate-50 border rounded-lg uppercase">
+                        </div>
+                        <button type="submit" class="w-full bg-orange-600 hover:bg-orange-700 text-white font-bold py-2 rounded-lg text-xs transition">Create Manager</button>
+                    </form>
+                </div>
+
+                <!-- Add Bank Form -->
+                <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm space-y-3">
+                    <h3 class="font-bold text-slate-800 text-sm flex items-center gap-2">
+                        <i class="fa-solid fa-building-columns text-blue-600"></i>
+                        <span>Add Bank Column</span>
+                    </h3>
+                    <form onsubmit="handleCreateBank(event)" class="space-y-3">
+                        <div>
+                            <label class="text-xs text-slate-600 block mb-1">Bank Name</label>
+                            <input type="text" id="adminNewBankName" required placeholder="e.g. IDFC FIRST" class="w-full text-xs p-2.5 bg-slate-50 border rounded-lg uppercase">
+                        </div>
+                        <div>
+                            <label class="text-xs text-slate-600 block mb-1">Cutoff Day</label>
+                            <input type="number" id="adminNewBankCutoff" value="30" class="w-full text-xs p-2.5 bg-slate-50 border rounded-lg">
+                        </div>
+                        <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 rounded-lg text-xs transition">Add Bank</button>
+                    </form>
+                </div>
+
+                <!-- Supabase Quick Info -->
+                <div class="bg-slate-900 text-white p-5 rounded-xl shadow-sm space-y-3">
+                    <h3 class="font-bold text-sm flex items-center gap-2">
+                        <i class="fa-solid fa-bolt text-amber-400"></i>
+                        <span>Supabase Live Sync</span>
+                    </h3>
+                    <p class="text-xs text-slate-300">All data operations (creating managers, assigning CPs, editing bank card issuances) execute directly against your Supabase PostgreSQL database.</p>
+                    <button onclick="openSettingsModal()" class="w-full bg-slate-800 hover:bg-slate-700 border border-slate-700 text-xs py-2 rounded-lg font-semibold text-emerald-400 transition">
+                        Configure Credentials
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- MODAL: Supabase Settings -->
+    <div id="settingsModal" class="fixed inset-0 bg-black/50 z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl space-y-4">
+            <div class="flex items-center justify-between">
+                <h3 class="font-bold text-slate-800 text-base flex items-center gap-2">
+                    <i class="fa-solid fa-database text-emerald-600"></i>
+                    <span>Connect Supabase Project</span>
+                </h3>
+                <button onclick="closeSettingsModal()" class="text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark text-lg"></i></button>
+            </div>
+
+            <p class="text-xs text-slate-500">Paste your Supabase Project URL and Anon Public Key from your Supabase Dashboard (Settings ➔ API).</p>
+
+            <form onsubmit="handleSaveSettings(event)" class="space-y-3">
+                <div>
+                    <label class="text-xs font-semibold text-slate-700 block mb-1">Project URL</label>
+                    <input type="text" id="supabaseUrlInput" placeholder="https://your-project.supabase.co" class="w-full text-xs p-2.5 bg-slate-50 border border-slate-300 rounded-lg font-mono">
+                </div>
+
+                <div>
+                    <label class="text-xs font-semibold text-slate-700 block mb-1">Anon Public Key</label>
+                    <textarea id="supabaseKeyInput" rows="3" placeholder="eyJhbGciOiJIUzI1NiIsInR5cCI6..." class="w-full text-xs p-2.5 bg-slate-50 border border-slate-300 rounded-lg font-mono text-slate-700"></textarea>
+                </div>
+
+                <div class="pt-2 flex items-center justify-end gap-2">
+                    <button type="button" onclick="closeSettingsModal()" class="px-4 py-2 text-xs font-semibold text-slate-600 hover:bg-slate-100 rounded-lg">Cancel</button>
+                    <button type="submit" class="px-4 py-2 text-xs font-bold text-white bg-emerald-600 hover:bg-emerald-700 rounded-lg shadow-sm">Save & Connect</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL: Add CP -->
+    <div id="addCPModal" class="fixed inset-0 bg-black/50 z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl space-y-4">
+            <div class="flex items-center justify-between">
+                <h3 class="font-bold text-slate-800 text-base flex items-center gap-2">
+                    <i class="fa-solid fa-user-plus text-orange-600"></i>
+                    <span>Add Channel Partner</span>
+                </h3>
+                <button onclick="closeAddCPModal()" class="text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark text-lg"></i></button>
+            </div>
+
+            <form onsubmit="handleCreateCP(event)" class="space-y-3">
+                <div>
+                    <label class="text-xs font-semibold text-slate-700 block mb-1">Manager *</label>
+                    <select id="modalAddCPManagerSelect" required class="w-full text-xs p-2.5 bg-slate-50 border rounded-lg"></select>
+                </div>
+                <div>
+                    <label class="text-xs font-semibold text-slate-700 block mb-1">CP Name *</label>
+                    <input type="text" id="modalAddCPName" required placeholder="e.g. APEX FINTECH" class="w-full text-xs p-2.5 bg-slate-50 border rounded-lg uppercase">
+                </div>
+                <div>
+                    <label class="text-xs font-semibold text-slate-700 block mb-1">Working Capital (₹)</label>
+                    <input type="number" id="modalAddCPCapital" placeholder="0" class="w-full text-xs p-2.5 bg-slate-50 border rounded-lg">
+                </div>
+                <div class="pt-2 flex items-center justify-end gap-2">
+                    <button type="button" onclick="closeAddCPModal()" class="px-4 py-2 text-xs font-semibold text-slate-600 hover:bg-slate-100 rounded-lg">Cancel</button>
+                    <button type="submit" class="px-4 py-2 text-xs font-bold text-white bg-orange-600 hover:bg-orange-700 rounded-lg">Add Partner</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="fixed bottom-5 right-5 bg-slate-900 text-white px-4 py-3 rounded-xl shadow-xl text-xs font-medium flex items-center gap-2 transform translate-y-20 opacity-0 transition-all duration-300 z-50">
+        <i id="toastIcon" class="fa-solid fa-circle-check text-emerald-400 text-sm"></i>
+        <span id="toastMsg">Operation successful!</span>
+    </div>
+
+    <!-- Application Script -->
+    <script>
+        let supabaseClient = null;
+        let dbData = { managers: [], banks: [] };
+        let collapsedManagers = {};
+        let activeRole = "ADMIN"; // 'ADMIN' or Manager Name
+
+        // Chart instances
+        let bankCompChart = null;
+        let bankShareChart = null;
+        let timelineChart = null;
+
+        document.addEventListener("DOMContentLoaded", () => {
+            initSupabase();
+        });
+
+        function initSupabase() {
+            const savedUrl = localStorage.getItem("sb_url");
+            const savedKey = localStorage.getItem("sb_key");
+
+            if (savedUrl && savedKey) {
+                try {
+                    supabaseClient = supabase.createClient(savedUrl, savedKey);
+                    updateStatus(true, "Supabase Connected");
+                    loadDatabaseData();
+                    return;
+                } catch (e) {
+                    console.error("Supabase init error:", e);
+                }
+            }
+
+            // Fallback: Load local JSON initial dataset for immediate testing
+            updateStatus(false, "Demo Mode (Local Data)");
+            loadLocalDataFallback();
+        }
+
+        function updateStatus(connected, text) {
+            const badge = document.getElementById("supabaseStatusBadge");
+            const txt = document.getElementById("supabaseStatusText");
+            txt.innerText = text;
+            if (connected) {
+                badge.className = "text-[11px] px-2.5 py-0.5 rounded-full font-semibold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 flex items-center gap-1.5";
+            } else {
+                badge.className = "text-[11px] px-2.5 py-0.5 rounded-full font-semibold bg-amber-500/20 text-amber-300 border border-amber-500/30 flex items-center gap-1.5";
+            }
+        }
+
+        async function loadDatabaseData() {
+            if (!supabaseClient) return;
+            try {
+                // Query Banks
+                const { data: banks, error: bErr } = await supabaseClient.from("banks").select("*").order("display_order");
+                // Query Managers with Channel Partners and Card Issuances
+                const { data: managers, error: mErr } = await supabaseClient
+                    .from("managers")
+                    .select(`
+                        id,
+                        name,
+                        channel_partners (
+                            id,
+                            name,
+                            working_capital,
+                            card_issuances (
+                                id,
+                                bank_id,
+                                lm_count,
+                                cm_count
+                            )
+                        )
+                    `)
+                    .order("name");
+
+                if (bErr || mErr) {
+                    console.error("Supabase load error:", bErr || mErr);
+                    showToast("Database fetch error, using local cache", "error");
+                    loadLocalDataFallback();
+                    return;
+                }
+
+                // Format structure
+                dbData.banks = banks || [];
+                dbData.managers = (managers || []).map(m => ({
+                    id: m.id,
+                    manager_name: m.name,
+                    partners: (m.channel_partners || []).map(cp => {
+                        let bObj = {};
+                        (cp.card_issuances || []).forEach(ci => {
+                            bObj[ci.bank_id] = { lm: ci.lm_count || 0, cm: ci.cm_count || 0, record_id: ci.id };
+                        });
+                        return {
+                            id: cp.id,
+                            name: cp.name,
+                            working_capital: cp.working_capital || 0,
+                            banks: bObj
+                        };
+                    })
+                }));
+
+                recalculateAll();
+                renderAll();
+                showToast("Synced with Supabase PostgreSQL!", "success");
+            } catch (err) {
+                console.error("Fetch error:", err);
+                loadLocalDataFallback();
+            }
+        }
+
+        async function loadLocalDataFallback() {
+            try {
+                const res = await fetch("/api/data");
+                const json = await res.json();
+                if (json.success) {
+                    dbData = json.data;
+                    recalculateAll();
+                    renderAll();
+                }
+            } catch (e) {
+                console.error("Fallback load error:", e);
+            }
+        }
+
+        function recalculateAll() {
+            dbData.managers.forEach(m => {
+                m.partners.forEach(p => {
+                    let lmt = 0, cmt = 0;
+                    dbData.banks.forEach(b => {
+                        lmt += p.banks?.[b.id]?.lm || 0;
+                        cmt += p.banks?.[b.id]?.cm || 0;
+                    });
+                    p.lmt = lmt;
+                    p.cmt = cmt;
+                });
+            });
+        }
+
+        function renderAll() {
+            renderRoleDropdown();
+            renderStats();
+            renderTable();
+            renderInsights();
+        }
+
+        function renderRoleDropdown() {
+            const roleSelect = document.getElementById("userRoleSelect");
+            const modalMgrSelect = document.getElementById("modalAddCPManagerSelect");
+            let opts = `<option value="ADMIN">👑 Backend Admin (All Managers)</option>`;
+            let modalOpts = "";
+
+            dbData.managers.forEach(m => {
+                const selected = activeRole === m.manager_name ? "selected" : "";
+                opts += `<option value="${m.manager_name}" ${selected}>Manager: ${m.manager_name}</option>`;
+                modalOpts += `<option value="${m.manager_name}">${m.manager_name}</option>`;
+            });
+
+            roleSelect.innerHTML = opts;
+            if (modalMgrSelect) modalMgrSelect.innerHTML = modalOpts;
+        }
+
+        function handleRoleChange() {
+            activeRole = document.getElementById("userRoleSelect").value;
+            renderStats();
+            renderTable();
+            renderInsights();
+        }
+
+        function renderStats() {
+            const managersToShow = activeRole === "ADMIN" ? dbData.managers : dbData.managers.filter(m => m.manager_name === activeRole);
+            let totalLM = 0, totalCM = 0, totalCPs = 0, totalWC = 0;
+
+            managersToShow.forEach(m => {
+                m.partners.forEach(p => {
+                    totalCPs++;
+                    totalLM += p.lmt || 0;
+                    totalCM += p.cmt || 0;
+                    totalWC += Number(p.working_capital || 0);
+                });
+            });
+
+            document.getElementById("statCMT").innerText = totalCM.toLocaleString();
+            document.getElementById("statLMT").innerText = totalLM.toLocaleString();
+            document.getElementById("statManagers").innerText = managersToShow.length;
+            document.getElementById("statPartners").innerText = totalCPs;
+            document.getElementById("statWorkingCapital").innerText = "₹" + totalWC.toLocaleString('en-IN');
+
+            const growth = totalLM > 0 ? (((totalCM - totalLM) / totalLM) * 100).toFixed(1) : 0;
+            const growthBadge = document.getElementById("statGrowthBadge");
+            if (growth >= 0) {
+                growthBadge.innerHTML = `<i class="fa-solid fa-arrow-trend-up"></i><span>+${growth}% MoM Growth</span>`;
+                growthBadge.className = "mt-1 text-xs font-semibold text-emerald-600 flex items-center gap-1";
+            } else {
+                growthBadge.innerHTML = `<i class="fa-solid fa-arrow-trend-down"></i><span>${growth}% Drop</span>`;
+                growthBadge.className = "mt-1 text-xs font-semibold text-rose-600 flex items-center gap-1";
+            }
+        }
+
+        function renderTable() {
+            const tableHead = document.getElementById("tableHead");
+            const tableBody = document.getElementById("tableBody");
+            const tableFoot = document.getElementById("tableFoot");
+
+            const banks = dbData.banks || [];
+            const managersToShow = activeRole === "ADMIN" ? dbData.managers : dbData.managers.filter(m => m.manager_name === activeRole);
+
+            // 1. Header
+            let headHTML = `
+                <tr class="bg-slate-900 text-white">
+                    <th rowspan="2" class="py-3 px-4 font-bold border-r border-slate-700 sticky-col-1 bg-slate-900 min-w-[280px]">PARTNERS / MANAGERS</th>
+                    <th colspan="2" class="py-2 px-3 font-bold text-center border-r border-slate-700 bg-slate-800">TOTAL CARDS</th>
+            `;
+            banks.forEach(b => {
+                headHTML += `<th colspan="2" class="py-2 px-2.5 font-bold text-center border-r border-slate-700 bg-slate-900">${b.name} <span class="text-[9px] font-normal text-amber-300">(${b.status || 'FINAL'})</span></th>`;
+            });
+            headHTML += `</tr><tr class="bg-slate-800 text-slate-200 text-[11px]">
+                <th class="py-1 px-2.5 text-center font-semibold border-r border-slate-700 bg-slate-700/60">LMT</th>
+                <th class="py-1 px-2.5 text-center font-semibold border-r border-slate-700 bg-slate-700/60 text-amber-300">CMT</th>
+            `;
+            banks.forEach(b => {
+                headHTML += `
+                    <th class="py-1 px-2 text-center font-semibold border-r border-slate-700">LM</th>
+                    <th class="py-1 px-2 text-center font-semibold border-r border-slate-700 text-amber-300">CM</th>
+                `;
+            });
+            headHTML += `</tr>`;
+            tableHead.innerHTML = headHTML;
+
+            // 2. Rows
+            let bodyHTML = "";
+            let grandBankTotals = {};
+            let grandLMT = 0, grandCMT = 0;
+            banks.forEach(b => grandBankTotals[b.id] = { lm: 0, cm: 0 });
+
+            managersToShow.forEach(mgr => {
+                const mgrName = mgr.manager_name;
+                const partners = mgr.partners || [];
+                const isCollapsed = !!collapsedManagers[mgrName];
+
+                let mgrLMT = 0, mgrCMT = 0;
+                let mgrBankTotals = {};
+                banks.forEach(b => mgrBankTotals[b.id] = { lm: 0, cm: 0 });
+
+                partners.forEach(p => {
+                    mgrLMT += p.lmt || 0;
+                    mgrCMT += p.cmt || 0;
+                    banks.forEach(b => {
+                        mgrBankTotals[b.id].lm += p.banks?.[b.id]?.lm || 0;
+                        mgrBankTotals[b.id].cm += p.banks?.[b.id]?.cm || 0;
+                    });
+                });
+
+                grandLMT += mgrLMT;
+                grandCMT += mgrCMT;
+                banks.forEach(b => {
+                    grandBankTotals[b.id].lm += mgrBankTotals[b.id].lm;
+                    grandBankTotals[b.id].cm += mgrBankTotals[b.id].cm;
+                });
+
+                // MANAGER ROW (Light Orange Highlight #FED7AA)
+                bodyHTML += `
+                    <tr class="manager-header-row hover:brightness-95 transition" data-manager="${mgrName}">
+                        <td class="py-2.5 px-4 sticky-col-1 bg-amber-200 border-r border-orange-300 flex items-center justify-between cursor-pointer" onclick="toggleManager('${mgrName}')">
+                            <div class="flex items-center gap-2">
+                                <i class="fa-solid ${isCollapsed ? 'fa-chevron-right' : 'fa-chevron-down'} text-orange-700 text-xs"></i>
+                                <span class="text-orange-950 uppercase tracking-wide">★ MANAGER: ${mgrName}</span>
+                                <span class="text-[10px] bg-orange-600 text-white px-1.5 py-0.2 rounded-full">${partners.length} CPs</span>
+                            </div>
+                        </td>
+                        <td class="py-2 px-3 text-right font-black border-r border-orange-300 bg-amber-200">${mgrLMT.toLocaleString()}</td>
+                        <td class="py-2 px-3 text-right font-black border-r border-orange-300 bg-amber-200 text-orange-950">${mgrCMT.toLocaleString()}</td>
+                `;
+
+                banks.forEach(b => {
+                    bodyHTML += `
+                        <td class="py-2 px-2 text-right font-bold border-r border-orange-300/60">${mgrBankTotals[b.id].lm ? mgrBankTotals[b.id].lm.toLocaleString() : '-'}</td>
+                        <td class="py-2 px-2 text-right font-bold border-r border-orange-300/60 text-orange-950">${mgrBankTotals[b.id].cm ? mgrBankTotals[b.id].cm.toLocaleString() : '-'}</td>
+                    `;
+                });
+                bodyHTML += `</tr>`;
+
+                // Partner Rows
+                if (!isCollapsed) {
+                    partners.forEach(p => {
+                        bodyHTML += `
+                            <tr class="hover:bg-orange-50/50 bg-white transition group" data-manager="${mgrName}" data-partner="${p.name}">
+                                <td class="py-2 px-4 pl-8 sticky-col-1 bg-white group-hover:bg-orange-50/50 border-r border-slate-200 font-medium text-slate-800">${p.name}</td>
+                                <td class="py-2 px-3 text-right font-semibold border-r border-slate-200 bg-slate-50 text-slate-600">${(p.lmt || 0).toLocaleString()}</td>
+                                <td class="py-2 px-3 text-right font-bold border-r border-slate-200 bg-slate-50 text-orange-700">${(p.cmt || 0).toLocaleString()}</td>
+                        `;
+                        banks.forEach(b => {
+                            const lmVal = p.banks?.[b.id]?.lm || 0;
+                            const cmVal = p.banks?.[b.id]?.cm || 0;
+                            bodyHTML += `
+                                <td class="py-1 px-1.5 text-right border-r border-slate-200">
+                                    <input type="number" min="0" value="${lmVal}"
+                                        onchange="updateCellDirectly('${mgr.id}', '${p.id}', '${b.id}', 'lm', this.value)"
+                                        class="editable-input w-14 text-right px-1 py-0.5 rounded border border-transparent hover:border-slate-300 text-slate-600">
+                                </td>
+                                <td class="py-1 px-1.5 text-right border-r border-slate-200">
+                                    <input type="number" min="0" value="${cmVal}"
+                                        onchange="updateCellDirectly('${mgr.id}', '${p.id}', '${b.id}', 'cm', this.value)"
+                                        class="editable-input w-14 text-right px-1 py-0.5 rounded border border-transparent hover:border-slate-300 text-slate-900 font-bold">
+                                </td>
+                            `;
+                        });
+                        bodyHTML += `</tr>`;
+                    });
+                }
+            });
+
+            tableBody.innerHTML = bodyHTML;
+
+            // 3. Grand Total
+            let footHTML = `
+                <tr class="bg-slate-900 text-white font-black text-sm border-t-2 border-slate-950">
+                    <td class="py-3 px-4 sticky-col-1 bg-slate-900 border-r border-slate-700 tracking-wider">TOTAL ROLLUP</td>
+                    <td class="py-3 px-3 text-right border-r border-slate-700 bg-slate-800">${grandLMT.toLocaleString()}</td>
+                    <td class="py-3 px-3 text-right border-r border-slate-700 bg-slate-800 text-amber-300">${grandCMT.toLocaleString()}</td>
+            `;
+            banks.forEach(b => {
+                footHTML += `
+                    <td class="py-3 px-2 text-right border-r border-slate-700">${grandBankTotals[b.id].lm.toLocaleString()}</td>
+                    <td class="py-3 px-2 text-right border-r border-slate-700 text-amber-300">${grandBankTotals[b.id].cm.toLocaleString()}</td>
+                `;
+            });
+            footHTML += `</tr>`;
+            tableFoot.innerHTML = footHTML;
+        }
+
+        async function updateCellDirectly(mgrId, cpId, bankId, field, value) {
+            const valNum = parseInt(value) || 0;
+
+            // 1. Update local state immediately for instant feedback
+            dbData.managers.forEach(m => {
+                m.partners.forEach(p => {
+                    if (p.id === cpId || (p.name && p.id === cpId)) {
+                        if (!p.banks[bankId]) p.banks[bankId] = { lm: 0, cm: 0 };
+                        p.banks[bankId][field] = valNum;
+                    }
+                });
+            });
+            recalculateAll();
+            renderStats();
+            renderTable();
+
+            // 2. Persist to Supabase if connected
+            if (supabaseClient && cpId) {
+                try {
+                    const updatePayload = {
+                        partner_id: cpId,
+                        bank_id: bankId,
+                        month_year: '2026-09'
+                    };
+                    updatePayload[field === 'lm' ? 'lm_count' : 'cm_count'] = valNum;
+
+                    const { error } = await supabaseClient
+                        .from('card_issuances')
+                        .upsert(updatePayload, { onConflict: 'partner_id,bank_id,month_year' });
+
+                    if (error) throw error;
+                    showToast("Saved to Supabase PostgreSQL!", "success");
+                } catch (e) {
+                    console.error("Supabase write error:", e);
+                    showToast("Supabase sync failed: " + e.message, "error");
+                }
+            } else {
+                showToast("Updated locally", "info");
+            }
+        }
+
+        function toggleManager(mgrName) {
+            collapsedManagers[mgrName] = !collapsedManagers[mgrName];
+            renderTable();
+        }
+
+        function toggleAllManagers(expand) {
+            dbData.managers.forEach(m => collapsedManagers[m.manager_name] = !expand);
+            renderTable();
+        }
+
+        function filterTable() {
+            const query = document.getElementById("searchInput").value.toLowerCase().trim();
+            document.querySelectorAll("#tableBody tr").forEach(row => {
+                const mgr = row.getAttribute("data-manager") || "";
+                const partner = row.getAttribute("data-partner") || "";
+                const match = !query || mgr.toLowerCase().includes(query) || partner.toLowerCase().includes(query);
+                row.style.display = match ? "" : "none";
+            });
+        }
+
+        // ==========================================
+        // INSIGHTS & ANALYTICS RENDERING
+        // ==========================================
+        function renderInsights() {
+            const banks = dbData.banks || [];
+            const managersToShow = activeRole === "ADMIN" ? dbData.managers : dbData.managers.filter(m => m.manager_name === activeRole);
+
+            // 1. Bank Bar Chart
+            const bankLabels = banks.map(b => b.name);
+            const lmBankData = banks.map(b => {
+                let sum = 0;
+                managersToShow.forEach(m => m.partners.forEach(p => sum += (p.banks?.[b.id]?.lm || 0)));
+                return sum;
+            });
+            const cmBankData = banks.map(b => {
+                let sum = 0;
+                managersToShow.forEach(m => m.partners.forEach(p => sum += (p.banks?.[b.id]?.cm || 0)));
+                return sum;
+            });
+
+            const ctx1 = document.getElementById("bankComparisonChart")?.getContext("2d");
+            if (ctx1) {
+                if (bankCompChart) bankCompChart.destroy();
+                bankCompChart = new Chart(ctx1, {
+                    type: "bar",
+                    data: {
+                        labels: bankLabels,
+                        datasets: [
+                            { label: "Last Month (LM)", data: lmBankData, backgroundColor: "#94a3b8", borderRadius: 4 },
+                            { label: "Current Month (CM)", data: cmBankData, backgroundColor: "#f97316", borderRadius: 4 }
+                        ]
+                    },
+                    options: { responsive: true, maintainAspectRatio: false }
+                });
+            }
+
+            // 2. Bank Share Pie Chart
+            const ctx2 = document.getElementById("bankSharePieChart")?.getContext("2d");
+            if (ctx2) {
+                if (bankShareChart) bankShareChart.destroy();
+                bankShareChart = new Chart(ctx2, {
+                    type: "doughnut",
+                    data: {
+                        labels: bankLabels,
+                        datasets: [{
+                            data: cmBankData,
+                            backgroundColor: ["#f97316", "#3b82f6", "#10b981", "#8b5cf6", "#ec4899", "#f59e0b", "#14b8a6", "#6366f1", "#06b6d4", "#84cc16", "#d946ef"]
+                        }]
+                    },
+                    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom' } } }
+                });
+            }
+
+            // 3. Top CPs Table
+            let cpList = [];
+            managersToShow.forEach(m => {
+                m.partners.forEach(p => {
+                    let topBank = "-";
+                    let topVal = 0;
+                    banks.forEach(b => {
+                        const cm = p.banks?.[b.id]?.cm || 0;
+                        if (cm > topVal) { topVal = cm; topBank = b.name; }
+                    });
+                    cpList.push({
+                        name: p.name,
+                        manager: m.manager_name,
+                        lmt: p.lmt || 0,
+                        cmt: p.cmt || 0,
+                        topBank: topBank
+                    });
+                });
+            });
+            cpList.sort((a, b) => b.cmt - a.cmt);
+
+            const topBody = document.getElementById("topCPTableBody");
+            if (topBody) {
+                topBody.innerHTML = cpList.slice(0, 10).map((p, idx) => {
+                    const growth = p.lmt > 0 ? (((p.cmt - p.lmt) / p.lmt) * 100).toFixed(0) : 0;
+                    return `
+                        <tr class="hover:bg-slate-50">
+                            <td class="py-2.5 px-4 font-bold text-slate-500">#${idx + 1}</td>
+                            <td class="py-2.5 px-4 font-semibold text-slate-900">${p.name}</td>
+                            <td class="py-2.5 px-4"><span class="bg-amber-100 text-orange-900 px-2 py-0.5 rounded text-[11px] font-medium">${p.manager}</span></td>
+                            <td class="py-2.5 px-4 text-right">${p.lmt.toLocaleString()}</td>
+                            <td class="py-2.5 px-4 text-right font-black text-orange-600">${p.cmt.toLocaleString()}</td>
+                            <td class="py-2.5 px-4 text-right font-semibold ${growth >= 0 ? 'text-emerald-600' : 'text-rose-600'}">${growth >= 0 ? '+' : ''}${growth}%</td>
+                            <td class="py-2.5 px-4 text-right font-medium text-slate-700">${p.topBank}</td>
+                        </tr>
+                    `;
+                }).join("");
+            }
+
+            // 4. Timeline List & Chart
+            const timelineEl = document.getElementById("bankCutoffTimelineList");
+            if (timelineEl) {
+                timelineEl.innerHTML = banks.map(b => `
+                    <div class="flex items-center justify-between p-2 rounded-lg border border-slate-200 bg-slate-50 text-xs">
+                        <div class="flex items-center gap-2">
+                            <span class="w-2 h-2 rounded-full ${b.cutoff_day === 21 ? 'bg-orange-500' : 'bg-emerald-500'}"></span>
+                            <span class="font-bold text-slate-800">${b.name}</span>
+                        </div>
+                        <span class="px-2 py-0.5 text-[10px] font-bold rounded ${b.cutoff_day === 21 ? 'bg-orange-100 text-orange-800' : 'bg-emerald-100 text-emerald-800'}">
+                            ${b.cutoff_day === 21 ? 'Cutoff: 21st' : 'Month End Final'}
+                        </span>
+                    </div>
+                `).join("");
+            }
+
+            const ctx3 = document.getElementById("timelineRunRateChart")?.getContext("2d");
+            if (ctx3) {
+                if (timelineChart) timelineChart.destroy();
+                timelineChart = new Chart(ctx3, {
+                    type: "line",
+                    data: {
+                        labels: ["Day 1-7", "Day 8-14", "Day 15-21 (Axis Cutoff)", "Day 22-28", "Day 30 (Final)"],
+                        datasets: [
+                            { label: "Target Run-Rate", data: [2000, 4500, 7500, 10000, 12500], borderColor: "#94a3b8", borderDash: [5, 5], tension: 0.3 },
+                            { label: "Actual Current Issuance", data: [2200, 4900, 8100, 10800, 12351], borderColor: "#f97316", backgroundColor: "rgba(249, 115, 22, 0.1)", fill: true, tension: 0.3 }
+                        ]
+                    },
+                    options: { responsive: true, maintainAspectRatio: false }
+                });
+            }
+        }
+
+        function switchTab(tabId) {
+            document.querySelectorAll(".tab-content").forEach(el => el.classList.add("hidden"));
+            document.querySelectorAll(".tab-btn").forEach(el => {
+                el.classList.remove("bg-orange-500", "text-white", "shadow-sm");
+                el.classList.add("text-slate-600");
+            });
+
+            document.getElementById(tabId)?.classList.remove("hidden");
+            const btn = document.getElementById("tabBtn-" + tabId);
+            if (btn) {
+                btn.classList.add("bg-orange-500", "text-white", "shadow-sm");
+                btn.classList.remove("text-slate-600");
+            }
+            if (tabId === "insightsTab") renderInsights();
+        }
+
+        // Modals & Settings
+        function openSettingsModal() {
+            document.getElementById("supabaseUrlInput").value = localStorage.getItem("sb_url") || "";
+            document.getElementById("supabaseKeyInput").value = localStorage.getItem("sb_key") || "";
+            document.getElementById("settingsModal").classList.remove("hidden");
+        }
+        function closeSettingsModal() { document.getElementById("settingsModal").classList.add("hidden"); }
+
+        function handleSaveSettings(e) {
+            e.preventDefault();
+            const url = document.getElementById("supabaseUrlInput").value.trim();
+            const key = document.getElementById("supabaseKeyInput").value.trim();
+            if (url && key) {
+                localStorage.setItem("sb_url", url);
+                localStorage.setItem("sb_key", key);
+                closeSettingsModal();
+                initSupabase();
+            }
+        }
+
+        function openAddCPModal() {
+            document.getElementById("addCPModal").classList.remove("hidden");
+        }
+        function closeAddCPModal() { document.getElementById("addCPModal").classList.add("hidden"); }
+
+        async function handleCreateCP(e) {
+            e.preventDefault();
+            const mgrName = document.getElementById("modalAddCPManagerSelect").value;
+            const name = document.getElementById("modalAddCPName").value.trim();
+            const capital = Number(document.getElementById("modalAddCPCapital").value) || 0;
+
+            const targetMgr = dbData.managers.find(m => m.manager_name === mgrName);
+            if (!targetMgr) return;
+
+            if (supabaseClient && targetMgr.id) {
+                const { data, error } = await supabaseClient.from("channel_partners").insert({
+                    manager_id: targetMgr.id,
+                    name: name,
+                    working_capital: capital
+                }).select();
+                if (error) { showToast("Error: " + error.message, "error"); return; }
+                loadDatabaseData();
+            } else {
+                targetMgr.partners.push({ id: 'local_' + Date.now(), name, working_capital: capital, banks: {} });
+                recalculateAll();
+                renderAll();
+            }
+
+            closeAddCPModal();
+            showToast(`Added Channel Partner "${name}"!`, "success");
+        }
+
+        async function handleCreateManager(e) {
+            e.preventDefault();
+            const name = document.getElementById("adminNewManagerName").value.trim();
+            if (supabaseClient) {
+                const { error } = await supabaseClient.from("managers").insert({ name });
+                if (error) { showToast("Error: " + error.message, "error"); return; }
+                loadDatabaseData();
+            } else {
+                dbData.managers.push({ id: 'mgr_' + Date.now(), manager_name: name, partners: [] });
+                renderAll();
+            }
+            document.getElementById("adminNewManagerName").value = "";
+            showToast(`Manager "${name}" created!`, "success");
+        }
+
+        async function handleCreateBank(e) {
+            e.preventDefault();
+            const name = document.getElementById("adminNewBankName").value.trim();
+            const cutoff = Number(document.getElementById("adminNewBankCutoff").value) || 30;
+            const id = name.toLowerCase().replace(/\s+/g, '_');
+
+            if (supabaseClient) {
+                const { error } = await supabaseClient.from("banks").insert({ id, name, cutoff_day: cutoff, status: 'FINAL' });
+                if (error) { showToast("Error: " + error.message, "error"); return; }
+                loadDatabaseData();
+            } else {
+                dbData.banks.push({ id, name, status: 'FINAL', cutoff_day: cutoff });
+                renderAll();
+            }
+            document.getElementById("adminNewBankName").value = "";
+            showToast(`Bank "${name}" added!`, "success");
+        }
+
+        function exportToExcelClientSide() {
+            window.location.href = "/api/export-excel";
+        }
+
+        function showToast(msg, type = "success") {
+            const toast = document.getElementById("toast");
+            document.getElementById("toastMsg").innerText = msg;
+            toast.classList.remove("translate-y-20", "opacity-0");
+            setTimeout(() => toast.classList.add("translate-y-20", "opacity-0"), 3000);
+        }
+    </script>
+</body>
+</html>

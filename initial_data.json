@@ -1,0 +1,6609 @@
+{
+  "title": "Credit Card Issuance & Partner Performance Portal",
+  "last_month_name": "August 2026",
+  "current_month_name": "September 2026",
+  "banks": [
+    {
+      "id": "au",
+      "name": "AU",
+      "status": "FINAL"
+    },
+    {
+      "id": "axis",
+      "name": "AXIS",
+      "status": "FINAL"
+    },
+    {
+      "id": "axis_lic",
+      "name": "AXIS LIC",
+      "status": "21-SEP"
+    },
+    {
+      "id": "hdfc",
+      "name": "HDFC",
+      "status": "FINAL"
+    },
+    {
+      "id": "indus",
+      "name": "INDUS",
+      "status": "FINAL"
+    },
+    {
+      "id": "sbi",
+      "name": "SBI",
+      "status": "FINAL"
+    },
+    {
+      "id": "tata_neu",
+      "name": "TATA NEU",
+      "status": "FINAL"
+    },
+    {
+      "id": "kiwi",
+      "name": "KIWI",
+      "status": "FINAL"
+    },
+    {
+      "id": "bob",
+      "name": "BOB",
+      "status": "FINAL"
+    },
+    {
+      "id": "yes_zaggle",
+      "name": "YES ZAGGLE",
+      "status": "FINAL"
+    },
+    {
+      "id": "rbl",
+      "name": "RBL",
+      "status": "FINAL"
+    }
+  ],
+  "managers": [
+    {
+      "manager_name": "INAYA",
+      "partners": []
+    },
+    {
+      "manager_name": "AZAM",
+      "partners": [
+        {
+          "name": "DALEE",
+          "lmt": 1,
+          "cmt": 1,
+          "banks": {
+            "au": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis_lic": {
+              "lm": 0,
+              "cm": 0
+            },
+            "hdfc": {
+              "lm": 1,
+              "cm": 1
+            },
+            "indus": {
+              "lm": 0,
+              "cm": 0
+            },
+            "sbi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "tata_neu": {
+              "lm": 0,
+              "cm": 0
+            },
+            "kiwi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "bob": {
+              "lm": 0,
+              "cm": 0
+            },
+            "yes_zaggle": {
+              "lm": 0,
+              "cm": 0
+            },
+            "rbl": {
+              "lm": 0,
+              "cm": 0
+            }
+          }
+        },
+        {
+          "name": "EASYCREDIT FINSERV",
+          "lmt": 139,
+          "cmt": 332,
+          "banks": {
+            "au": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis_lic": {
+              "lm": 0,
+              "cm": 0
+            },
+            "hdfc": {
+              "lm": 0,
+              "cm": 0
+            },
+            "indus": {
+              "lm": 0,
+              "cm": 0
+            },
+            "sbi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "tata_neu": {
+              "lm": 136,
+              "cm": 324
+            },
+            "kiwi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "bob": {
+              "lm": 3,
+              "cm": 8
+            },
+            "yes_zaggle": {
+              "lm": 0,
+              "cm": 0
+            },
+            "rbl": {
+              "lm": 0,
+              "cm": 0
+            }
+          }
+        },
+        {
+          "name": "SHAHDAT ALI",
+          "lmt": 0,
+          "cmt": 5,
+          "banks": {
+            "au": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis_lic": {
+              "lm": 0,
+              "cm": 0
+            },
+            "hdfc": {
+              "lm": 0,
+              "cm": 5
+            },
+            "indus": {
+              "lm": 0,
+              "cm": 0
+            },
+            "sbi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "tata_neu": {
+              "lm": 0,
+              "cm": 0
+            },
+            "kiwi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "bob": {
+              "lm": 0,
+              "cm": 0
+            },
+            "yes_zaggle": {
+              "lm": 0,
+              "cm": 0
+            },
+            "rbl": {
+              "lm": 0,
+              "cm": 0
+            }
+          }
+        },
+        {
+          "name": "SUNIL YADAV",
+          "lmt": 0,
+          "cmt": 1,
+          "banks": {
+            "au": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis_lic": {
+              "lm": 0,
+              "cm": 0
+            },
+            "hdfc": {
+              "lm": 0,
+              "cm": 1
+            },
+            "indus": {
+              "lm": 0,
+              "cm": 0
+            },
+            "sbi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "tata_neu": {
+              "lm": 0,
+              "cm": 0
+            },
+            "kiwi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "bob": {
+              "lm": 0,
+              "cm": 0
+            },
+            "yes_zaggle": {
+              "lm": 0,
+              "cm": 0
+            },
+            "rbl": {
+              "lm": 0,
+              "cm": 0
+            }
+          }
+        },
+        {
+          "name": "SHUBHAM SHRIVASTAV",
+          "lmt": 1,
+          "cmt": 0,
+          "banks": {
+            "au": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis_lic": {
+              "lm": 0,
+              "cm": 0
+            },
+            "hdfc": {
+              "lm": 1,
+              "cm": 0
+            },
+            "indus": {
+              "lm": 0,
+              "cm": 0
+            },
+            "sbi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "tata_neu": {
+              "lm": 0,
+              "cm": 0
+            },
+            "kiwi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "bob": {
+              "lm": 0,
+              "cm": 0
+            },
+            "yes_zaggle": {
+              "lm": 0,
+              "cm": 0
+            },
+            "rbl": {
+              "lm": 0,
+              "cm": 0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "manager_name": "INAYA",
+      "partners": [
+        {
+          "name": "POONAM KAMBLE",
+          "lmt": 1356,
+          "cmt": 985,
+          "banks": {
+            "au": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis_lic": {
+              "lm": 0,
+              "cm": 0
+            },
+            "hdfc": {
+              "lm": 259,
+              "cm": 154
+            },
+            "indus": {
+              "lm": 0,
+              "cm": 0
+            },
+            "sbi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "tata_neu": {
+              "lm": 1097,
+              "cm": 831
+            },
+            "kiwi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "bob": {
+              "lm": 0,
+              "cm": 0
+            },
+            "yes_zaggle": {
+              "lm": 0,
+              "cm": 0
+            },
+            "rbl": {
+              "lm": 0,
+              "cm": 0
+            }
+          }
+        },
+        {
+          "name": "SANVIKA CREDIT ADVISORY",
+          "lmt": 1,
+          "cmt": 0,
+          "banks": {
+            "au": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis_lic": {
+              "lm": 0,
+              "cm": 0
+            },
+            "hdfc": {
+              "lm": 1,
+              "cm": 0
+            },
+            "indus": {
+              "lm": 0,
+              "cm": 0
+            },
+            "sbi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "tata_neu": {
+              "lm": 0,
+              "cm": 0
+            },
+            "kiwi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "bob": {
+              "lm": 0,
+              "cm": 0
+            },
+            "yes_zaggle": {
+              "lm": 0,
+              "cm": 0
+            },
+            "rbl": {
+              "lm": 0,
+              "cm": 0
+            }
+          }
+        },
+        {
+          "name": "AIM ENTERPRISES",
+          "lmt": 0,
+          "cmt": 0,
+          "banks": {
+            "au": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis_lic": {
+              "lm": 0,
+              "cm": 0
+            },
+            "hdfc": {
+              "lm": 0,
+              "cm": 0
+            },
+            "indus": {
+              "lm": 0,
+              "cm": 0
+            },
+            "sbi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "tata_neu": {
+              "lm": 0,
+              "cm": 0
+            },
+            "kiwi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "bob": {
+              "lm": 0,
+              "cm": 0
+            },
+            "yes_zaggle": {
+              "lm": 0,
+              "cm": 0
+            },
+            "rbl": {
+              "lm": 0,
+              "cm": 0
+            }
+          }
+        },
+        {
+          "name": "Q GET FINANCIAL TECHNOLOGIES INDIA PVT LTD",
+          "lmt": 2073,
+          "cmt": 1947,
+          "banks": {
+            "au": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis_lic": {
+              "lm": 0,
+              "cm": 0
+            },
+            "hdfc": {
+              "lm": 0,
+              "cm": 0
+            },
+            "indus": {
+              "lm": 0,
+              "cm": 0
+            },
+            "sbi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "tata_neu": {
+              "lm": 2073,
+              "cm": 1926
+            },
+            "kiwi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "bob": {
+              "lm": 0,
+              "cm": 21
+            },
+            "yes_zaggle": {
+              "lm": 0,
+              "cm": 0
+            },
+            "rbl": {
+              "lm": 0,
+              "cm": 0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "manager_name": "BHAVANI",
+      "partners": [
+        {
+          "name": "RUDRA",
+          "lmt": 1,
+          "cmt": 0,
+          "banks": {
+            "au": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis": {
+              "lm": 1,
+              "cm": 0
+            },
+            "axis_lic": {
+              "lm": 0,
+              "cm": 0
+            },
+            "hdfc": {
+              "lm": 0,
+              "cm": 0
+            },
+            "indus": {
+              "lm": 0,
+              "cm": 0
+            },
+            "sbi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "tata_neu": {
+              "lm": 0,
+              "cm": 0
+            },
+            "kiwi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "bob": {
+              "lm": 0,
+              "cm": 0
+            },
+            "yes_zaggle": {
+              "lm": 0,
+              "cm": 0
+            },
+            "rbl": {
+              "lm": 0,
+              "cm": 0
+            }
+          }
+        },
+        {
+          "name": "ANIKET",
+          "lmt": 0,
+          "cmt": 8,
+          "banks": {
+            "au": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis": {
+              "lm": 0,
+              "cm": 8
+            },
+            "axis_lic": {
+              "lm": 0,
+              "cm": 0
+            },
+            "hdfc": {
+              "lm": 0,
+              "cm": 0
+            },
+            "indus": {
+              "lm": 0,
+              "cm": 0
+            },
+            "sbi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "tata_neu": {
+              "lm": 0,
+              "cm": 0
+            },
+            "kiwi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "bob": {
+              "lm": 0,
+              "cm": 0
+            },
+            "yes_zaggle": {
+              "lm": 0,
+              "cm": 0
+            },
+            "rbl": {
+              "lm": 0,
+              "cm": 0
+            }
+          }
+        },
+        {
+          "name": "ANJANI PANDEY",
+          "lmt": 0,
+          "cmt": 2,
+          "banks": {
+            "au": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis_lic": {
+              "lm": 0,
+              "cm": 0
+            },
+            "hdfc": {
+              "lm": 0,
+              "cm": 0
+            },
+            "indus": {
+              "lm": 0,
+              "cm": 0
+            },
+            "sbi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "tata_neu": {
+              "lm": 0,
+              "cm": 0
+            },
+            "kiwi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "bob": {
+              "lm": 0,
+              "cm": 2
+            },
+            "yes_zaggle": {
+              "lm": 0,
+              "cm": 0
+            },
+            "rbl": {
+              "lm": 0,
+              "cm": 0
+            }
+          }
+        },
+        {
+          "name": "G K TRADERS",
+          "lmt": 2,
+          "cmt": 17,
+          "banks": {
+            "au": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis": {
+              "lm": 0,
+              "cm": 4
+            },
+            "axis_lic": {
+              "lm": 0,
+              "cm": 0
+            },
+            "hdfc": {
+              "lm": 0,
+              "cm": 1
+            },
+            "indus": {
+              "lm": 0,
+              "cm": 0
+            },
+            "sbi": {
+              "lm": 0,
+              "cm": 7
+            },
+            "tata_neu": {
+              "lm": 0,
+              "cm": 0
+            },
+            "kiwi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "bob": {
+              "lm": 2,
+              "cm": 5
+            },
+            "yes_zaggle": {
+              "lm": 0,
+              "cm": 0
+            },
+            "rbl": {
+              "lm": 0,
+              "cm": 0
+            }
+          }
+        },
+        {
+          "name": "BALAJI ENTERPRISES",
+          "lmt": 1,
+          "cmt": 1,
+          "banks": {
+            "au": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis_lic": {
+              "lm": 0,
+              "cm": 0
+            },
+            "hdfc": {
+              "lm": 0,
+              "cm": 0
+            },
+            "indus": {
+              "lm": 0,
+              "cm": 0
+            },
+            "sbi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "tata_neu": {
+              "lm": 0,
+              "cm": 0
+            },
+            "kiwi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "bob": {
+              "lm": 0,
+              "cm": 1
+            },
+            "yes_zaggle": {
+              "lm": 1,
+              "cm": 0
+            },
+            "rbl": {
+              "lm": 0,
+              "cm": 0
+            }
+          }
+        },
+        {
+          "name": "BALAJI SOLUTIONS WORK",
+          "lmt": 51,
+          "cmt": 104,
+          "banks": {
+            "au": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis_lic": {
+              "lm": 0,
+              "cm": 0
+            },
+            "hdfc": {
+              "lm": 3,
+              "cm": 0
+            },
+            "indus": {
+              "lm": 1,
+              "cm": 0
+            },
+            "sbi": {
+              "lm": 0,
+              "cm": 4
+            },
+            "tata_neu": {
+              "lm": 0,
+              "cm": 0
+            },
+            "kiwi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "bob": {
+              "lm": 47,
+              "cm": 98
+            },
+            "yes_zaggle": {
+              "lm": 0,
+              "cm": 0
+            },
+            "rbl": {
+              "lm": 0,
+              "cm": 2
+            }
+          }
+        },
+        {
+          "name": "HIRDESH",
+          "lmt": 0,
+          "cmt": 0,
+          "banks": {
+            "au": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis_lic": {
+              "lm": 0,
+              "cm": 0
+            },
+            "hdfc": {
+              "lm": 0,
+              "cm": 0
+            },
+            "indus": {
+              "lm": 0,
+              "cm": 0
+            },
+            "sbi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "tata_neu": {
+              "lm": 0,
+              "cm": 0
+            },
+            "kiwi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "bob": {
+              "lm": 0,
+              "cm": 0
+            },
+            "yes_zaggle": {
+              "lm": 0,
+              "cm": 0
+            },
+            "rbl": {
+              "lm": 0,
+              "cm": 0
+            }
+          }
+        },
+        {
+          "name": "HASMAT",
+          "lmt": 18,
+          "cmt": 11,
+          "banks": {
+            "au": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis_lic": {
+              "lm": 0,
+              "cm": 0
+            },
+            "hdfc": {
+              "lm": 0,
+              "cm": 0
+            },
+            "indus": {
+              "lm": 0,
+              "cm": 0
+            },
+            "sbi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "tata_neu": {
+              "lm": 0,
+              "cm": 0
+            },
+            "kiwi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "bob": {
+              "lm": 18,
+              "cm": 11
+            },
+            "yes_zaggle": {
+              "lm": 0,
+              "cm": 0
+            },
+            "rbl": {
+              "lm": 0,
+              "cm": 0
+            }
+          }
+        },
+        {
+          "name": "AED19 CARD SERVICES PVT LTD",
+          "lmt": 0,
+          "cmt": 1,
+          "banks": {
+            "au": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis_lic": {
+              "lm": 0,
+              "cm": 0
+            },
+            "hdfc": {
+              "lm": 0,
+              "cm": 0
+            },
+            "indus": {
+              "lm": 0,
+              "cm": 0
+            },
+            "sbi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "tata_neu": {
+              "lm": 0,
+              "cm": 0
+            },
+            "kiwi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "bob": {
+              "lm": 0,
+              "cm": 1
+            },
+            "yes_zaggle": {
+              "lm": 0,
+              "cm": 0
+            },
+            "rbl": {
+              "lm": 0,
+              "cm": 0
+            }
+          }
+        },
+        {
+          "name": "PRUDENTS",
+          "lmt": 0,
+          "cmt": 1,
+          "banks": {
+            "au": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis_lic": {
+              "lm": 0,
+              "cm": 0
+            },
+            "hdfc": {
+              "lm": 0,
+              "cm": 0
+            },
+            "indus": {
+              "lm": 0,
+              "cm": 0
+            },
+            "sbi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "tata_neu": {
+              "lm": 0,
+              "cm": 0
+            },
+            "kiwi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "bob": {
+              "lm": 0,
+              "cm": 1
+            },
+            "yes_zaggle": {
+              "lm": 0,
+              "cm": 0
+            },
+            "rbl": {
+              "lm": 0,
+              "cm": 0
+            }
+          }
+        },
+        {
+          "name": "SHIVAM",
+          "lmt": 1,
+          "cmt": 1,
+          "banks": {
+            "au": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis_lic": {
+              "lm": 0,
+              "cm": 0
+            },
+            "hdfc": {
+              "lm": 0,
+              "cm": 0
+            },
+            "indus": {
+              "lm": 0,
+              "cm": 0
+            },
+            "sbi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "tata_neu": {
+              "lm": 0,
+              "cm": 0
+            },
+            "kiwi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "bob": {
+              "lm": 1,
+              "cm": 1
+            },
+            "yes_zaggle": {
+              "lm": 0,
+              "cm": 0
+            },
+            "rbl": {
+              "lm": 0,
+              "cm": 0
+            }
+          }
+        },
+        {
+          "name": "INFINITY ENTERPRISES",
+          "lmt": 0,
+          "cmt": 0,
+          "banks": {
+            "au": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis_lic": {
+              "lm": 0,
+              "cm": 0
+            },
+            "hdfc": {
+              "lm": 0,
+              "cm": 0
+            },
+            "indus": {
+              "lm": 0,
+              "cm": 0
+            },
+            "sbi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "tata_neu": {
+              "lm": 0,
+              "cm": 0
+            },
+            "kiwi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "bob": {
+              "lm": 0,
+              "cm": 0
+            },
+            "yes_zaggle": {
+              "lm": 0,
+              "cm": 0
+            },
+            "rbl": {
+              "lm": 0,
+              "cm": 0
+            }
+          }
+        },
+        {
+          "name": "QUANTUMX GLOBAL PRIVATE LIMITED",
+          "lmt": 169,
+          "cmt": 544,
+          "banks": {
+            "au": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis_lic": {
+              "lm": 0,
+              "cm": 0
+            },
+            "hdfc": {
+              "lm": 0,
+              "cm": 0
+            },
+            "indus": {
+              "lm": 1,
+              "cm": 1
+            },
+            "sbi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "tata_neu": {
+              "lm": 0,
+              "cm": 0
+            },
+            "kiwi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "bob": {
+              "lm": 168,
+              "cm": 543
+            },
+            "yes_zaggle": {
+              "lm": 0,
+              "cm": 0
+            },
+            "rbl": {
+              "lm": 0,
+              "cm": 0
+            }
+          }
+        },
+        {
+          "name": "RAHUL KUMAR MISHRA",
+          "lmt": 127,
+          "cmt": 277,
+          "banks": {
+            "au": {
+              "lm": 1,
+              "cm": 1
+            },
+            "axis": {
+              "lm": 36,
+              "cm": 36
+            },
+            "axis_lic": {
+              "lm": 0,
+              "cm": 0
+            },
+            "hdfc": {
+              "lm": 7,
+              "cm": 9
+            },
+            "indus": {
+              "lm": 0,
+              "cm": 0
+            },
+            "sbi": {
+              "lm": 19,
+              "cm": 25
+            },
+            "tata_neu": {
+              "lm": 0,
+              "cm": 0
+            },
+            "kiwi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "bob": {
+              "lm": 64,
+              "cm": 206
+            },
+            "yes_zaggle": {
+              "lm": 0,
+              "cm": 0
+            },
+            "rbl": {
+              "lm": 0,
+              "cm": 0
+            }
+          }
+        },
+        {
+          "name": "SHAKSHI",
+          "lmt": 369,
+          "cmt": 262,
+          "banks": {
+            "au": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis_lic": {
+              "lm": 0,
+              "cm": 0
+            },
+            "hdfc": {
+              "lm": 1,
+              "cm": 1
+            },
+            "indus": {
+              "lm": 0,
+              "cm": 0
+            },
+            "sbi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "tata_neu": {
+              "lm": 0,
+              "cm": 0
+            },
+            "kiwi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "bob": {
+              "lm": 368,
+              "cm": 259
+            },
+            "yes_zaggle": {
+              "lm": 0,
+              "cm": 0
+            },
+            "rbl": {
+              "lm": 0,
+              "cm": 2
+            }
+          }
+        },
+        {
+          "name": "VISHAL SHARMA",
+          "lmt": 275,
+          "cmt": 417,
+          "banks": {
+            "au": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis": {
+              "lm": 7,
+              "cm": 17
+            },
+            "axis_lic": {
+              "lm": 0,
+              "cm": 0
+            },
+            "hdfc": {
+              "lm": 46,
+              "cm": 47
+            },
+            "indus": {
+              "lm": 0,
+              "cm": 3
+            },
+            "sbi": {
+              "lm": 1,
+              "cm": 3
+            },
+            "tata_neu": {
+              "lm": 0,
+              "cm": 0
+            },
+            "kiwi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "bob": {
+              "lm": 221,
+              "cm": 347
+            },
+            "yes_zaggle": {
+              "lm": 0,
+              "cm": 0
+            },
+            "rbl": {
+              "lm": 0,
+              "cm": 0
+            }
+          }
+        },
+        {
+          "name": "TYAGI INFOSIS",
+          "lmt": 13,
+          "cmt": 11,
+          "banks": {
+            "au": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis_lic": {
+              "lm": 0,
+              "cm": 0
+            },
+            "hdfc": {
+              "lm": 11,
+              "cm": 11
+            },
+            "indus": {
+              "lm": 0,
+              "cm": 0
+            },
+            "sbi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "tata_neu": {
+              "lm": 2,
+              "cm": 0
+            },
+            "kiwi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "bob": {
+              "lm": 0,
+              "cm": 0
+            },
+            "yes_zaggle": {
+              "lm": 0,
+              "cm": 0
+            },
+            "rbl": {
+              "lm": 0,
+              "cm": 0
+            }
+          }
+        },
+        {
+          "name": "SHIVANSHIENTERPRISES",
+          "lmt": 0,
+          "cmt": 4,
+          "banks": {
+            "au": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis_lic": {
+              "lm": 0,
+              "cm": 0
+            },
+            "hdfc": {
+              "lm": 0,
+              "cm": 4
+            },
+            "indus": {
+              "lm": 0,
+              "cm": 0
+            },
+            "sbi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "tata_neu": {
+              "lm": 0,
+              "cm": 0
+            },
+            "kiwi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "bob": {
+              "lm": 0,
+              "cm": 0
+            },
+            "yes_zaggle": {
+              "lm": 0,
+              "cm": 0
+            },
+            "rbl": {
+              "lm": 0,
+              "cm": 0
+            }
+          }
+        },
+        {
+          "name": "EXTRA",
+          "lmt": 0,
+          "cmt": 0,
+          "banks": {
+            "au": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis_lic": {
+              "lm": 0,
+              "cm": 0
+            },
+            "hdfc": {
+              "lm": 0,
+              "cm": 0
+            },
+            "indus": {
+              "lm": 0,
+              "cm": 0
+            },
+            "sbi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "tata_neu": {
+              "lm": 0,
+              "cm": 0
+            },
+            "kiwi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "bob": {
+              "lm": 0,
+              "cm": 0
+            },
+            "yes_zaggle": {
+              "lm": 0,
+              "cm": 0
+            },
+            "rbl": {
+              "lm": 0,
+              "cm": 0
+            }
+          }
+        },
+        {
+          "name": "NEERAJ KUMAR",
+          "lmt": 48,
+          "cmt": 94,
+          "banks": {
+            "au": {
+              "lm": 3,
+              "cm": 3
+            },
+            "axis": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis_lic": {
+              "lm": 0,
+              "cm": 0
+            },
+            "hdfc": {
+              "lm": 0,
+              "cm": 0
+            },
+            "indus": {
+              "lm": 0,
+              "cm": 0
+            },
+            "sbi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "tata_neu": {
+              "lm": 0,
+              "cm": 0
+            },
+            "kiwi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "bob": {
+              "lm": 45,
+              "cm": 89
+            },
+            "yes_zaggle": {
+              "lm": 0,
+              "cm": 0
+            },
+            "rbl": {
+              "lm": 0,
+              "cm": 2
+            }
+          }
+        },
+        {
+          "name": "JAI JAGANNATH CARDS SERVICES PRIVATE LIMITED",
+          "lmt": 169,
+          "cmt": 275,
+          "banks": {
+            "au": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis_lic": {
+              "lm": 0,
+              "cm": 0
+            },
+            "hdfc": {
+              "lm": 0,
+              "cm": 10
+            },
+            "indus": {
+              "lm": 0,
+              "cm": 0
+            },
+            "sbi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "tata_neu": {
+              "lm": 11,
+              "cm": 14
+            },
+            "kiwi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "bob": {
+              "lm": 158,
+              "cm": 251
+            },
+            "yes_zaggle": {
+              "lm": 0,
+              "cm": 0
+            },
+            "rbl": {
+              "lm": 0,
+              "cm": 0
+            }
+          }
+        },
+        {
+          "name": "RIYA",
+          "lmt": 13,
+          "cmt": 8,
+          "banks": {
+            "au": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis_lic": {
+              "lm": 0,
+              "cm": 0
+            },
+            "hdfc": {
+              "lm": 0,
+              "cm": 0
+            },
+            "indus": {
+              "lm": 0,
+              "cm": 0
+            },
+            "sbi": {
+              "lm": 13,
+              "cm": 8
+            },
+            "tata_neu": {
+              "lm": 0,
+              "cm": 0
+            },
+            "kiwi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "bob": {
+              "lm": 0,
+              "cm": 0
+            },
+            "yes_zaggle": {
+              "lm": 0,
+              "cm": 0
+            },
+            "rbl": {
+              "lm": 0,
+              "cm": 0
+            }
+          }
+        },
+        {
+          "name": "SHILPA",
+          "lmt": 21,
+          "cmt": 51,
+          "banks": {
+            "au": {
+              "lm": 1,
+              "cm": 1
+            },
+            "axis": {
+              "lm": 2,
+              "cm": 13
+            },
+            "axis_lic": {
+              "lm": 0,
+              "cm": 0
+            },
+            "hdfc": {
+              "lm": 3,
+              "cm": 7
+            },
+            "indus": {
+              "lm": 0,
+              "cm": 0
+            },
+            "sbi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "tata_neu": {
+              "lm": 0,
+              "cm": 0
+            },
+            "kiwi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "bob": {
+              "lm": 13,
+              "cm": 25
+            },
+            "yes_zaggle": {
+              "lm": 2,
+              "cm": 5
+            },
+            "rbl": {
+              "lm": 0,
+              "cm": 0
+            }
+          }
+        },
+        {
+          "name": "SUNIL",
+          "lmt": 0,
+          "cmt": 16,
+          "banks": {
+            "au": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis_lic": {
+              "lm": 0,
+              "cm": 0
+            },
+            "hdfc": {
+              "lm": 0,
+              "cm": 14
+            },
+            "indus": {
+              "lm": 0,
+              "cm": 0
+            },
+            "sbi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "tata_neu": {
+              "lm": 0,
+              "cm": 2
+            },
+            "kiwi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "bob": {
+              "lm": 0,
+              "cm": 0
+            },
+            "yes_zaggle": {
+              "lm": 0,
+              "cm": 0
+            },
+            "rbl": {
+              "lm": 0,
+              "cm": 0
+            }
+          }
+        },
+        {
+          "name": "SANJAY PATEL",
+          "lmt": 64,
+          "cmt": 35,
+          "banks": {
+            "au": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis": {
+              "lm": 0,
+              "cm": 3
+            },
+            "axis_lic": {
+              "lm": 0,
+              "cm": 0
+            },
+            "hdfc": {
+              "lm": 0,
+              "cm": 0
+            },
+            "indus": {
+              "lm": 0,
+              "cm": 0
+            },
+            "sbi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "tata_neu": {
+              "lm": 0,
+              "cm": 0
+            },
+            "kiwi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "bob": {
+              "lm": 64,
+              "cm": 32
+            },
+            "yes_zaggle": {
+              "lm": 0,
+              "cm": 0
+            },
+            "rbl": {
+              "lm": 0,
+              "cm": 0
+            }
+          }
+        },
+        {
+          "name": "SNEHA SHARMA",
+          "lmt": 2,
+          "cmt": 139,
+          "banks": {
+            "au": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis_lic": {
+              "lm": 1,
+              "cm": 0
+            },
+            "hdfc": {
+              "lm": 0,
+              "cm": 0
+            },
+            "indus": {
+              "lm": 0,
+              "cm": 0
+            },
+            "sbi": {
+              "lm": 1,
+              "cm": 0
+            },
+            "tata_neu": {
+              "lm": 0,
+              "cm": 0
+            },
+            "kiwi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "bob": {
+              "lm": 0,
+              "cm": 139
+            },
+            "yes_zaggle": {
+              "lm": 0,
+              "cm": 0
+            },
+            "rbl": {
+              "lm": 0,
+              "cm": 0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "manager_name": "BINOD MISHRA",
+      "partners": [
+        {
+          "name": "BISHAL PAUL",
+          "lmt": 62,
+          "cmt": 3,
+          "banks": {
+            "au": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis_lic": {
+              "lm": 0,
+              "cm": 0
+            },
+            "hdfc": {
+              "lm": 10,
+              "cm": 2
+            },
+            "indus": {
+              "lm": 0,
+              "cm": 0
+            },
+            "sbi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "tata_neu": {
+              "lm": 0,
+              "cm": 0
+            },
+            "kiwi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "bob": {
+              "lm": 50,
+              "cm": 1
+            },
+            "yes_zaggle": {
+              "lm": 2,
+              "cm": 0
+            },
+            "rbl": {
+              "lm": 0,
+              "cm": 0
+            }
+          }
+        },
+        {
+          "name": "ABHIPAY",
+          "lmt": 145,
+          "cmt": 426,
+          "banks": {
+            "au": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis_lic": {
+              "lm": 0,
+              "cm": 0
+            },
+            "hdfc": {
+              "lm": 0,
+              "cm": 0
+            },
+            "indus": {
+              "lm": 0,
+              "cm": 0
+            },
+            "sbi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "tata_neu": {
+              "lm": 145,
+              "cm": 425
+            },
+            "kiwi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "bob": {
+              "lm": 0,
+              "cm": 1
+            },
+            "yes_zaggle": {
+              "lm": 0,
+              "cm": 0
+            },
+            "rbl": {
+              "lm": 0,
+              "cm": 0
+            }
+          }
+        },
+        {
+          "name": "PROSENJIT CHATERJEE",
+          "lmt": 100,
+          "cmt": 200,
+          "banks": {
+            "au": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis_lic": {
+              "lm": 0,
+              "cm": 0
+            },
+            "hdfc": {
+              "lm": 0,
+              "cm": 3
+            },
+            "indus": {
+              "lm": 2,
+              "cm": 1
+            },
+            "sbi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "tata_neu": {
+              "lm": 5,
+              "cm": 0
+            },
+            "kiwi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "bob": {
+              "lm": 91,
+              "cm": 180
+            },
+            "yes_zaggle": {
+              "lm": 2,
+              "cm": 2
+            },
+            "rbl": {
+              "lm": 0,
+              "cm": 14
+            }
+          }
+        },
+        {
+          "name": "FUNDCAP",
+          "lmt": 0,
+          "cmt": 13,
+          "banks": {
+            "au": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis": {
+              "lm": 0,
+              "cm": 1
+            },
+            "axis_lic": {
+              "lm": 0,
+              "cm": 0
+            },
+            "hdfc": {
+              "lm": 0,
+              "cm": 0
+            },
+            "indus": {
+              "lm": 0,
+              "cm": 0
+            },
+            "sbi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "tata_neu": {
+              "lm": 0,
+              "cm": 0
+            },
+            "kiwi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "bob": {
+              "lm": 0,
+              "cm": 12
+            },
+            "yes_zaggle": {
+              "lm": 0,
+              "cm": 0
+            },
+            "rbl": {
+              "lm": 0,
+              "cm": 0
+            }
+          }
+        },
+        {
+          "name": "EXTRA",
+          "lmt": 0,
+          "cmt": 0,
+          "banks": {
+            "au": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis_lic": {
+              "lm": 0,
+              "cm": 0
+            },
+            "hdfc": {
+              "lm": 0,
+              "cm": 0
+            },
+            "indus": {
+              "lm": 0,
+              "cm": 0
+            },
+            "sbi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "tata_neu": {
+              "lm": 0,
+              "cm": 0
+            },
+            "kiwi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "bob": {
+              "lm": 0,
+              "cm": 0
+            },
+            "yes_zaggle": {
+              "lm": 0,
+              "cm": 0
+            },
+            "rbl": {
+              "lm": 0,
+              "cm": 0
+            }
+          }
+        },
+        {
+          "name": "PARTHA BHATTACHARJEE",
+          "lmt": 0,
+          "cmt": 1,
+          "banks": {
+            "au": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis_lic": {
+              "lm": 0,
+              "cm": 0
+            },
+            "hdfc": {
+              "lm": 0,
+              "cm": 0
+            },
+            "indus": {
+              "lm": 0,
+              "cm": 0
+            },
+            "sbi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "tata_neu": {
+              "lm": 0,
+              "cm": 1
+            },
+            "kiwi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "bob": {
+              "lm": 0,
+              "cm": 0
+            },
+            "yes_zaggle": {
+              "lm": 0,
+              "cm": 0
+            },
+            "rbl": {
+              "lm": 0,
+              "cm": 0
+            }
+          }
+        },
+        {
+          "name": "GROWUP FINANCIAL",
+          "lmt": 2,
+          "cmt": 1,
+          "banks": {
+            "au": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis": {
+              "lm": 1,
+              "cm": 0
+            },
+            "axis_lic": {
+              "lm": 0,
+              "cm": 0
+            },
+            "hdfc": {
+              "lm": 0,
+              "cm": 0
+            },
+            "indus": {
+              "lm": 0,
+              "cm": 0
+            },
+            "sbi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "tata_neu": {
+              "lm": 1,
+              "cm": 1
+            },
+            "kiwi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "bob": {
+              "lm": 0,
+              "cm": 0
+            },
+            "yes_zaggle": {
+              "lm": 0,
+              "cm": 0
+            },
+            "rbl": {
+              "lm": 0,
+              "cm": 0
+            }
+          }
+        },
+        {
+          "name": "AMIT KUMAR",
+          "lmt": 19,
+          "cmt": 22,
+          "banks": {
+            "au": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis": {
+              "lm": 7,
+              "cm": 5
+            },
+            "axis_lic": {
+              "lm": 0,
+              "cm": 0
+            },
+            "hdfc": {
+              "lm": 0,
+              "cm": 2
+            },
+            "indus": {
+              "lm": 0,
+              "cm": 1
+            },
+            "sbi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "tata_neu": {
+              "lm": 2,
+              "cm": 3
+            },
+            "kiwi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "bob": {
+              "lm": 10,
+              "cm": 11
+            },
+            "yes_zaggle": {
+              "lm": 0,
+              "cm": 0
+            },
+            "rbl": {
+              "lm": 0,
+              "cm": 0
+            }
+          }
+        },
+        {
+          "name": "SUDIP POUL",
+          "lmt": 39,
+          "cmt": 99,
+          "banks": {
+            "au": {
+              "lm": 0,
+              "cm": 10
+            },
+            "axis": {
+              "lm": 17,
+              "cm": 23
+            },
+            "axis_lic": {
+              "lm": 0,
+              "cm": 0
+            },
+            "hdfc": {
+              "lm": 1,
+              "cm": 4
+            },
+            "indus": {
+              "lm": 0,
+              "cm": 0
+            },
+            "sbi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "tata_neu": {
+              "lm": 0,
+              "cm": 0
+            },
+            "kiwi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "bob": {
+              "lm": 19,
+              "cm": 48
+            },
+            "yes_zaggle": {
+              "lm": 2,
+              "cm": 3
+            },
+            "rbl": {
+              "lm": 0,
+              "cm": 11
+            }
+          }
+        },
+        {
+          "name": "S K RABI",
+          "lmt": 0,
+          "cmt": 16,
+          "banks": {
+            "au": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis_lic": {
+              "lm": 0,
+              "cm": 0
+            },
+            "hdfc": {
+              "lm": 0,
+              "cm": 0
+            },
+            "indus": {
+              "lm": 0,
+              "cm": 0
+            },
+            "sbi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "tata_neu": {
+              "lm": 0,
+              "cm": 0
+            },
+            "kiwi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "bob": {
+              "lm": 0,
+              "cm": 16
+            },
+            "yes_zaggle": {
+              "lm": 0,
+              "cm": 0
+            },
+            "rbl": {
+              "lm": 0,
+              "cm": 0
+            }
+          }
+        },
+        {
+          "name": "RR ASSOCIATES",
+          "lmt": 172,
+          "cmt": 166,
+          "banks": {
+            "au": {
+              "lm": 35,
+              "cm": 40
+            },
+            "axis": {
+              "lm": 13,
+              "cm": 16
+            },
+            "axis_lic": {
+              "lm": 0,
+              "cm": 0
+            },
+            "hdfc": {
+              "lm": 13,
+              "cm": 14
+            },
+            "indus": {
+              "lm": 6,
+              "cm": 7
+            },
+            "sbi": {
+              "lm": 1,
+              "cm": 5
+            },
+            "tata_neu": {
+              "lm": 83,
+              "cm": 19
+            },
+            "kiwi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "bob": {
+              "lm": 19,
+              "cm": 53
+            },
+            "yes_zaggle": {
+              "lm": 2,
+              "cm": 3
+            },
+            "rbl": {
+              "lm": 0,
+              "cm": 9
+            }
+          }
+        },
+        {
+          "name": "SRABANTI PAUL",
+          "lmt": 62,
+          "cmt": 73,
+          "banks": {
+            "au": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis": {
+              "lm": 9,
+              "cm": 16
+            },
+            "axis_lic": {
+              "lm": 0,
+              "cm": 0
+            },
+            "hdfc": {
+              "lm": 2,
+              "cm": 7
+            },
+            "indus": {
+              "lm": 0,
+              "cm": 0
+            },
+            "sbi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "tata_neu": {
+              "lm": 5,
+              "cm": 3
+            },
+            "kiwi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "bob": {
+              "lm": 45,
+              "cm": 46
+            },
+            "yes_zaggle": {
+              "lm": 1,
+              "cm": 1
+            },
+            "rbl": {
+              "lm": 0,
+              "cm": 0
+            }
+          }
+        },
+        {
+          "name": "SECUREPEAK SERVICE PVT LTD",
+          "lmt": 39,
+          "cmt": 88,
+          "banks": {
+            "au": {
+              "lm": 1,
+              "cm": 0
+            },
+            "axis": {
+              "lm": 0,
+              "cm": 1
+            },
+            "axis_lic": {
+              "lm": 0,
+              "cm": 0
+            },
+            "hdfc": {
+              "lm": 6,
+              "cm": 2
+            },
+            "indus": {
+              "lm": 0,
+              "cm": 0
+            },
+            "sbi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "tata_neu": {
+              "lm": 10,
+              "cm": 8
+            },
+            "kiwi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "bob": {
+              "lm": 11,
+              "cm": 23
+            },
+            "yes_zaggle": {
+              "lm": 11,
+              "cm": 30
+            },
+            "rbl": {
+              "lm": 0,
+              "cm": 24
+            }
+          }
+        }
+      ]
+    },
+    {
+      "manager_name": "DIVYAM",
+      "partners": [
+        {
+          "name": "ATIK AHMED",
+          "lmt": 16,
+          "cmt": 13,
+          "banks": {
+            "au": {
+              "lm": 2,
+              "cm": 0
+            },
+            "axis": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis_lic": {
+              "lm": 0,
+              "cm": 0
+            },
+            "hdfc": {
+              "lm": 8,
+              "cm": 4
+            },
+            "indus": {
+              "lm": 2,
+              "cm": 6
+            },
+            "sbi": {
+              "lm": 0,
+              "cm": 3
+            },
+            "tata_neu": {
+              "lm": 0,
+              "cm": 0
+            },
+            "kiwi": {
+              "lm": 1,
+              "cm": 0
+            },
+            "bob": {
+              "lm": 3,
+              "cm": 0
+            },
+            "yes_zaggle": {
+              "lm": 0,
+              "cm": 0
+            },
+            "rbl": {
+              "lm": 0,
+              "cm": 0
+            }
+          }
+        },
+        {
+          "name": "OWLOTS NEXTGEN PRIVATE LIMITED",
+          "lmt": 76,
+          "cmt": 148,
+          "banks": {
+            "au": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis_lic": {
+              "lm": 0,
+              "cm": 0
+            },
+            "hdfc": {
+              "lm": 0,
+              "cm": 0
+            },
+            "indus": {
+              "lm": 12,
+              "cm": 4
+            },
+            "sbi": {
+              "lm": 3,
+              "cm": 4
+            },
+            "tata_neu": {
+              "lm": 0,
+              "cm": 0
+            },
+            "kiwi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "bob": {
+              "lm": 61,
+              "cm": 140
+            },
+            "yes_zaggle": {
+              "lm": 0,
+              "cm": 0
+            },
+            "rbl": {
+              "lm": 0,
+              "cm": 0
+            }
+          }
+        },
+        {
+          "name": "AMIT KUMAR",
+          "lmt": 0,
+          "cmt": 0,
+          "banks": {
+            "au": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis_lic": {
+              "lm": 0,
+              "cm": 0
+            },
+            "hdfc": {
+              "lm": 0,
+              "cm": 0
+            },
+            "indus": {
+              "lm": 0,
+              "cm": 0
+            },
+            "sbi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "tata_neu": {
+              "lm": 0,
+              "cm": 0
+            },
+            "kiwi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "bob": {
+              "lm": 0,
+              "cm": 0
+            },
+            "yes_zaggle": {
+              "lm": 0,
+              "cm": 0
+            },
+            "rbl": {
+              "lm": 0,
+              "cm": 0
+            }
+          }
+        },
+        {
+          "name": "ABHISHEK",
+          "lmt": 0,
+          "cmt": 3,
+          "banks": {
+            "au": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis_lic": {
+              "lm": 0,
+              "cm": 0
+            },
+            "hdfc": {
+              "lm": 0,
+              "cm": 3
+            },
+            "indus": {
+              "lm": 0,
+              "cm": 0
+            },
+            "sbi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "tata_neu": {
+              "lm": 0,
+              "cm": 0
+            },
+            "kiwi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "bob": {
+              "lm": 0,
+              "cm": 0
+            },
+            "yes_zaggle": {
+              "lm": 0,
+              "cm": 0
+            },
+            "rbl": {
+              "lm": 0,
+              "cm": 0
+            }
+          }
+        },
+        {
+          "name": "HETAL",
+          "lmt": 9,
+          "cmt": 11,
+          "banks": {
+            "au": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis_lic": {
+              "lm": 0,
+              "cm": 0
+            },
+            "hdfc": {
+              "lm": 0,
+              "cm": 0
+            },
+            "indus": {
+              "lm": 0,
+              "cm": 0
+            },
+            "sbi": {
+              "lm": 9,
+              "cm": 11
+            },
+            "tata_neu": {
+              "lm": 0,
+              "cm": 0
+            },
+            "kiwi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "bob": {
+              "lm": 0,
+              "cm": 0
+            },
+            "yes_zaggle": {
+              "lm": 0,
+              "cm": 0
+            },
+            "rbl": {
+              "lm": 0,
+              "cm": 0
+            }
+          }
+        },
+        {
+          "name": "ASHISH JANI",
+          "lmt": 0,
+          "cmt": 1,
+          "banks": {
+            "au": {
+              "lm": 0,
+              "cm": 1
+            },
+            "axis": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis_lic": {
+              "lm": 0,
+              "cm": 0
+            },
+            "hdfc": {
+              "lm": 0,
+              "cm": 0
+            },
+            "indus": {
+              "lm": 0,
+              "cm": 0
+            },
+            "sbi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "tata_neu": {
+              "lm": 0,
+              "cm": 0
+            },
+            "kiwi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "bob": {
+              "lm": 0,
+              "cm": 0
+            },
+            "yes_zaggle": {
+              "lm": 0,
+              "cm": 0
+            },
+            "rbl": {
+              "lm": 0,
+              "cm": 0
+            }
+          }
+        },
+        {
+          "name": "GAJENDRA",
+          "lmt": 279,
+          "cmt": 521,
+          "banks": {
+            "au": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis_lic": {
+              "lm": 0,
+              "cm": 0
+            },
+            "hdfc": {
+              "lm": 0,
+              "cm": 0
+            },
+            "indus": {
+              "lm": 0,
+              "cm": 0
+            },
+            "sbi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "tata_neu": {
+              "lm": 279,
+              "cm": 521
+            },
+            "kiwi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "bob": {
+              "lm": 0,
+              "cm": 0
+            },
+            "yes_zaggle": {
+              "lm": 0,
+              "cm": 0
+            },
+            "rbl": {
+              "lm": 0,
+              "cm": 0
+            }
+          }
+        },
+        {
+          "name": "FAIZAL",
+          "lmt": 115,
+          "cmt": 128,
+          "banks": {
+            "au": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis": {
+              "lm": 2,
+              "cm": 7
+            },
+            "axis_lic": {
+              "lm": 0,
+              "cm": 0
+            },
+            "hdfc": {
+              "lm": 2,
+              "cm": 0
+            },
+            "indus": {
+              "lm": 1,
+              "cm": 0
+            },
+            "sbi": {
+              "lm": 110,
+              "cm": 121
+            },
+            "tata_neu": {
+              "lm": 0,
+              "cm": 0
+            },
+            "kiwi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "bob": {
+              "lm": 0,
+              "cm": 0
+            },
+            "yes_zaggle": {
+              "lm": 0,
+              "cm": 0
+            },
+            "rbl": {
+              "lm": 0,
+              "cm": 0
+            }
+          }
+        },
+        {
+          "name": "VIKRAM PUNE",
+          "lmt": 20,
+          "cmt": 4,
+          "banks": {
+            "au": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis_lic": {
+              "lm": 0,
+              "cm": 0
+            },
+            "hdfc": {
+              "lm": 0,
+              "cm": 0
+            },
+            "indus": {
+              "lm": 0,
+              "cm": 0
+            },
+            "sbi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "tata_neu": {
+              "lm": 20,
+              "cm": 4
+            },
+            "kiwi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "bob": {
+              "lm": 0,
+              "cm": 0
+            },
+            "yes_zaggle": {
+              "lm": 0,
+              "cm": 0
+            },
+            "rbl": {
+              "lm": 0,
+              "cm": 0
+            }
+          }
+        },
+        {
+          "name": "INTROSPECT FINANCIAL SERVICE",
+          "lmt": 14,
+          "cmt": 32,
+          "banks": {
+            "au": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis_lic": {
+              "lm": 0,
+              "cm": 0
+            },
+            "hdfc": {
+              "lm": 14,
+              "cm": 32
+            },
+            "indus": {
+              "lm": 0,
+              "cm": 0
+            },
+            "sbi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "tata_neu": {
+              "lm": 0,
+              "cm": 0
+            },
+            "kiwi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "bob": {
+              "lm": 0,
+              "cm": 0
+            },
+            "yes_zaggle": {
+              "lm": 0,
+              "cm": 0
+            },
+            "rbl": {
+              "lm": 0,
+              "cm": 0
+            }
+          }
+        },
+        {
+          "name": "VIKAS D",
+          "lmt": 1,
+          "cmt": 1,
+          "banks": {
+            "au": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis_lic": {
+              "lm": 0,
+              "cm": 0
+            },
+            "hdfc": {
+              "lm": 0,
+              "cm": 0
+            },
+            "indus": {
+              "lm": 0,
+              "cm": 0
+            },
+            "sbi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "tata_neu": {
+              "lm": 0,
+              "cm": 0
+            },
+            "kiwi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "bob": {
+              "lm": 0,
+              "cm": 1
+            },
+            "yes_zaggle": {
+              "lm": 1,
+              "cm": 0
+            },
+            "rbl": {
+              "lm": 0,
+              "cm": 0
+            }
+          }
+        },
+        {
+          "name": "EXTRA",
+          "lmt": 3,
+          "cmt": 0,
+          "banks": {
+            "au": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis_lic": {
+              "lm": 0,
+              "cm": 0
+            },
+            "hdfc": {
+              "lm": 0,
+              "cm": 0
+            },
+            "indus": {
+              "lm": 0,
+              "cm": 0
+            },
+            "sbi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "tata_neu": {
+              "lm": 0,
+              "cm": 0
+            },
+            "kiwi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "bob": {
+              "lm": 3,
+              "cm": 0
+            },
+            "yes_zaggle": {
+              "lm": 0,
+              "cm": 0
+            },
+            "rbl": {
+              "lm": 0,
+              "cm": 0
+            }
+          }
+        },
+        {
+          "name": "MESHIYA HETALBEN TARUNKUMAR",
+          "lmt": 0,
+          "cmt": 11,
+          "banks": {
+            "au": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis_lic": {
+              "lm": 0,
+              "cm": 0
+            },
+            "hdfc": {
+              "lm": 0,
+              "cm": 0
+            },
+            "indus": {
+              "lm": 0,
+              "cm": 0
+            },
+            "sbi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "tata_neu": {
+              "lm": 0,
+              "cm": 0
+            },
+            "kiwi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "bob": {
+              "lm": 0,
+              "cm": 11
+            },
+            "yes_zaggle": {
+              "lm": 0,
+              "cm": 0
+            },
+            "rbl": {
+              "lm": 0,
+              "cm": 0
+            }
+          }
+        },
+        {
+          "name": "MILI PRADHAN",
+          "lmt": 14,
+          "cmt": 1,
+          "banks": {
+            "au": {
+              "lm": 1,
+              "cm": 0
+            },
+            "axis": {
+              "lm": 1,
+              "cm": 0
+            },
+            "axis_lic": {
+              "lm": 0,
+              "cm": 0
+            },
+            "hdfc": {
+              "lm": 2,
+              "cm": 0
+            },
+            "indus": {
+              "lm": 2,
+              "cm": 0
+            },
+            "sbi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "tata_neu": {
+              "lm": 0,
+              "cm": 0
+            },
+            "kiwi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "bob": {
+              "lm": 8,
+              "cm": 1
+            },
+            "yes_zaggle": {
+              "lm": 0,
+              "cm": 0
+            },
+            "rbl": {
+              "lm": 0,
+              "cm": 0
+            }
+          }
+        },
+        {
+          "name": "ANSH MANAGEMENT",
+          "lmt": 0,
+          "cmt": 0,
+          "banks": {
+            "au": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis_lic": {
+              "lm": 0,
+              "cm": 0
+            },
+            "hdfc": {
+              "lm": 0,
+              "cm": 0
+            },
+            "indus": {
+              "lm": 0,
+              "cm": 0
+            },
+            "sbi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "tata_neu": {
+              "lm": 0,
+              "cm": 0
+            },
+            "kiwi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "bob": {
+              "lm": 0,
+              "cm": 0
+            },
+            "yes_zaggle": {
+              "lm": 0,
+              "cm": 0
+            },
+            "rbl": {
+              "lm": 0,
+              "cm": 0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "manager_name": "VINAY PANDEY",
+      "partners": [
+        {
+          "name": "VINEET SHARMA",
+          "lmt": 4,
+          "cmt": 7,
+          "banks": {
+            "au": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis_lic": {
+              "lm": 0,
+              "cm": 0
+            },
+            "hdfc": {
+              "lm": 1,
+              "cm": 3
+            },
+            "indus": {
+              "lm": 0,
+              "cm": 0
+            },
+            "sbi": {
+              "lm": 3,
+              "cm": 0
+            },
+            "tata_neu": {
+              "lm": 0,
+              "cm": 0
+            },
+            "kiwi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "bob": {
+              "lm": 0,
+              "cm": 4
+            },
+            "yes_zaggle": {
+              "lm": 0,
+              "cm": 0
+            },
+            "rbl": {
+              "lm": 0,
+              "cm": 0
+            }
+          }
+        },
+        {
+          "name": "RIDHVIK FINANCIAL SERVICES",
+          "lmt": 113,
+          "cmt": 293,
+          "banks": {
+            "au": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis": {
+              "lm": 0,
+              "cm": 3
+            },
+            "axis_lic": {
+              "lm": 0,
+              "cm": 0
+            },
+            "hdfc": {
+              "lm": 0,
+              "cm": 0
+            },
+            "indus": {
+              "lm": 8,
+              "cm": 0
+            },
+            "sbi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "tata_neu": {
+              "lm": 36,
+              "cm": 18
+            },
+            "kiwi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "bob": {
+              "lm": 69,
+              "cm": 272
+            },
+            "yes_zaggle": {
+              "lm": 0,
+              "cm": 0
+            },
+            "rbl": {
+              "lm": 0,
+              "cm": 0
+            }
+          }
+        },
+        {
+          "name": "AYUSH",
+          "lmt": 5,
+          "cmt": 0,
+          "banks": {
+            "au": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis_lic": {
+              "lm": 0,
+              "cm": 0
+            },
+            "hdfc": {
+              "lm": 0,
+              "cm": 0
+            },
+            "indus": {
+              "lm": 5,
+              "cm": 0
+            },
+            "sbi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "tata_neu": {
+              "lm": 0,
+              "cm": 0
+            },
+            "kiwi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "bob": {
+              "lm": 0,
+              "cm": 0
+            },
+            "yes_zaggle": {
+              "lm": 0,
+              "cm": 0
+            },
+            "rbl": {
+              "lm": 0,
+              "cm": 0
+            }
+          }
+        },
+        {
+          "name": "EXTRA",
+          "lmt": 0,
+          "cmt": 0,
+          "banks": {
+            "au": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis_lic": {
+              "lm": 0,
+              "cm": 0
+            },
+            "hdfc": {
+              "lm": 0,
+              "cm": 0
+            },
+            "indus": {
+              "lm": 0,
+              "cm": 0
+            },
+            "sbi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "tata_neu": {
+              "lm": 0,
+              "cm": 0
+            },
+            "kiwi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "bob": {
+              "lm": 0,
+              "cm": 0
+            },
+            "yes_zaggle": {
+              "lm": 0,
+              "cm": 0
+            },
+            "rbl": {
+              "lm": 0,
+              "cm": 0
+            }
+          }
+        },
+        {
+          "name": "PRIYA CHAND",
+          "lmt": 0,
+          "cmt": 1,
+          "banks": {
+            "au": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis_lic": {
+              "lm": 0,
+              "cm": 0
+            },
+            "hdfc": {
+              "lm": 0,
+              "cm": 0
+            },
+            "indus": {
+              "lm": 2,
+              "cm": 1
+            },
+            "sbi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "tata_neu": {
+              "lm": 0,
+              "cm": 0
+            },
+            "kiwi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "bob": {
+              "lm": 0,
+              "cm": 0
+            },
+            "yes_zaggle": {
+              "lm": 0,
+              "cm": 0
+            },
+            "rbl": {
+              "lm": 0,
+              "cm": 0
+            }
+          }
+        },
+        {
+          "name": "AKSH CHOUHAN",
+          "lmt": 0,
+          "cmt": 48,
+          "banks": {
+            "au": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis_lic": {
+              "lm": 0,
+              "cm": 0
+            },
+            "hdfc": {
+              "lm": 0,
+              "cm": 0
+            },
+            "indus": {
+              "lm": 0,
+              "cm": 0
+            },
+            "sbi": {
+              "lm": 73,
+              "cm": 48
+            },
+            "tata_neu": {
+              "lm": 0,
+              "cm": 0
+            },
+            "kiwi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "bob": {
+              "lm": 0,
+              "cm": 0
+            },
+            "yes_zaggle": {
+              "lm": 0,
+              "cm": 0
+            },
+            "rbl": {
+              "lm": 0,
+              "cm": 0
+            }
+          }
+        },
+        {
+          "name": "KRISHNA",
+          "lmt": 9,
+          "cmt": 5,
+          "banks": {
+            "au": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis_lic": {
+              "lm": 0,
+              "cm": 0
+            },
+            "hdfc": {
+              "lm": 0,
+              "cm": 0
+            },
+            "indus": {
+              "lm": 0,
+              "cm": 0
+            },
+            "sbi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "tata_neu": {
+              "lm": 0,
+              "cm": 0
+            },
+            "kiwi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "bob": {
+              "lm": 9,
+              "cm": 5
+            },
+            "yes_zaggle": {
+              "lm": 0,
+              "cm": 0
+            },
+            "rbl": {
+              "lm": 0,
+              "cm": 0
+            }
+          }
+        },
+        {
+          "name": "UNIQE MONEY",
+          "lmt": 0,
+          "cmt": 49,
+          "banks": {
+            "au": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis_lic": {
+              "lm": 0,
+              "cm": 0
+            },
+            "hdfc": {
+              "lm": 0,
+              "cm": 0
+            },
+            "indus": {
+              "lm": 0,
+              "cm": 0
+            },
+            "sbi": {
+              "lm": 0,
+              "cm": 49
+            },
+            "tata_neu": {
+              "lm": 0,
+              "cm": 0
+            },
+            "kiwi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "bob": {
+              "lm": 0,
+              "cm": 0
+            },
+            "yes_zaggle": {
+              "lm": 0,
+              "cm": 0
+            },
+            "rbl": {
+              "lm": 0,
+              "cm": 0
+            }
+          }
+        },
+        {
+          "name": "ABHISHEK DUTTA",
+          "lmt": 0,
+          "cmt": 2,
+          "banks": {
+            "au": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis_lic": {
+              "lm": 0,
+              "cm": 0
+            },
+            "hdfc": {
+              "lm": 0,
+              "cm": 0
+            },
+            "indus": {
+              "lm": 0,
+              "cm": 2
+            },
+            "sbi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "tata_neu": {
+              "lm": 0,
+              "cm": 0
+            },
+            "kiwi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "bob": {
+              "lm": 0,
+              "cm": 0
+            },
+            "yes_zaggle": {
+              "lm": 0,
+              "cm": 0
+            },
+            "rbl": {
+              "lm": 0,
+              "cm": 0
+            }
+          }
+        },
+        {
+          "name": "FARMAN",
+          "lmt": 19,
+          "cmt": 14,
+          "banks": {
+            "au": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis_lic": {
+              "lm": 0,
+              "cm": 0
+            },
+            "hdfc": {
+              "lm": 7,
+              "cm": 12
+            },
+            "indus": {
+              "lm": 0,
+              "cm": 0
+            },
+            "sbi": {
+              "lm": 12,
+              "cm": 0
+            },
+            "tata_neu": {
+              "lm": 0,
+              "cm": 2
+            },
+            "kiwi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "bob": {
+              "lm": 0,
+              "cm": 0
+            },
+            "yes_zaggle": {
+              "lm": 0,
+              "cm": 0
+            },
+            "rbl": {
+              "lm": 0,
+              "cm": 0
+            }
+          }
+        },
+        {
+          "name": "SWATI",
+          "lmt": 0,
+          "cmt": 1,
+          "banks": {
+            "au": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis_lic": {
+              "lm": 0,
+              "cm": 0
+            },
+            "hdfc": {
+              "lm": 0,
+              "cm": 0
+            },
+            "indus": {
+              "lm": 0,
+              "cm": 0
+            },
+            "sbi": {
+              "lm": 0,
+              "cm": 1
+            },
+            "tata_neu": {
+              "lm": 0,
+              "cm": 0
+            },
+            "kiwi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "bob": {
+              "lm": 0,
+              "cm": 0
+            },
+            "yes_zaggle": {
+              "lm": 0,
+              "cm": 0
+            },
+            "rbl": {
+              "lm": 0,
+              "cm": 0
+            }
+          }
+        },
+        {
+          "name": "IMRAN",
+          "lmt": 9,
+          "cmt": 4,
+          "banks": {
+            "au": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis_lic": {
+              "lm": 0,
+              "cm": 0
+            },
+            "hdfc": {
+              "lm": 0,
+              "cm": 0
+            },
+            "indus": {
+              "lm": 9,
+              "cm": 4
+            },
+            "sbi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "tata_neu": {
+              "lm": 0,
+              "cm": 0
+            },
+            "kiwi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "bob": {
+              "lm": 0,
+              "cm": 0
+            },
+            "yes_zaggle": {
+              "lm": 0,
+              "cm": 0
+            },
+            "rbl": {
+              "lm": 0,
+              "cm": 0
+            }
+          }
+        },
+        {
+          "name": "SUNITA (BOOSTER SCORE SOLUTIONS PVT LTD)",
+          "lmt": 243,
+          "cmt": 187,
+          "banks": {
+            "au": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis": {
+              "lm": 11,
+              "cm": 10
+            },
+            "axis_lic": {
+              "lm": 0,
+              "cm": 0
+            },
+            "hdfc": {
+              "lm": 33,
+              "cm": 55
+            },
+            "indus": {
+              "lm": 1,
+              "cm": 1
+            },
+            "sbi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "tata_neu": {
+              "lm": 198,
+              "cm": 119
+            },
+            "kiwi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "bob": {
+              "lm": 0,
+              "cm": 0
+            },
+            "yes_zaggle": {
+              "lm": 0,
+              "cm": 0
+            },
+            "rbl": {
+              "lm": 0,
+              "cm": 2
+            }
+          }
+        },
+        {
+          "name": "ANUBHAV GUPTA",
+          "lmt": 98,
+          "cmt": 78,
+          "banks": {
+            "au": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis_lic": {
+              "lm": 0,
+              "cm": 0
+            },
+            "hdfc": {
+              "lm": 0,
+              "cm": 17
+            },
+            "indus": {
+              "lm": 0,
+              "cm": 0
+            },
+            "sbi": {
+              "lm": 98,
+              "cm": 61
+            },
+            "tata_neu": {
+              "lm": 0,
+              "cm": 0
+            },
+            "kiwi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "bob": {
+              "lm": 0,
+              "cm": 0
+            },
+            "yes_zaggle": {
+              "lm": 0,
+              "cm": 0
+            },
+            "rbl": {
+              "lm": 0,
+              "cm": 0
+            }
+          }
+        },
+        {
+          "name": "SNEHLATA",
+          "lmt": 0,
+          "cmt": 41,
+          "banks": {
+            "au": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis_lic": {
+              "lm": 0,
+              "cm": 0
+            },
+            "hdfc": {
+              "lm": 0,
+              "cm": 0
+            },
+            "indus": {
+              "lm": 0,
+              "cm": 0
+            },
+            "sbi": {
+              "lm": 0,
+              "cm": 41
+            },
+            "tata_neu": {
+              "lm": 0,
+              "cm": 0
+            },
+            "kiwi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "bob": {
+              "lm": 0,
+              "cm": 0
+            },
+            "yes_zaggle": {
+              "lm": 0,
+              "cm": 0
+            },
+            "rbl": {
+              "lm": 0,
+              "cm": 0
+            }
+          }
+        },
+        {
+          "name": "FINSPARK",
+          "lmt": 0,
+          "cmt": 0,
+          "banks": {
+            "au": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis_lic": {
+              "lm": 0,
+              "cm": 0
+            },
+            "hdfc": {
+              "lm": 0,
+              "cm": 0
+            },
+            "indus": {
+              "lm": 0,
+              "cm": 0
+            },
+            "sbi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "tata_neu": {
+              "lm": 0,
+              "cm": 0
+            },
+            "kiwi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "bob": {
+              "lm": 0,
+              "cm": 0
+            },
+            "yes_zaggle": {
+              "lm": 0,
+              "cm": 0
+            },
+            "rbl": {
+              "lm": 0,
+              "cm": 0
+            }
+          }
+        },
+        {
+          "name": "ARUN KUMAR",
+          "lmt": 88,
+          "cmt": 82,
+          "banks": {
+            "au": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis": {
+              "lm": 0,
+              "cm": 11
+            },
+            "axis_lic": {
+              "lm": 0,
+              "cm": 0
+            },
+            "hdfc": {
+              "lm": 0,
+              "cm": 0
+            },
+            "indus": {
+              "lm": 0,
+              "cm": 0
+            },
+            "sbi": {
+              "lm": 88,
+              "cm": 71
+            },
+            "tata_neu": {
+              "lm": 0,
+              "cm": 0
+            },
+            "kiwi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "bob": {
+              "lm": 0,
+              "cm": 0
+            },
+            "yes_zaggle": {
+              "lm": 0,
+              "cm": 0
+            },
+            "rbl": {
+              "lm": 0,
+              "cm": 0
+            }
+          }
+        },
+        {
+          "name": "ARMAN RANJAN",
+          "lmt": 7,
+          "cmt": 10,
+          "banks": {
+            "au": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis_lic": {
+              "lm": 0,
+              "cm": 0
+            },
+            "hdfc": {
+              "lm": 0,
+              "cm": 0
+            },
+            "indus": {
+              "lm": 0,
+              "cm": 0
+            },
+            "sbi": {
+              "lm": 7,
+              "cm": 10
+            },
+            "tata_neu": {
+              "lm": 0,
+              "cm": 0
+            },
+            "kiwi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "bob": {
+              "lm": 0,
+              "cm": 0
+            },
+            "yes_zaggle": {
+              "lm": 0,
+              "cm": 0
+            },
+            "rbl": {
+              "lm": 0,
+              "cm": 0
+            }
+          }
+        },
+        {
+          "name": "BHARAT ENTERPRISES (PATHWAY SOLUTION)",
+          "lmt": 222,
+          "cmt": 393,
+          "banks": {
+            "au": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis": {
+              "lm": 0,
+              "cm": 33
+            },
+            "axis_lic": {
+              "lm": 12,
+              "cm": 0
+            },
+            "hdfc": {
+              "lm": 8,
+              "cm": 94
+            },
+            "indus": {
+              "lm": 3,
+              "cm": 7
+            },
+            "sbi": {
+              "lm": 170,
+              "cm": 145
+            },
+            "tata_neu": {
+              "lm": 2,
+              "cm": 2
+            },
+            "kiwi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "bob": {
+              "lm": 27,
+              "cm": 112
+            },
+            "yes_zaggle": {
+              "lm": 0,
+              "cm": 0
+            },
+            "rbl": {
+              "lm": 0,
+              "cm": 0
+            }
+          }
+        },
+        {
+          "name": "CAPITAL CALL SERVICE",
+          "lmt": 2,
+          "cmt": 0,
+          "banks": {
+            "au": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis_lic": {
+              "lm": 0,
+              "cm": 0
+            },
+            "hdfc": {
+              "lm": 0,
+              "cm": 0
+            },
+            "indus": {
+              "lm": 2,
+              "cm": 0
+            },
+            "sbi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "tata_neu": {
+              "lm": 0,
+              "cm": 0
+            },
+            "kiwi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "bob": {
+              "lm": 0,
+              "cm": 0
+            },
+            "yes_zaggle": {
+              "lm": 0,
+              "cm": 0
+            },
+            "rbl": {
+              "lm": 0,
+              "cm": 0
+            }
+          }
+        },
+        {
+          "name": "CARDS EXPERTS",
+          "lmt": 19,
+          "cmt": 93,
+          "banks": {
+            "au": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis": {
+              "lm": 0,
+              "cm": 66
+            },
+            "axis_lic": {
+              "lm": 0,
+              "cm": 0
+            },
+            "hdfc": {
+              "lm": 7,
+              "cm": 0
+            },
+            "indus": {
+              "lm": 0,
+              "cm": 0
+            },
+            "sbi": {
+              "lm": 12,
+              "cm": 25
+            },
+            "tata_neu": {
+              "lm": 0,
+              "cm": 0
+            },
+            "kiwi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "bob": {
+              "lm": 0,
+              "cm": 2
+            },
+            "yes_zaggle": {
+              "lm": 0,
+              "cm": 0
+            },
+            "rbl": {
+              "lm": 0,
+              "cm": 0
+            }
+          }
+        },
+        {
+          "name": "DEBSTER MEDIA PRIVATE LIMITED",
+          "lmt": 3,
+          "cmt": 3,
+          "banks": {
+            "au": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis_lic": {
+              "lm": 0,
+              "cm": 0
+            },
+            "hdfc": {
+              "lm": 0,
+              "cm": 0
+            },
+            "indus": {
+              "lm": 3,
+              "cm": 3
+            },
+            "sbi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "tata_neu": {
+              "lm": 0,
+              "cm": 0
+            },
+            "kiwi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "bob": {
+              "lm": 0,
+              "cm": 0
+            },
+            "yes_zaggle": {
+              "lm": 0,
+              "cm": 0
+            },
+            "rbl": {
+              "lm": 0,
+              "cm": 0
+            }
+          }
+        },
+        {
+          "name": "ARPAN TYAGI",
+          "lmt": 0,
+          "cmt": 6,
+          "banks": {
+            "au": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis_lic": {
+              "lm": 0,
+              "cm": 0
+            },
+            "hdfc": {
+              "lm": 0,
+              "cm": 0
+            },
+            "indus": {
+              "lm": 0,
+              "cm": 0
+            },
+            "sbi": {
+              "lm": 0,
+              "cm": 6
+            },
+            "tata_neu": {
+              "lm": 0,
+              "cm": 0
+            },
+            "kiwi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "bob": {
+              "lm": 0,
+              "cm": 0
+            },
+            "yes_zaggle": {
+              "lm": 0,
+              "cm": 0
+            },
+            "rbl": {
+              "lm": 0,
+              "cm": 0
+            }
+          }
+        },
+        {
+          "name": "KHUSHBOO SINGH",
+          "lmt": 50,
+          "cmt": 15,
+          "banks": {
+            "au": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis_lic": {
+              "lm": 0,
+              "cm": 0
+            },
+            "hdfc": {
+              "lm": 0,
+              "cm": 0
+            },
+            "indus": {
+              "lm": 0,
+              "cm": 1
+            },
+            "sbi": {
+              "lm": 50,
+              "cm": 14
+            },
+            "tata_neu": {
+              "lm": 0,
+              "cm": 0
+            },
+            "kiwi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "bob": {
+              "lm": 0,
+              "cm": 0
+            },
+            "yes_zaggle": {
+              "lm": 0,
+              "cm": 0
+            },
+            "rbl": {
+              "lm": 0,
+              "cm": 0
+            }
+          }
+        },
+        {
+          "name": "RAHUL",
+          "lmt": 0,
+          "cmt": 25,
+          "banks": {
+            "au": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis": {
+              "lm": 0,
+              "cm": 2
+            },
+            "axis_lic": {
+              "lm": 0,
+              "cm": 0
+            },
+            "hdfc": {
+              "lm": 0,
+              "cm": 0
+            },
+            "indus": {
+              "lm": 0,
+              "cm": 0
+            },
+            "sbi": {
+              "lm": 1,
+              "cm": 18
+            },
+            "tata_neu": {
+              "lm": 0,
+              "cm": 0
+            },
+            "kiwi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "bob": {
+              "lm": 0,
+              "cm": 5
+            },
+            "yes_zaggle": {
+              "lm": 0,
+              "cm": 0
+            },
+            "rbl": {
+              "lm": 0,
+              "cm": 0
+            }
+          }
+        },
+        {
+          "name": "AMIT KUMAR SHARMA",
+          "lmt": 120,
+          "cmt": 87,
+          "banks": {
+            "au": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis_lic": {
+              "lm": 0,
+              "cm": 0
+            },
+            "hdfc": {
+              "lm": 0,
+              "cm": 0
+            },
+            "indus": {
+              "lm": 0,
+              "cm": 0
+            },
+            "sbi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "tata_neu": {
+              "lm": 0,
+              "cm": 0
+            },
+            "kiwi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "bob": {
+              "lm": 120,
+              "cm": 87
+            },
+            "yes_zaggle": {
+              "lm": 0,
+              "cm": 0
+            },
+            "rbl": {
+              "lm": 0,
+              "cm": 0
+            }
+          }
+        },
+        {
+          "name": "MONEY MART",
+          "lmt": 7,
+          "cmt": 12,
+          "banks": {
+            "au": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis_lic": {
+              "lm": 0,
+              "cm": 0
+            },
+            "hdfc": {
+              "lm": 0,
+              "cm": 0
+            },
+            "indus": {
+              "lm": 0,
+              "cm": 0
+            },
+            "sbi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "tata_neu": {
+              "lm": 0,
+              "cm": 0
+            },
+            "kiwi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "bob": {
+              "lm": 7,
+              "cm": 12
+            },
+            "yes_zaggle": {
+              "lm": 0,
+              "cm": 0
+            },
+            "rbl": {
+              "lm": 0,
+              "cm": 0
+            }
+          }
+        },
+        {
+          "name": "NEHA SAINI",
+          "lmt": 16,
+          "cmt": 18,
+          "banks": {
+            "au": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis_lic": {
+              "lm": 0,
+              "cm": 0
+            },
+            "hdfc": {
+              "lm": 0,
+              "cm": 0
+            },
+            "indus": {
+              "lm": 0,
+              "cm": 0
+            },
+            "sbi": {
+              "lm": 16,
+              "cm": 18
+            },
+            "tata_neu": {
+              "lm": 0,
+              "cm": 0
+            },
+            "kiwi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "bob": {
+              "lm": 0,
+              "cm": 0
+            },
+            "yes_zaggle": {
+              "lm": 0,
+              "cm": 0
+            },
+            "rbl": {
+              "lm": 0,
+              "cm": 0
+            }
+          }
+        },
+        {
+          "name": "S & P FINANCIAL SOLUTIONS",
+          "lmt": 51,
+          "cmt": 68,
+          "banks": {
+            "au": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis": {
+              "lm": 0,
+              "cm": 4
+            },
+            "axis_lic": {
+              "lm": 0,
+              "cm": 0
+            },
+            "hdfc": {
+              "lm": 3,
+              "cm": 8
+            },
+            "indus": {
+              "lm": 0,
+              "cm": 0
+            },
+            "sbi": {
+              "lm": 8,
+              "cm": 15
+            },
+            "tata_neu": {
+              "lm": 0,
+              "cm": 1
+            },
+            "kiwi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "bob": {
+              "lm": 40,
+              "cm": 40
+            },
+            "yes_zaggle": {
+              "lm": 0,
+              "cm": 0
+            },
+            "rbl": {
+              "lm": 0,
+              "cm": 0
+            }
+          }
+        },
+        {
+          "name": "SUKRITI MANDAL",
+          "lmt": 76,
+          "cmt": 0,
+          "banks": {
+            "au": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis_lic": {
+              "lm": 0,
+              "cm": 0
+            },
+            "hdfc": {
+              "lm": 0,
+              "cm": 0
+            },
+            "indus": {
+              "lm": 0,
+              "cm": 0
+            },
+            "sbi": {
+              "lm": 76,
+              "cm": 0
+            },
+            "tata_neu": {
+              "lm": 0,
+              "cm": 0
+            },
+            "kiwi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "bob": {
+              "lm": 0,
+              "cm": 0
+            },
+            "yes_zaggle": {
+              "lm": 0,
+              "cm": 0
+            },
+            "rbl": {
+              "lm": 0,
+              "cm": 0
+            }
+          }
+        },
+        {
+          "name": "SANJAY SAINI",
+          "lmt": 58,
+          "cmt": 51,
+          "banks": {
+            "au": {
+              "lm": 0,
+              "cm": 1
+            },
+            "axis": {
+              "lm": 19,
+              "cm": 20
+            },
+            "axis_lic": {
+              "lm": 0,
+              "cm": 0
+            },
+            "hdfc": {
+              "lm": 12,
+              "cm": 13
+            },
+            "indus": {
+              "lm": 4,
+              "cm": 1
+            },
+            "sbi": {
+              "lm": 9,
+              "cm": 10
+            },
+            "tata_neu": {
+              "lm": 0,
+              "cm": 0
+            },
+            "kiwi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "bob": {
+              "lm": 14,
+              "cm": 6
+            },
+            "yes_zaggle": {
+              "lm": 0,
+              "cm": 0
+            },
+            "rbl": {
+              "lm": 0,
+              "cm": 0
+            }
+          }
+        },
+        {
+          "name": "TEJPAL SINGH",
+          "lmt": 0,
+          "cmt": 0,
+          "banks": {
+            "au": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis_lic": {
+              "lm": 0,
+              "cm": 0
+            },
+            "hdfc": {
+              "lm": 0,
+              "cm": 0
+            },
+            "indus": {
+              "lm": 0,
+              "cm": 0
+            },
+            "sbi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "tata_neu": {
+              "lm": 0,
+              "cm": 0
+            },
+            "kiwi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "bob": {
+              "lm": 0,
+              "cm": 0
+            },
+            "yes_zaggle": {
+              "lm": 0,
+              "cm": 0
+            },
+            "rbl": {
+              "lm": 0,
+              "cm": 0
+            }
+          }
+        },
+        {
+          "name": "SKY HEIGHTS OUTSOURCING SOLUTIONS",
+          "lmt": 111,
+          "cmt": 161,
+          "banks": {
+            "au": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis_lic": {
+              "lm": 0,
+              "cm": 0
+            },
+            "hdfc": {
+              "lm": 86,
+              "cm": 92
+            },
+            "indus": {
+              "lm": 0,
+              "cm": 0
+            },
+            "sbi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "tata_neu": {
+              "lm": 25,
+              "cm": 69
+            },
+            "kiwi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "bob": {
+              "lm": 0,
+              "cm": 0
+            },
+            "yes_zaggle": {
+              "lm": 0,
+              "cm": 0
+            },
+            "rbl": {
+              "lm": 0,
+              "cm": 0
+            }
+          }
+        },
+        {
+          "name": "PREETAM",
+          "lmt": 4,
+          "cmt": 13,
+          "banks": {
+            "au": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis_lic": {
+              "lm": 0,
+              "cm": 0
+            },
+            "hdfc": {
+              "lm": 0,
+              "cm": 0
+            },
+            "indus": {
+              "lm": 0,
+              "cm": 0
+            },
+            "sbi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "tata_neu": {
+              "lm": 0,
+              "cm": 0
+            },
+            "kiwi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "bob": {
+              "lm": 4,
+              "cm": 13
+            },
+            "yes_zaggle": {
+              "lm": 0,
+              "cm": 0
+            },
+            "rbl": {
+              "lm": 0,
+              "cm": 0
+            }
+          }
+        },
+        {
+          "name": "RN CARD EXPERTISE PRIVATE LIMITED",
+          "lmt": 113,
+          "cmt": 0,
+          "banks": {
+            "au": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis_lic": {
+              "lm": 0,
+              "cm": 0
+            },
+            "hdfc": {
+              "lm": 0,
+              "cm": 0
+            },
+            "indus": {
+              "lm": 0,
+              "cm": 0
+            },
+            "sbi": {
+              "lm": 113,
+              "cm": 0
+            },
+            "tata_neu": {
+              "lm": 0,
+              "cm": 0
+            },
+            "kiwi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "bob": {
+              "lm": 0,
+              "cm": 0
+            },
+            "yes_zaggle": {
+              "lm": 0,
+              "cm": 0
+            },
+            "rbl": {
+              "lm": 0,
+              "cm": 0
+            }
+          }
+        },
+        {
+          "name": "ZAHID",
+          "lmt": 38,
+          "cmt": 18,
+          "banks": {
+            "au": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis_lic": {
+              "lm": 0,
+              "cm": 0
+            },
+            "hdfc": {
+              "lm": 0,
+              "cm": 0
+            },
+            "indus": {
+              "lm": 0,
+              "cm": 0
+            },
+            "sbi": {
+              "lm": 38,
+              "cm": 18
+            },
+            "tata_neu": {
+              "lm": 0,
+              "cm": 0
+            },
+            "kiwi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "bob": {
+              "lm": 0,
+              "cm": 0
+            },
+            "yes_zaggle": {
+              "lm": 0,
+              "cm": 0
+            },
+            "rbl": {
+              "lm": 0,
+              "cm": 0
+            }
+          }
+        },
+        {
+          "name": "VIKAS",
+          "lmt": 140,
+          "cmt": 7,
+          "banks": {
+            "au": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis_lic": {
+              "lm": 0,
+              "cm": 0
+            },
+            "hdfc": {
+              "lm": 0,
+              "cm": 0
+            },
+            "indus": {
+              "lm": 0,
+              "cm": 0
+            },
+            "sbi": {
+              "lm": 140,
+              "cm": 7
+            },
+            "tata_neu": {
+              "lm": 0,
+              "cm": 0
+            },
+            "kiwi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "bob": {
+              "lm": 0,
+              "cm": 0
+            },
+            "yes_zaggle": {
+              "lm": 0,
+              "cm": 0
+            },
+            "rbl": {
+              "lm": 0,
+              "cm": 0
+            }
+          }
+        },
+        {
+          "name": "VARSHA RANI",
+          "lmt": 48,
+          "cmt": 44,
+          "banks": {
+            "au": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis_lic": {
+              "lm": 0,
+              "cm": 0
+            },
+            "hdfc": {
+              "lm": 0,
+              "cm": 0
+            },
+            "indus": {
+              "lm": 0,
+              "cm": 0
+            },
+            "sbi": {
+              "lm": 3,
+              "cm": 1
+            },
+            "tata_neu": {
+              "lm": 0,
+              "cm": 0
+            },
+            "kiwi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "bob": {
+              "lm": 45,
+              "cm": 43
+            },
+            "yes_zaggle": {
+              "lm": 0,
+              "cm": 0
+            },
+            "rbl": {
+              "lm": 0,
+              "cm": 0
+            }
+          }
+        },
+        {
+          "name": "SANTOSH KUMAR SHARMA",
+          "lmt": 2,
+          "cmt": 21,
+          "banks": {
+            "au": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis_lic": {
+              "lm": 0,
+              "cm": 0
+            },
+            "hdfc": {
+              "lm": 0,
+              "cm": 0
+            },
+            "indus": {
+              "lm": 0,
+              "cm": 0
+            },
+            "sbi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "tata_neu": {
+              "lm": 2,
+              "cm": 3
+            },
+            "kiwi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "bob": {
+              "lm": 0,
+              "cm": 18
+            },
+            "yes_zaggle": {
+              "lm": 0,
+              "cm": 0
+            },
+            "rbl": {
+              "lm": 0,
+              "cm": 0
+            }
+          }
+        },
+        {
+          "name": "SHRESHREY CARD SERVICES PRIVATE LIMITED",
+          "lmt": 6,
+          "cmt": 30,
+          "banks": {
+            "au": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis_lic": {
+              "lm": 0,
+              "cm": 0
+            },
+            "hdfc": {
+              "lm": 0,
+              "cm": 0
+            },
+            "indus": {
+              "lm": 0,
+              "cm": 0
+            },
+            "sbi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "tata_neu": {
+              "lm": 0,
+              "cm": 0
+            },
+            "kiwi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "bob": {
+              "lm": 0,
+              "cm": 0
+            },
+            "yes_zaggle": {
+              "lm": 6,
+              "cm": 30
+            },
+            "rbl": {
+              "lm": 0,
+              "cm": 0
+            }
+          }
+        },
+        {
+          "name": "UMA SINGH ( SHIVI CARDS SERVICES)",
+          "lmt": 119,
+          "cmt": 274,
+          "banks": {
+            "au": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis": {
+              "lm": 14,
+              "cm": 0
+            },
+            "axis_lic": {
+              "lm": 0,
+              "cm": 0
+            },
+            "hdfc": {
+              "lm": 0,
+              "cm": 0
+            },
+            "indus": {
+              "lm": 5,
+              "cm": 2
+            },
+            "sbi": {
+              "lm": 0,
+              "cm": 1
+            },
+            "tata_neu": {
+              "lm": 0,
+              "cm": 0
+            },
+            "kiwi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "bob": {
+              "lm": 100,
+              "cm": 261
+            },
+            "yes_zaggle": {
+              "lm": 0,
+              "cm": 0
+            },
+            "rbl": {
+              "lm": 0,
+              "cm": 10
+            }
+          }
+        },
+        {
+          "name": "RUPI BAZAAR FINTECH PVT LTD",
+          "lmt": 4,
+          "cmt": 5,
+          "banks": {
+            "au": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis_lic": {
+              "lm": 0,
+              "cm": 0
+            },
+            "hdfc": {
+              "lm": 0,
+              "cm": 0
+            },
+            "indus": {
+              "lm": 4,
+              "cm": 5
+            },
+            "sbi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "tata_neu": {
+              "lm": 0,
+              "cm": 0
+            },
+            "kiwi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "bob": {
+              "lm": 0,
+              "cm": 0
+            },
+            "yes_zaggle": {
+              "lm": 0,
+              "cm": 0
+            },
+            "rbl": {
+              "lm": 0,
+              "cm": 0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "manager_name": "ALKESH SHUKLA",
+      "partners": [
+        {
+          "name": "ABHISHEK CHANYAL",
+          "lmt": 0,
+          "cmt": 20,
+          "banks": {
+            "au": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis_lic": {
+              "lm": 0,
+              "cm": 0
+            },
+            "hdfc": {
+              "lm": 0,
+              "cm": 13
+            },
+            "indus": {
+              "lm": 0,
+              "cm": 0
+            },
+            "sbi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "tata_neu": {
+              "lm": 0,
+              "cm": 5
+            },
+            "kiwi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "bob": {
+              "lm": 0,
+              "cm": 2
+            },
+            "yes_zaggle": {
+              "lm": 0,
+              "cm": 0
+            },
+            "rbl": {
+              "lm": 0,
+              "cm": 0
+            }
+          }
+        },
+        {
+          "name": "MADHU YADAV",
+          "lmt": 1,
+          "cmt": 3,
+          "banks": {
+            "au": {
+              "lm": 0,
+              "cm": 1
+            },
+            "axis": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis_lic": {
+              "lm": 0,
+              "cm": 0
+            },
+            "hdfc": {
+              "lm": 1,
+              "cm": 2
+            },
+            "indus": {
+              "lm": 0,
+              "cm": 0
+            },
+            "sbi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "tata_neu": {
+              "lm": 0,
+              "cm": 0
+            },
+            "kiwi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "bob": {
+              "lm": 0,
+              "cm": 0
+            },
+            "yes_zaggle": {
+              "lm": 0,
+              "cm": 0
+            },
+            "rbl": {
+              "lm": 0,
+              "cm": 0
+            }
+          }
+        },
+        {
+          "name": "RITU SHUKLA",
+          "lmt": 31,
+          "cmt": 33,
+          "banks": {
+            "au": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis_lic": {
+              "lm": 0,
+              "cm": 0
+            },
+            "hdfc": {
+              "lm": 26,
+              "cm": 26
+            },
+            "indus": {
+              "lm": 2,
+              "cm": 0
+            },
+            "sbi": {
+              "lm": 3,
+              "cm": 0
+            },
+            "tata_neu": {
+              "lm": 0,
+              "cm": 1
+            },
+            "kiwi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "bob": {
+              "lm": 0,
+              "cm": 6
+            },
+            "yes_zaggle": {
+              "lm": 0,
+              "cm": 0
+            },
+            "rbl": {
+              "lm": 0,
+              "cm": 0
+            }
+          }
+        },
+        {
+          "name": "ZAINAB NADEEM",
+          "lmt": 3,
+          "cmt": 0,
+          "banks": {
+            "au": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis_lic": {
+              "lm": 0,
+              "cm": 0
+            },
+            "hdfc": {
+              "lm": 2,
+              "cm": 0
+            },
+            "indus": {
+              "lm": 0,
+              "cm": 0
+            },
+            "sbi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "tata_neu": {
+              "lm": 0,
+              "cm": 0
+            },
+            "kiwi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "bob": {
+              "lm": 1,
+              "cm": 0
+            },
+            "yes_zaggle": {
+              "lm": 0,
+              "cm": 0
+            },
+            "rbl": {
+              "lm": 0,
+              "cm": 0
+            }
+          }
+        },
+        {
+          "name": "UPENDRA KUMAR SINGH",
+          "lmt": 6,
+          "cmt": 1,
+          "banks": {
+            "au": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis": {
+              "lm": 6,
+              "cm": 1
+            },
+            "axis_lic": {
+              "lm": 0,
+              "cm": 0
+            },
+            "hdfc": {
+              "lm": 0,
+              "cm": 0
+            },
+            "indus": {
+              "lm": 0,
+              "cm": 0
+            },
+            "sbi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "tata_neu": {
+              "lm": 0,
+              "cm": 0
+            },
+            "kiwi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "bob": {
+              "lm": 0,
+              "cm": 0
+            },
+            "yes_zaggle": {
+              "lm": 0,
+              "cm": 0
+            },
+            "rbl": {
+              "lm": 0,
+              "cm": 0
+            }
+          }
+        },
+        {
+          "name": "VIJAY RASTOGI",
+          "lmt": 2,
+          "cmt": 0,
+          "banks": {
+            "au": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis_lic": {
+              "lm": 0,
+              "cm": 0
+            },
+            "hdfc": {
+              "lm": 2,
+              "cm": 0
+            },
+            "indus": {
+              "lm": 0,
+              "cm": 0
+            },
+            "sbi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "tata_neu": {
+              "lm": 0,
+              "cm": 0
+            },
+            "kiwi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "bob": {
+              "lm": 0,
+              "cm": 0
+            },
+            "yes_zaggle": {
+              "lm": 0,
+              "cm": 0
+            },
+            "rbl": {
+              "lm": 0,
+              "cm": 0
+            }
+          }
+        },
+        {
+          "name": "VIPIN KUMAR TIWARI",
+          "lmt": 35,
+          "cmt": 1,
+          "banks": {
+            "au": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis_lic": {
+              "lm": 0,
+              "cm": 0
+            },
+            "hdfc": {
+              "lm": 35,
+              "cm": 1
+            },
+            "indus": {
+              "lm": 0,
+              "cm": 0
+            },
+            "sbi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "tata_neu": {
+              "lm": 0,
+              "cm": 0
+            },
+            "kiwi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "bob": {
+              "lm": 0,
+              "cm": 0
+            },
+            "yes_zaggle": {
+              "lm": 0,
+              "cm": 0
+            },
+            "rbl": {
+              "lm": 0,
+              "cm": 0
+            }
+          }
+        }
+      ]
+    },
+    {
+      "manager_name": "ZEESHAN HAIDER",
+      "partners": [
+        {
+          "name": "ZEESHAN",
+          "lmt": 99,
+          "cmt": 0,
+          "banks": {
+            "au": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis_lic": {
+              "lm": 0,
+              "cm": 0
+            },
+            "hdfc": {
+              "lm": 0,
+              "cm": 0
+            },
+            "indus": {
+              "lm": 0,
+              "cm": 0
+            },
+            "sbi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "tata_neu": {
+              "lm": 0,
+              "cm": 0
+            },
+            "kiwi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "bob": {
+              "lm": 99,
+              "cm": 0
+            },
+            "yes_zaggle": {
+              "lm": 0,
+              "cm": 0
+            },
+            "rbl": {
+              "lm": 0,
+              "cm": 0
+            }
+          }
+        },
+        {
+          "name": "AFSANA BEGUM/AMIRUL",
+          "lmt": 4,
+          "cmt": 33,
+          "banks": {
+            "au": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis": {
+              "lm": 0,
+              "cm": 3
+            },
+            "axis_lic": {
+              "lm": 0,
+              "cm": 0
+            },
+            "hdfc": {
+              "lm": 4,
+              "cm": 26
+            },
+            "indus": {
+              "lm": 0,
+              "cm": 0
+            },
+            "sbi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "tata_neu": {
+              "lm": 0,
+              "cm": 0
+            },
+            "kiwi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "bob": {
+              "lm": 0,
+              "cm": 4
+            },
+            "yes_zaggle": {
+              "lm": 0,
+              "cm": 0
+            },
+            "rbl": {
+              "lm": 0,
+              "cm": 0
+            }
+          }
+        },
+        {
+          "name": "ADVENTURIA THRILL INDIA PRIVATE LIMITED",
+          "lmt": 96,
+          "cmt": 151,
+          "banks": {
+            "au": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis_lic": {
+              "lm": 0,
+              "cm": 0
+            },
+            "hdfc": {
+              "lm": 0,
+              "cm": 0
+            },
+            "indus": {
+              "lm": 0,
+              "cm": 0
+            },
+            "sbi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "tata_neu": {
+              "lm": 0,
+              "cm": 0
+            },
+            "kiwi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "bob": {
+              "lm": 96,
+              "cm": 147
+            },
+            "yes_zaggle": {
+              "lm": 0,
+              "cm": 1
+            },
+            "rbl": {
+              "lm": 0,
+              "cm": 3
+            }
+          }
+        },
+        {
+          "name": "CREDITLO BUSINESS SOLUTIONS",
+          "lmt": 11,
+          "cmt": 25,
+          "banks": {
+            "au": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis_lic": {
+              "lm": 0,
+              "cm": 0
+            },
+            "hdfc": {
+              "lm": 0,
+              "cm": 0
+            },
+            "indus": {
+              "lm": 0,
+              "cm": 0
+            },
+            "sbi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "tata_neu": {
+              "lm": 6,
+              "cm": 20
+            },
+            "kiwi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "bob": {
+              "lm": 5,
+              "cm": 5
+            },
+            "yes_zaggle": {
+              "lm": 0,
+              "cm": 0
+            },
+            "rbl": {
+              "lm": 0,
+              "cm": 0
+            }
+          }
+        },
+        {
+          "name": "SALEEM",
+          "lmt": 668,
+          "cmt": 1803,
+          "banks": {
+            "au": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis_lic": {
+              "lm": 0,
+              "cm": 0
+            },
+            "hdfc": {
+              "lm": 204,
+              "cm": 885
+            },
+            "indus": {
+              "lm": 0,
+              "cm": 0
+            },
+            "sbi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "tata_neu": {
+              "lm": 464,
+              "cm": 918
+            },
+            "kiwi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "bob": {
+              "lm": 0,
+              "cm": 0
+            },
+            "yes_zaggle": {
+              "lm": 0,
+              "cm": 0
+            },
+            "rbl": {
+              "lm": 0,
+              "cm": 0
+            }
+          }
+        },
+        {
+          "name": "EXTRA",
+          "lmt": 0,
+          "cmt": 0,
+          "banks": {
+            "au": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis_lic": {
+              "lm": 0,
+              "cm": 0
+            },
+            "hdfc": {
+              "lm": 0,
+              "cm": 0
+            },
+            "indus": {
+              "lm": 0,
+              "cm": 0
+            },
+            "sbi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "tata_neu": {
+              "lm": 0,
+              "cm": 0
+            },
+            "kiwi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "bob": {
+              "lm": 0,
+              "cm": 0
+            },
+            "yes_zaggle": {
+              "lm": 0,
+              "cm": 0
+            },
+            "rbl": {
+              "lm": 0,
+              "cm": 0
+            }
+          }
+        },
+        {
+          "name": "CREDBAE",
+          "lmt": 2,
+          "cmt": 1,
+          "banks": {
+            "au": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis": {
+              "lm": 1,
+              "cm": 0
+            },
+            "axis_lic": {
+              "lm": 0,
+              "cm": 0
+            },
+            "hdfc": {
+              "lm": 1,
+              "cm": 0
+            },
+            "indus": {
+              "lm": 0,
+              "cm": 0
+            },
+            "sbi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "tata_neu": {
+              "lm": 0,
+              "cm": 0
+            },
+            "kiwi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "bob": {
+              "lm": 0,
+              "cm": 1
+            },
+            "yes_zaggle": {
+              "lm": 0,
+              "cm": 0
+            },
+            "rbl": {
+              "lm": 0,
+              "cm": 0
+            }
+          }
+        },
+        {
+          "name": "BHUVNESH",
+          "lmt": 0,
+          "cmt": 10,
+          "banks": {
+            "au": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis_lic": {
+              "lm": 0,
+              "cm": 0
+            },
+            "hdfc": {
+              "lm": 0,
+              "cm": 0
+            },
+            "indus": {
+              "lm": 0,
+              "cm": 0
+            },
+            "sbi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "tata_neu": {
+              "lm": 0,
+              "cm": 0
+            },
+            "kiwi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "bob": {
+              "lm": 0,
+              "cm": 10
+            },
+            "yes_zaggle": {
+              "lm": 0,
+              "cm": 0
+            },
+            "rbl": {
+              "lm": 0,
+              "cm": 0
+            }
+          }
+        },
+        {
+          "name": "SWATI (ZEESHAN)",
+          "lmt": 0,
+          "cmt": 2,
+          "banks": {
+            "au": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis_lic": {
+              "lm": 0,
+              "cm": 0
+            },
+            "hdfc": {
+              "lm": 0,
+              "cm": 0
+            },
+            "indus": {
+              "lm": 0,
+              "cm": 0
+            },
+            "sbi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "tata_neu": {
+              "lm": 0,
+              "cm": 0
+            },
+            "kiwi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "bob": {
+              "lm": 0,
+              "cm": 2
+            },
+            "yes_zaggle": {
+              "lm": 0,
+              "cm": 0
+            },
+            "rbl": {
+              "lm": 0,
+              "cm": 0
+            }
+          }
+        },
+        {
+          "name": "LAKSHAY RATHORE",
+          "lmt": 2,
+          "cmt": 0,
+          "banks": {
+            "au": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis_lic": {
+              "lm": 0,
+              "cm": 0
+            },
+            "hdfc": {
+              "lm": 0,
+              "cm": 0
+            },
+            "indus": {
+              "lm": 2,
+              "cm": 0
+            },
+            "sbi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "tata_neu": {
+              "lm": 0,
+              "cm": 0
+            },
+            "kiwi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "bob": {
+              "lm": 0,
+              "cm": 0
+            },
+            "yes_zaggle": {
+              "lm": 0,
+              "cm": 0
+            },
+            "rbl": {
+              "lm": 0,
+              "cm": 0
+            }
+          }
+        },
+        {
+          "name": "GULREZ",
+          "lmt": 5,
+          "cmt": 0,
+          "banks": {
+            "au": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis_lic": {
+              "lm": 0,
+              "cm": 0
+            },
+            "hdfc": {
+              "lm": 5,
+              "cm": 0
+            },
+            "indus": {
+              "lm": 0,
+              "cm": 0
+            },
+            "sbi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "tata_neu": {
+              "lm": 0,
+              "cm": 0
+            },
+            "kiwi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "bob": {
+              "lm": 0,
+              "cm": 0
+            },
+            "yes_zaggle": {
+              "lm": 0,
+              "cm": 0
+            },
+            "rbl": {
+              "lm": 0,
+              "cm": 0
+            }
+          }
+        },
+        {
+          "name": "I DOOR WEALTH MENAGMENT",
+          "lmt": 6,
+          "cmt": 16,
+          "banks": {
+            "au": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis": {
+              "lm": 4,
+              "cm": 11
+            },
+            "axis_lic": {
+              "lm": 0,
+              "cm": 0
+            },
+            "hdfc": {
+              "lm": 0,
+              "cm": 2
+            },
+            "indus": {
+              "lm": 0,
+              "cm": 0
+            },
+            "sbi": {
+              "lm": 0,
+              "cm": 3
+            },
+            "tata_neu": {
+              "lm": 2,
+              "cm": 0
+            },
+            "kiwi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "bob": {
+              "lm": 0,
+              "cm": 0
+            },
+            "yes_zaggle": {
+              "lm": 0,
+              "cm": 0
+            },
+            "rbl": {
+              "lm": 0,
+              "cm": 0
+            }
+          }
+        },
+        {
+          "name": "GB ENTERPRISE",
+          "lmt": 2,
+          "cmt": 0,
+          "banks": {
+            "au": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis_lic": {
+              "lm": 0,
+              "cm": 0
+            },
+            "hdfc": {
+              "lm": 0,
+              "cm": 0
+            },
+            "indus": {
+              "lm": 0,
+              "cm": 0
+            },
+            "sbi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "tata_neu": {
+              "lm": 0,
+              "cm": 0
+            },
+            "kiwi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "bob": {
+              "lm": 2,
+              "cm": 0
+            },
+            "yes_zaggle": {
+              "lm": 0,
+              "cm": 0
+            },
+            "rbl": {
+              "lm": 0,
+              "cm": 0
+            }
+          }
+        },
+        {
+          "name": "FARHAD",
+          "lmt": 0,
+          "cmt": 0,
+          "banks": {
+            "au": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis_lic": {
+              "lm": 0,
+              "cm": 0
+            },
+            "hdfc": {
+              "lm": 0,
+              "cm": 0
+            },
+            "indus": {
+              "lm": 0,
+              "cm": 0
+            },
+            "sbi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "tata_neu": {
+              "lm": 0,
+              "cm": 0
+            },
+            "kiwi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "bob": {
+              "lm": 0,
+              "cm": 0
+            },
+            "yes_zaggle": {
+              "lm": 0,
+              "cm": 0
+            },
+            "rbl": {
+              "lm": 0,
+              "cm": 0
+            }
+          }
+        },
+        {
+          "name": "TELERING PROCESS PVT LTD",
+          "lmt": 640,
+          "cmt": 554,
+          "banks": {
+            "au": {
+              "lm": 0,
+              "cm": 0
+            },
+            "axis": {
+              "lm": 10,
+              "cm": 15
+            },
+            "axis_lic": {
+              "lm": 3,
+              "cm": 2
+            },
+            "hdfc": {
+              "lm": 8,
+              "cm": 26
+            },
+            "indus": {
+              "lm": 10,
+              "cm": 4
+            },
+            "sbi": {
+              "lm": 3,
+              "cm": 6
+            },
+            "tata_neu": {
+              "lm": 594,
+              "cm": 188
+            },
+            "kiwi": {
+              "lm": 0,
+              "cm": 0
+            },
+            "bob": {
+              "lm": 7,
+              "cm": 276
+            },
+            "yes_zaggle": {
+              "lm": 5,
+              "cm": 11
+            },
+            "rbl": {
+              "lm": 0,
+              "cm": 26
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "working_capital": {
+    "CAPITAL CALL SERVICES": 904650,
+    "BALAJI ENTERPRISES": 131448,
+    "MONEY MART": 67566,
+    "SHRESHREY CARD SERVICES PVT LTD": 618200,
+    "ANSH MANAGEMENT": 82919,
+    "Q GET FINANCIAL TECHNOLOGIES INDIA PVT LTD": 2876727,
+    "UPENDRA KUMAR SINGH": 86576,
+    "SANJAY PATEL": 0,
+    "TYAGI INFOSIS": 133773,
+    "AED19 CARD SERVICES PVT LTD": 650391
+  },
+  "bank_statuses": {
+    "HDFC": "FINAL",
+    "TATA NEU": "FINAL",
+    "SBI": "FINAL",
+    "AXIS LIC": "21-SEP",
+    "AXIS": "FINAL",
+    "AU": "FINAL",
+    "BOB": "FINAL",
+    "INDUS": "FINAL",
+    "YES ZAGGLE": "FINAL",
+    "RBL": "FINAL"
+  }
+}
