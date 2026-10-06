@@ -438,7 +438,7 @@
         });
 
         function initSupabase() {
-            const savedUrl = localStorage.getItem("sb_url");
+            const savedUrl = localStorage.getItem("sb_url") || "https://zcsijzfhrsjnmgrtupqd.supabase.co";
             const savedKey = localStorage.getItem("sb_key");
 
             if (savedUrl && savedKey) {
