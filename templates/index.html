@@ -303,6 +303,10 @@
                     <option value="2026-10">October 2026</option>
                     <option value="2026-08">August 2026 (Locked)</option>
                 </select>
+                <button id="adminLockToggleBtn" onclick="toggleMonthLock()" title="Lock / Unlock Current Month" class="border border-border bg-white hover:bg-slate-100 text-ink-primary px-2 py-1 rounded text-xs font-medium transition flex items-center gap-1">
+                    <i class="fa-solid fa-lock text-[10px] text-slate-500"></i>
+                    <span id="adminLockToggleText">Lock Month</span>
+                </button>
                 <button id="adminNewMonthBtn" onclick="openNewMonthModal()" title="Start New Month Cycle" class="border border-border bg-white hover:bg-slate-100 text-ink-primary px-2 py-1 rounded text-xs font-medium transition flex items-center gap-1">
                     <i class="fa-solid fa-plus text-[9px]"></i>
                     <span>New Month</span>
@@ -995,14 +999,30 @@
             const banner = document.getElementById("monthLockBanner");
             const lockStatusText = document.getElementById("lockStatusText");
             const unlockBtn = document.getElementById("unlockMonthBtn");
+            const lockToggleBtn = document.getElementById("adminLockToggleBtn");
             const mObj = availableMonths.find(m => m.code === currentActiveMonth);
+
+            const isAdmin = currentUser && currentUser.role === "ADMIN";
+
+            if (lockToggleBtn) {
+                if (isAdmin) {
+                    lockToggleBtn.classList.remove("hidden");
+                    if (mObj && mObj.isLocked) {
+                        lockToggleBtn.innerHTML = `<i class="fa-solid fa-lock-open text-[10px] text-emerald-600"></i><span id="adminLockToggleText">Unlock Month</span>`;
+                    } else {
+                        lockToggleBtn.innerHTML = `<i class="fa-solid fa-lock text-[10px] text-slate-500"></i><span id="adminLockToggleText">Lock Month</span>`;
+                    }
+                } else {
+                    lockToggleBtn.classList.add("hidden");
+                }
+            }
 
             if (!banner) return;
 
             if (mObj && mObj.isLocked) {
                 banner.classList.remove("hidden");
                 lockStatusText.innerText = `${mObj.label} is finalized and locked (Read-Only).`;
-                if (currentUser && currentUser.role === "ADMIN") {
+                if (isAdmin) {
                     unlockBtn.classList.remove("hidden");
                 } else {
                     unlockBtn.classList.add("hidden");
