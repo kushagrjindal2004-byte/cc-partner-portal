@@ -28,7 +28,6 @@ known_managers = [
     'AZAM', 'INAYA', 'BHAVANI', 'BINOD MISHRA', 'DIVYAM', 'VINAY PANDEY', 'ALKESH SHUKLA', 'ZEESHAN HAIDER'
 ]
 
-# Structure to hold everything
 managers = {m: {'display_name': m.title(), 'pin_code': '1234'} for m in known_managers}
 managers['AZAM']['display_name'] = 'AZAM'
 managers['INAYA']['display_name'] = 'INAYA'
@@ -129,19 +128,21 @@ sql_lines.append("-- COMPLETE SUPABASE SEED SCRIPT FOR JULY, AUGUST, SEPTEMBER, 
 sql_lines.append("-- ===========================================================================\n")
 
 # Safety Schema Adjustments
-sql_lines.append("-- Ensure columns and extensions exist")
+sql_lines.append("-- 1. Schema Safety & Constraints Setup")
 sql_lines.append("CREATE EXTENSION IF NOT EXISTS \"uuid-ossp\";")
 sql_lines.append("ALTER TABLE managers ADD COLUMN IF NOT EXISTS pin_code TEXT DEFAULT '1234';")
 sql_lines.append("ALTER TABLE banks ADD COLUMN IF NOT EXISTS display_order INT DEFAULT 0;")
-sql_lines.append("ALTER TABLE channel_partners ADD COLUMN IF NOT EXISTS working_capital NUMERIC DEFAULT 0;\n")
+sql_lines.append("ALTER TABLE channel_partners ADD COLUMN IF NOT EXISTS working_capital NUMERIC DEFAULT 0;")
+sql_lines.append("CREATE UNIQUE INDEX IF NOT EXISTS channel_partners_name_idx ON channel_partners(name);")
+sql_lines.append("CREATE UNIQUE INDEX IF NOT EXISTS card_issuances_partner_bank_month_idx ON card_issuances(partner_id, bank_id, month_year);\n")
 
 # 1. Banks
-sql_lines.append("-- 1. Master Banks")
+sql_lines.append("-- 2. Master Banks")
 for b in all_banks:
     sql_lines.append(f"INSERT INTO banks (id, name, status, display_order) VALUES ('{b['id']}', '{b['name']}', '{b['status']}', {b['display_order']}) ON CONFLICT (id) DO UPDATE SET name=EXCLUDED.name, status=EXCLUDED.status, display_order=EXCLUDED.display_order;")
 
 # 2. Cycles
-sql_lines.append("\n-- 2. Monthly Cycles")
+sql_lines.append("\n-- 3. Monthly Cycles")
 cycles = [
     ('2026-07', 'July 2026', 'true', '2026-06'),
     ('2026-08', 'August 2026', 'true', '2026-07'),
@@ -152,22 +153,26 @@ for c in cycles:
     sql_lines.append(f"INSERT INTO monthly_cycles (code, name, is_locked, prev_month_code) VALUES ('{c[0]}', '{c[1]}', {c[2]}, '{c[3]}') ON CONFLICT (code) DO UPDATE SET name=EXCLUDED.name, is_locked=EXCLUDED.is_locked, prev_month_code=EXCLUDED.prev_month_code;")
 
 # 3. Managers, Partners & Issuances via PL/pgSQL block
-sql_lines.append("\n-- 3. Managers, Channel Partners, and Card Issuances")
+sql_lines.append("\n-- 4. Managers, Channel Partners, and Card Issuances")
 sql_lines.append("DO $$")
 sql_lines.append("DECLARE")
 sql_lines.append("    v_mgr UUID;")
 sql_lines.append("    v_cp UUID;")
+sql_lines.append("    v_ci UUID;")
 sql_lines.append("BEGIN")
 
-# Insert managers
+# Insert managers using IF check
 for mkey in known_managers:
     m = managers[mkey]
     dname = m['display_name'].replace("'", "''")
     pin = m['pin_code']
     sql_lines.append(f"""
-    INSERT INTO managers (name, pin_code)
-    VALUES ('{dname}', '{pin}')
-    ON CONFLICT (name) DO UPDATE SET pin_code=EXCLUDED.pin_code;
+    SELECT id INTO v_mgr FROM managers WHERE name = '{dname}' LIMIT 1;
+    IF v_mgr IS NULL THEN
+        INSERT INTO managers (name, pin_code) VALUES ('{dname}', '{pin}') RETURNING id INTO v_mgr;
+    ELSE
+        UPDATE managers SET pin_code = '{pin}' WHERE id = v_mgr;
+    END IF;
     """)
 
 # Group partners by manager
@@ -185,12 +190,11 @@ for mkey, cp_list in mgr_grouped_cps.items():
     for pname in cp_list:
         esc_pname = pname.replace("'", "''")
         sql_lines.append(f"""
-    INSERT INTO channel_partners (name, manager_id)
-    VALUES ('{esc_pname}', v_mgr)
-    ON CONFLICT (name) DO UPDATE SET manager_id=v_mgr
-    RETURNING id INTO v_cp;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = '{esc_pname}' LIMIT 1;
     IF v_cp IS NULL THEN
-        SELECT id INTO v_cp FROM channel_partners WHERE name = '{esc_pname}' LIMIT 1;
+        INSERT INTO channel_partners (name, manager_id) VALUES ('{esc_pname}', v_mgr) RETURNING id INTO v_cp;
+    ELSE
+        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
     END IF;
         """)
         
@@ -202,7 +206,13 @@ for mkey, cp_list in mgr_grouped_cps.items():
                 if entry and (entry['lm_count'] > 0 or entry['cm_count'] > 0):
                     lm = entry['lm_count']
                     cm = entry['cm_count']
-                    sql_lines.append(f"    INSERT INTO card_issuances (month_year, partner_id, bank_id, lm_count, cm_count) VALUES ('{mcode}', v_cp, '{bid}', {lm}, {cm}) ON CONFLICT (partner_id, bank_id, month_year) DO UPDATE SET lm_count=EXCLUDED.lm_count, cm_count=EXCLUDED.cm_count;")
+                    sql_lines.append(f"""
+    SELECT id INTO v_ci FROM card_issuances WHERE partner_id = v_cp AND bank_id = '{bid}' AND month_year = '{mcode}' LIMIT 1;
+    IF v_ci IS NULL THEN
+        INSERT INTO card_issuances (month_year, partner_id, bank_id, lm_count, cm_count) VALUES ('{mcode}', v_cp, '{bid}', {lm}, {cm});
+    ELSE
+        UPDATE card_issuances SET lm_count = {lm}, cm_count = {cm}, updated_at = now() WHERE id = v_ci;
+    END IF;""")
 
 sql_lines.append("\nEND $$;\n")
 
