@@ -90,6 +90,11 @@
             left: 0;
             z-index: 20;
         }
+                select option {
+            background-color: #FFFFFF !important;
+            color: #0F172A !important;
+            font-weight: 500;
+        }
         .table-th {
             font-size: 11px;
             font-weight: 600;
@@ -195,7 +200,7 @@
                 <!-- Admin Scope Switcher -->
                 <div id="adminSwitcherWrapper" class="flex items-center bg-white/10 border border-white/15 rounded px-2 py-1">
                     <label class="text-[11px] text-slate-300 mr-1.5 font-normal">View:</label>
-                    <select id="userRoleSelect" onchange="handleRoleChange()" class="bg-transparent text-white text-xs font-medium outline-none cursor-pointer">
+                    <select id="userRoleSelect" onchange="handleRoleChange()" class="bg-transparent text-white text-xs font-medium outline-none cursor-pointer [&>option]:bg-white [&>option]:text-slate-900">
                         <option value="ADMIN" class="text-slate-900">All Managers (Master)</option>
                     </select>
                 </div>
@@ -875,14 +880,14 @@
         function renderRoleDropdown() {
             const roleSelect = document.getElementById("userRoleSelect");
             const modalMgrSelect = document.getElementById("modalAddCPManagerSelect");
-            let opts = `<option value="ADMIN">All Managers (Master)</option>`;
+            let opts = `<option value="ADMIN" class="text-slate-900 bg-white">All Managers (Master)</option>`;
             let modalOpts = "";
 
             dbData.managers.forEach(m => {
                 const selected = activeRole === m.manager_name ? "selected" : "";
                 const formattedName = formatSentenceCase(m.manager_name);
-                opts += `<option value="${m.manager_name}" ${selected}>${formattedName}</option>`;
-                modalOpts += `<option value="${m.manager_name}">${formattedName}</option>`;
+                opts += `<option value="${m.manager_name}" ${selected} class="text-slate-900 bg-white">${formattedName}</option>`;
+                modalOpts += `<option value="${m.manager_name}" class="text-slate-900 bg-white">${formattedName}</option>`;
             });
 
             roleSelect.innerHTML = opts;
