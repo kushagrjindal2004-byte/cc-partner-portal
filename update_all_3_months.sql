@@ -6,7 +6,6 @@
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 ALTER TABLE managers ADD COLUMN IF NOT EXISTS pin_code TEXT DEFAULT '1234';
 ALTER TABLE banks ADD COLUMN IF NOT EXISTS display_order INT DEFAULT 0;
-ALTER TABLE channel_partners ADD COLUMN IF NOT EXISTS working_capital NUMERIC DEFAULT 0;
 
 -- 2. Master Banks
 INSERT INTO banks (id, name, status, display_order) VALUES ('au', 'AU', 'FINAL', 1) ON CONFLICT (id) DO UPDATE SET name=EXCLUDED.name, status=EXCLUDED.status, display_order=EXCLUDED.display_order;

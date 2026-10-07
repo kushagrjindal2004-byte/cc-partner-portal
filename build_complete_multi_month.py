@@ -131,8 +131,7 @@ sql_lines.append("-- ===========================================================
 sql_lines.append("-- 1. Schema Safety Setup")
 sql_lines.append("CREATE EXTENSION IF NOT EXISTS \"uuid-ossp\";")
 sql_lines.append("ALTER TABLE managers ADD COLUMN IF NOT EXISTS pin_code TEXT DEFAULT '1234';")
-sql_lines.append("ALTER TABLE banks ADD COLUMN IF NOT EXISTS display_order INT DEFAULT 0;")
-sql_lines.append("ALTER TABLE channel_partners ADD COLUMN IF NOT EXISTS working_capital NUMERIC DEFAULT 0;\n")
+sql_lines.append("ALTER TABLE banks ADD COLUMN IF NOT EXISTS display_order INT DEFAULT 0;\n")
 
 # 1. Banks
 sql_lines.append("-- 2. Master Banks")

@@ -235,7 +235,7 @@
     <main class="max-w-[1700px] mx-auto px-4 sm:px-6 py-4 space-y-4">
 
         <!-- KPI SUMMARY ROW (Minimal & Subtle) -->
-        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
+        <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-4 gap-3">
             <div class="bg-surface rounded-lg p-3 border border-border shadow-none">
                 <span class="text-[11px] font-semibold text-ink-secondary uppercase tracking-wider block">Current Month (CMT)</span>
                 <div class="flex items-baseline gap-2 mt-1">
@@ -262,13 +262,6 @@
                 <span class="text-[11px] font-semibold text-ink-secondary uppercase tracking-wider block">Channel Partners</span>
                 <div class="mt-1">
                     <h3 id="statPartners" class="text-xl font-bold text-ink-primary">0</h3>
-                </div>
-            </div>
-
-            <div class="bg-surface rounded-lg p-3 border border-border shadow-none">
-                <span class="text-[11px] font-semibold text-ink-secondary uppercase tracking-wider block">Working Capital</span>
-                <div class="mt-1">
-                    <h3 id="statWorkingCapital" class="text-xl font-bold text-ink-primary">₹0</h3>
                 </div>
             </div>
         </div>
@@ -560,11 +553,6 @@
                     </select>
                 </div>
 
-                <div>
-                    <label class="text-xs font-medium text-ink-secondary block mb-1">Working Capital (₹)</label>
-                    <input type="number" id="editCpCapital" placeholder="0" class="w-full text-xs p-2 bg-slate-50 border border-border rounded focus:bg-white focus:border-navy outline-none">
-                </div>
-
                 <div class="pt-2 flex items-center justify-between border-t border-border">
                     <button type="button" onclick="deleteCurrentCP()" class="text-red-600 hover:text-red-700 text-xs font-medium">
                         Delete CP
@@ -594,10 +582,6 @@
                 <div>
                     <label class="text-xs font-medium text-ink-secondary block mb-1">Partner Name</label>
                     <input type="text" id="modalAddCPName" required placeholder="e.g. Skyline Solutions" class="w-full text-xs p-2 bg-slate-50 border border-border rounded focus:bg-white focus:border-navy outline-none">
-                </div>
-                <div>
-                    <label class="text-xs font-medium text-ink-secondary block mb-1">Working Capital (₹)</label>
-                    <input type="number" id="modalAddCPCapital" placeholder="0" class="w-full text-xs p-2 bg-slate-50 border border-border rounded focus:bg-white focus:border-navy outline-none">
                 </div>
                 <div class="pt-2 flex items-center justify-end gap-1.5 border-t border-border">
                     <button type="button" onclick="closeAddCPModal()" class="px-2.5 py-1 text-xs text-ink-secondary hover:bg-slate-100 rounded">Cancel</button>
@@ -883,7 +867,6 @@
                         return {
                             id: p.id,
                             name: p.name,
-                            working_capital: p.working_capital || 0,
                             banks: bObj
                         };
                     });
@@ -1059,14 +1042,13 @@
 
         function renderStats() {
             const managersToShow = activeRole === "ADMIN" ? dbData.managers : dbData.managers.filter(m => m.manager_name === activeRole);
-            let totalLM = 0, totalCM = 0, totalCPs = 0, totalWC = 0;
+            let totalLM = 0, totalCM = 0, totalCPs = 0;
 
             managersToShow.forEach(m => {
                 m.partners.forEach(p => {
                     totalCPs++;
                     totalLM += p.lmt || 0;
                     totalCM += p.cmt || 0;
-                    totalWC += Number(p.working_capital || 0);
                 });
             });
 
@@ -1074,7 +1056,6 @@
             document.getElementById("statLMT").innerText = totalLM.toLocaleString();
             document.getElementById("statManagers").innerText = managersToShow.length;
             document.getElementById("statPartners").innerText = totalCPs;
-            document.getElementById("statWorkingCapital").innerText = "₹" + totalWC.toLocaleString('en-IN');
 
             const growth = totalLM > 0 ? (((totalCM - totalLM) / totalLM) * 100).toFixed(1) : 0;
             const growthBadge = document.getElementById("statGrowthBadge");
@@ -1184,7 +1165,7 @@
                                 <td class="py-1.5 px-3 pl-7 sticky-col-left bg-surface group-hover:bg-slate-50 border-r border-border font-normal text-ink-primary flex items-center justify-between">
                                     <span class="truncate">${p.name}</span>
                                     ${currentUser && currentUser.role === 'ADMIN' ? `
-                                    <button onclick="openEditCPModal('${p.id}', '${p.name.replace(/'/g, "\\'")}', '${mgr.id}', ${p.working_capital || 0})" title="Edit" class="opacity-0 group-hover:opacity-100 text-ink-muted hover:text-navy px-1 py-0.5 transition">
+                                    <button onclick="openEditCPModal('${p.id}', '${p.name.replace(/'/g, "\\'")}', '${mgr.id}')" title="Edit" class="opacity-0 group-hover:opacity-100 text-ink-muted hover:text-navy px-1 py-0.5 transition">
                                         <i class="fa-solid fa-pen text-[10px]"></i>
                                     </button>` : ''}
                                 </td>
@@ -2063,11 +2044,10 @@
         // ==========================================
         // MODALS & DATA OPS
         // ==========================================
-        function openEditCPModal(cpId, cpName, mgrId, capital) {
+        function openEditCPModal(cpId, cpName, mgrId) {
             document.getElementById("editCpId").value = cpId;
             document.getElementById("editOldManagerId").value = mgrId;
             document.getElementById("editCpName").value = cpName;
-            document.getElementById("editCpCapital").value = capital || 0;
 
             const select = document.getElementById("editCpManagerSelect");
             select.innerHTML = dbData.managers.map(m => `
@@ -2083,7 +2063,6 @@
             const cpId = document.getElementById("editCpId").value;
             const newName = document.getElementById("editCpName").value.trim();
             const newMgrId = document.getElementById("editCpManagerSelect").value;
-            const capital = Number(document.getElementById("editCpCapital").value) || 0;
 
             let cpObj = null;
             dbData.managers.forEach(m => {
@@ -2093,7 +2072,6 @@
 
             if (cpObj) {
                 cpObj.name = newName;
-                cpObj.working_capital = capital;
                 const targetMgr = dbData.managers.find(m => m.id === newMgrId);
                 if (targetMgr) targetMgr.partners.push(cpObj);
             }
@@ -2103,7 +2081,7 @@
             closeAdminEditCPModal();
 
             if (supabaseClient && cpId) {
-                await supabaseClient.from('channel_partners').update({ name: newName, manager_id: newMgrId, working_capital: capital }).eq('id', cpId);
+                await supabaseClient.from('channel_partners').update({ name: newName, manager_id: newMgrId }).eq('id', cpId);
                 showToast("Updated Channel Partner");
             }
         }
@@ -2135,15 +2113,14 @@
             e.preventDefault();
             const mgrName = document.getElementById("modalAddCPManagerSelect").value;
             const name = document.getElementById("modalAddCPName").value.trim();
-            const capital = Number(document.getElementById("modalAddCPCapital").value) || 0;
             const targetMgr = dbData.managers.find(m => m.manager_name === mgrName);
             if (!targetMgr) return;
 
             if (supabaseClient && targetMgr.id) {
-                await supabaseClient.from("channel_partners").insert({ manager_id: targetMgr.id, name, working_capital: capital });
+                await supabaseClient.from("channel_partners").insert({ manager_id: targetMgr.id, name });
                 loadDatabaseData();
             } else {
-                targetMgr.partners.push({ id: 'cp_' + Date.now(), name, working_capital: capital, banks: {} });
+                targetMgr.partners.push({ id: 'cp_' + Date.now(), name, banks: {} });
                 recalculateAll();
                 renderAll();
             }
