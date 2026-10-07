@@ -10,6 +10,7 @@ CREATE TABLE IF NOT EXISTS managers (
     id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
     name TEXT UNIQUE NOT NULL,
     email TEXT,
+    pin_code TEXT DEFAULT '1234',
     created_at TIMESTAMPTZ DEFAULT now()
 );
 
