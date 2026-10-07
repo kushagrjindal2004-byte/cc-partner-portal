@@ -28,23 +28,17 @@ known_managers = [
     'AZAM', 'INAYA', 'BHAVANI', 'BINOD MISHRA', 'DIVYAM', 'VINAY PANDEY', 'ALKESH SHUKLA', 'ZEESHAN HAIDER'
 ]
 
-# Map manager names to proper display case
-manager_display_names = {
-    'AZAM': 'Azam',
-    'INAYA': 'Inaya',
-    'BHAVANI': 'Bhavani',
-    'BINOD MISHRA': 'Binod Mishra',
-    'DIVYAM': 'Divyam',
-    'VINAY PANDEY': 'Vinay Pandey',
-    'ALKESH SHUKLA': 'Alkesh Shukla',
-    'ZEESHAN HAIDER': 'Zeeshan Haider'
-}
-
 # Structure to hold everything
-# managers: { mgr_name: { 'display_name': ..., 'pin_code': '1234', 'partners': set() } }
-# issuances: { (month_code, partner_name, bank_id): { 'lm_count': X, 'cm_count': Y } }
+managers = {m: {'display_name': m.title(), 'pin_code': '1234'} for m in known_managers}
+managers['AZAM']['display_name'] = 'AZAM'
+managers['INAYA']['display_name'] = 'INAYA'
+managers['BHAVANI']['display_name'] = 'BHAVANI'
+managers['BINOD MISHRA']['display_name'] = 'BINOD MISHRA'
+managers['DIVYAM']['display_name'] = 'DIVYAM'
+managers['VINAY PANDEY']['display_name'] = 'VINAY PANDEY'
+managers['ALKESH SHUKLA']['display_name'] = 'ALKESH SHUKLA'
+managers['ZEESHAN HAIDER']['display_name'] = 'ZEESHAN HAIDER'
 
-managers = {m: {'display_name': manager_display_names.get(m, m.title()), 'pin_code': '1234', 'order': i+1} for i, m in enumerate(known_managers)}
 partner_to_manager = {}
 issuances = {}
 
@@ -128,11 +122,18 @@ for pname, mgr in partner_to_manager.items():
             'cm_count': 0
         }
 
-# Generate SQL
+# Generate SQL compatible with exact schema
 sql_lines = []
 sql_lines.append("-- ===========================================================================")
 sql_lines.append("-- COMPLETE SUPABASE SEED SCRIPT FOR JULY, AUGUST, SEPTEMBER, AND OCTOBER 2026")
 sql_lines.append("-- ===========================================================================\n")
+
+# Safety Schema Adjustments
+sql_lines.append("-- Ensure columns and extensions exist")
+sql_lines.append("CREATE EXTENSION IF NOT EXISTS \"uuid-ossp\";")
+sql_lines.append("ALTER TABLE managers ADD COLUMN IF NOT EXISTS pin_code TEXT DEFAULT '1234';")
+sql_lines.append("ALTER TABLE banks ADD COLUMN IF NOT EXISTS display_order INT DEFAULT 0;")
+sql_lines.append("ALTER TABLE channel_partners ADD COLUMN IF NOT EXISTS working_capital NUMERIC DEFAULT 0;\n")
 
 # 1. Banks
 sql_lines.append("-- 1. Master Banks")
@@ -163,11 +164,10 @@ for mkey in known_managers:
     m = managers[mkey]
     dname = m['display_name'].replace("'", "''")
     pin = m['pin_code']
-    ord_val = m['order']
     sql_lines.append(f"""
-    INSERT INTO managers (name, pin_code, display_order)
-    VALUES ('{dname}', '{pin}', {ord_val})
-    ON CONFLICT (name) DO UPDATE SET pin_code=EXCLUDED.pin_code, display_order=EXCLUDED.display_order;
+    INSERT INTO managers (name, pin_code)
+    VALUES ('{dname}', '{pin}')
+    ON CONFLICT (name) DO UPDATE SET pin_code=EXCLUDED.pin_code;
     """)
 
 # Group partners by manager
@@ -202,7 +202,7 @@ for mkey, cp_list in mgr_grouped_cps.items():
                 if entry and (entry['lm_count'] > 0 or entry['cm_count'] > 0):
                     lm = entry['lm_count']
                     cm = entry['cm_count']
-                    sql_lines.append(f"    INSERT INTO card_issuances (month_code, channel_partner_id, bank_id, lm_count, cm_count) VALUES ('{mcode}', v_cp, '{bid}', {lm}, {cm}) ON CONFLICT (month_code, channel_partner_id, bank_id) DO UPDATE SET lm_count=EXCLUDED.lm_count, cm_count=EXCLUDED.cm_count;")
+                    sql_lines.append(f"    INSERT INTO card_issuances (month_year, partner_id, bank_id, lm_count, cm_count) VALUES ('{mcode}', v_cp, '{bid}', {lm}, {cm}) ON CONFLICT (partner_id, bank_id, month_year) DO UPDATE SET lm_count=EXCLUDED.lm_count, cm_count=EXCLUDED.cm_count;")
 
 sql_lines.append("\nEND $$;\n")
 
@@ -247,8 +247,8 @@ for (mcode, pname, bid), counts in issuances.items():
         cpid = cp_id_map.get(pname)
         if cpid:
             json_data["card_issuances"].append({
-                "month_code": mcode,
-                "channel_partner_id": cpid,
+                "month_year": mcode,
+                "partner_id": cpid,
                 "bank_id": bid,
                 "lm_count": counts['lm_count'],
                 "cm_count": counts['cm_count']
