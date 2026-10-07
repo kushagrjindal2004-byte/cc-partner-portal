@@ -75,7 +75,14 @@
                 <div>
                     <label class="text-xs font-bold text-slate-700 block mb-1.5">Select Your Manager Name</label>
                     <select id="loginManagerSelect" required class="w-full text-xs font-semibold p-3 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-orange-500 focus:bg-white outline-none transition">
-                        <!-- Populated dynamically with managers -->
+                        <option value="AZAM">Manager: AZAM (5 CPs)</option>
+                        <option value="BHAVANI">Manager: BHAVANI (26 CPs)</option>
+                        <option value="BINOD MISHRA">Manager: BINOD MISHRA (13 CPs)</option>
+                        <option value="DIVYAM">Manager: DIVYAM (15 CPs)</option>
+                        <option value="VINAY PANDEY" selected>Manager: VINAY PANDEY (42 CPs)</option>
+                        <option value="ALKESH SHUKLA">Manager: ALKESH SHUKLA (7 CPs)</option>
+                        <option value="ZEESHAN HAIDER">Manager: ZEESHAN HAIDER (15 CPs)</option>
+                        <option value="INAYA">Manager: INAYA (4 CPs)</option>
                     </select>
                 </div>
                 <div>
@@ -634,10 +641,14 @@
 
         function populateLoginManagerDropdown() {
             const select = document.getElementById("loginManagerSelect");
-            if (!select || !dbData.managers) return;
-            select.innerHTML = dbData.managers.map(m => `
-                <option value="${m.manager_name}">Manager: ${m.manager_name} (${m.partners?.length || 0} CPs)</option>
-            `).join("");
+            if (!select) return;
+            if (dbData && dbData.managers && dbData.managers.length > 0) {
+                const currentVal = select.value;
+                select.innerHTML = dbData.managers.map(m => `
+                    <option value="${m.manager_name}">Manager: ${m.manager_name} (${m.partners?.length || 0} CPs)</option>
+                `).join("");
+                if (currentVal) select.value = currentVal;
+            }
         }
 
         function switchLoginTab(tab) {
