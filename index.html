@@ -807,15 +807,52 @@
             }
         }
 
-                        async function loadDatabaseData() {
+                                // ========================================================
+        // UNIVERSAL PREVIOUS MONTH CALENDAR ARITHMETIC ENGINE
+        // Works for ANY month (e.g., 2026-11 -> 2026-10, 2027-01 -> 2026-12)
+        // ========================================================
+        function getPreviousMonthCode(monthCode) {
+            if (!monthCode) return "2026-08";
+            // Check if predefined in availableMonths
+            const found = availableMonths.find(m => m.code === monthCode);
+            if (found && found.prevMonth) return found.prevMonth;
+
+            // Otherwise, calculate dynamically via calendar math
+            const parts = monthCode.split("-");
+            if (parts.length === 2) {
+                let year = parseInt(parts[0], 10);
+                let month = parseInt(parts[1], 10);
+                if (month === 1) {
+                    year -= 1;
+                    month = 12;
+                } else {
+                    month -= 1;
+                }
+                return `${year}-${String(month).padStart(2, '0')}`;
+            }
+            return "2026-08";
+        }
+
+        function getMonthDisplayName(monthCode) {
+            const found = availableMonths.find(m => m.code === monthCode);
+            if (found) return found.label;
+            const parts = monthCode.split("-");
+            if (parts.length === 2) {
+                const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+                const mIdx = parseInt(parts[1], 10) - 1;
+                if (mIdx >= 0 && mIdx < 12) return `${monthNames[mIdx]} ${parts[0]}`;
+            }
+            return monthCode;
+        }
+
+        async function loadDatabaseData() {
             if (!supabaseClient) {
                 loadLocalDataFallback();
                 return;
             }
             try {
-                // Determine previous month code
-                const mObj = availableMonths.find(m => m.code === currentActiveMonth);
-                const prevMonthCode = mObj ? mObj.prevMonth : "2026-08";
+                // Dynamically determine the previous month code for ANY month
+                const prevMonthCode = getPreviousMonthCode(currentActiveMonth);
 
                 // Fetch tables using flat parallel queries
                 const [banksRes, managersRes, partnersRes, currIssuancesRes, prevIssuancesRes, monthsRes] = await Promise.all([
@@ -1209,6 +1246,7 @@
                         bank_id: bankId,
                         month_year: currentActiveMonth
                     };
+                    // When in active month, we update cm_count (or lm_count if explicitly specified)
                     updatePayload[field === 'lm' ? 'lm_count' : 'cm_count'] = valNum;
 
                     const { error } = await supabaseClient
@@ -1672,7 +1710,7 @@
             }
 
             // Create new month object
-            const prevMonthCode = currentActiveMonth;
+            const prevMonthCode = getPreviousMonthCode(monthCode);
             const newMonthObj = {
                 code: monthCode,
                 label: monthLabel,
