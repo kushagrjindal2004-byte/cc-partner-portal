@@ -128,13 +128,11 @@ sql_lines.append("-- COMPLETE SUPABASE SEED SCRIPT FOR JULY, AUGUST, SEPTEMBER, 
 sql_lines.append("-- ===========================================================================\n")
 
 # Safety Schema Adjustments
-sql_lines.append("-- 1. Schema Safety & Constraints Setup")
+sql_lines.append("-- 1. Schema Safety Setup")
 sql_lines.append("CREATE EXTENSION IF NOT EXISTS \"uuid-ossp\";")
 sql_lines.append("ALTER TABLE managers ADD COLUMN IF NOT EXISTS pin_code TEXT DEFAULT '1234';")
 sql_lines.append("ALTER TABLE banks ADD COLUMN IF NOT EXISTS display_order INT DEFAULT 0;")
-sql_lines.append("ALTER TABLE channel_partners ADD COLUMN IF NOT EXISTS working_capital NUMERIC DEFAULT 0;")
-sql_lines.append("CREATE UNIQUE INDEX IF NOT EXISTS channel_partners_name_idx ON channel_partners(name);")
-sql_lines.append("CREATE UNIQUE INDEX IF NOT EXISTS card_issuances_partner_bank_month_idx ON card_issuances(partner_id, bank_id, month_year);\n")
+sql_lines.append("ALTER TABLE channel_partners ADD COLUMN IF NOT EXISTS working_capital NUMERIC DEFAULT 0;\n")
 
 # 1. Banks
 sql_lines.append("-- 2. Master Banks")
@@ -190,11 +188,14 @@ for mkey, cp_list in mgr_grouped_cps.items():
     for pname in cp_list:
         esc_pname = pname.replace("'", "''")
         sql_lines.append(f"""
-    SELECT id INTO v_cp FROM channel_partners WHERE name = '{esc_pname}' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = '{esc_pname}' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('{esc_pname}', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = '{esc_pname}' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('{esc_pname}', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         """)
         
@@ -222,49 +223,3 @@ with open("update_all_3_months.sql", "w", encoding="utf-8") as f:
     f.write(sql_content)
 
 print(f"Generated update_all_3_months.sql ({len(sql_content)} bytes)")
-
-# Also prepare initial_data.json
-json_data = {
-    "banks": all_banks,
-    "monthly_cycles": [
-        {"code": "2026-07", "name": "July 2026", "is_locked": True, "prev_month_code": "2026-06"},
-        {"code": "2026-08", "name": "August 2026", "is_locked": True, "prev_month_code": "2026-07"},
-        {"code": "2026-09", "name": "September 2026", "is_locked": False, "prev_month_code": "2026-08"},
-        {"code": "2026-10", "name": "October 2026", "is_locked": False, "prev_month_code": "2026-09"}
-    ],
-    "managers": [
-        {"id": str(i+1), "name": managers[m]['display_name'], "pin_code": "1234", "display_order": i+1}
-        for i, m in enumerate(known_managers)
-    ],
-    "channel_partners": [],
-    "card_issuances": []
-}
-
-cp_id_map = {}
-for i, (pname, mkey) in enumerate(partner_to_manager.items()):
-    cpid = str(i+1)
-    cp_id_map[pname] = cpid
-    # Find manager id
-    mgr_idx = known_managers.index(mkey) + 1
-    json_data["channel_partners"].append({
-        "id": cpid,
-        "name": pname,
-        "manager_id": str(mgr_idx)
-    })
-
-for (mcode, pname, bid), counts in issuances.items():
-    if counts['lm_count'] > 0 or counts['cm_count'] > 0:
-        cpid = cp_id_map.get(pname)
-        if cpid:
-            json_data["card_issuances"].append({
-                "month_year": mcode,
-                "partner_id": cpid,
-                "bank_id": bid,
-                "lm_count": counts['lm_count'],
-                "cm_count": counts['cm_count']
-            })
-
-with open("initial_data.json", "w", encoding="utf-8") as f:
-    json.dump(json_data, f, indent=2)
-
-print(f"Generated initial_data.json with {len(json_data['channel_partners'])} partners and {len(json_data['card_issuances'])} issuance records")

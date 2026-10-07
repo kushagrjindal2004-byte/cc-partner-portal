@@ -2,13 +2,11 @@
 -- COMPLETE SUPABASE SEED SCRIPT FOR JULY, AUGUST, SEPTEMBER, AND OCTOBER 2026
 -- ===========================================================================
 
--- 1. Schema Safety & Constraints Setup
+-- 1. Schema Safety Setup
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 ALTER TABLE managers ADD COLUMN IF NOT EXISTS pin_code TEXT DEFAULT '1234';
 ALTER TABLE banks ADD COLUMN IF NOT EXISTS display_order INT DEFAULT 0;
 ALTER TABLE channel_partners ADD COLUMN IF NOT EXISTS working_capital NUMERIC DEFAULT 0;
-CREATE UNIQUE INDEX IF NOT EXISTS channel_partners_name_idx ON channel_partners(name);
-CREATE UNIQUE INDEX IF NOT EXISTS card_issuances_partner_bank_month_idx ON card_issuances(partner_id, bank_id, month_year);
 
 -- 2. Master Banks
 INSERT INTO banks (id, name, status, display_order) VALUES ('au', 'AU', 'FINAL', 1) ON CONFLICT (id) DO UPDATE SET name=EXCLUDED.name, status=EXCLUDED.status, display_order=EXCLUDED.display_order;
@@ -106,11 +104,14 @@ BEGIN
     -- Manager: AZAM
     SELECT id INTO v_mgr FROM managers WHERE name = 'AZAM' LIMIT 1;
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'DALEE' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'DALEE' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('DALEE', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'DALEE' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('DALEE', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
@@ -149,11 +150,14 @@ BEGIN
         UPDATE card_issuances SET lm_count = 1, cm_count = 0, updated_at = now() WHERE id = v_ci;
     END IF;
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'EASYCREDIT FINSERV' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'EASYCREDIT FINSERV' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('EASYCREDIT FINSERV', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'EASYCREDIT FINSERV' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('EASYCREDIT FINSERV', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
@@ -255,11 +259,14 @@ BEGIN
         UPDATE card_issuances SET lm_count = 8, cm_count = 0, updated_at = now() WHERE id = v_ci;
     END IF;
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'SUNIL YADAV' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'SUNIL YADAV' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('SUNIL YADAV', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'SUNIL YADAV' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('SUNIL YADAV', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
@@ -291,11 +298,14 @@ BEGIN
         UPDATE card_issuances SET lm_count = 1, cm_count = 0, updated_at = now() WHERE id = v_ci;
     END IF;
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'SHUBHAM SHRIVASTAV' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'SHUBHAM SHRIVASTAV' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('SHUBHAM SHRIVASTAV', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'SHUBHAM SHRIVASTAV' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('SHUBHAM SHRIVASTAV', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
@@ -320,11 +330,14 @@ BEGIN
         UPDATE card_issuances SET lm_count = 1, cm_count = 0, updated_at = now() WHERE id = v_ci;
     END IF;
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'SHAHDAT ALI' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'SHAHDAT ALI' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('SHAHDAT ALI', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'SHAHDAT ALI' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('SHAHDAT ALI', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
@@ -345,11 +358,14 @@ BEGIN
     -- Manager: INAYA
     SELECT id INTO v_mgr FROM managers WHERE name = 'INAYA' LIMIT 1;
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'POONAM KAMBLE' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'POONAM KAMBLE' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('POONAM KAMBLE', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'POONAM KAMBLE' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('POONAM KAMBLE', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
@@ -409,11 +425,14 @@ BEGIN
         UPDATE card_issuances SET lm_count = 831, cm_count = 0, updated_at = now() WHERE id = v_ci;
     END IF;
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'DIVINE ENTERPRISES' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'DIVINE ENTERPRISES' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('DIVINE ENTERPRISES', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'DIVINE ENTERPRISES' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('DIVINE ENTERPRISES', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
@@ -424,11 +443,14 @@ BEGIN
         UPDATE card_issuances SET lm_count = 1, cm_count = 0, updated_at = now() WHERE id = v_ci;
     END IF;
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'AIM ENTERPRISES' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'AIM ENTERPRISES' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('AIM ENTERPRISES', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'AIM ENTERPRISES' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('AIM ENTERPRISES', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
@@ -446,11 +468,14 @@ BEGIN
         UPDATE card_issuances SET lm_count = 2, cm_count = 0, updated_at = now() WHERE id = v_ci;
     END IF;
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'Q GET FINANCIAL TECHNOLOGIES INDIA PVT LTD' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'Q GET FINANCIAL TECHNOLOGIES INDIA PVT LTD' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('Q GET FINANCIAL TECHNOLOGIES INDIA PVT LTD', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'Q GET FINANCIAL TECHNOLOGIES INDIA PVT LTD' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('Q GET FINANCIAL TECHNOLOGIES INDIA PVT LTD', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
@@ -524,11 +549,14 @@ BEGIN
         UPDATE card_issuances SET lm_count = 21, cm_count = 0, updated_at = now() WHERE id = v_ci;
     END IF;
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'SANVIKA CREDIT ADVISORY' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'SANVIKA CREDIT ADVISORY' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('SANVIKA CREDIT ADVISORY', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'SANVIKA CREDIT ADVISORY' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('SANVIKA CREDIT ADVISORY', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
@@ -549,19 +577,25 @@ BEGIN
     -- Manager: BHAVANI
     SELECT id INTO v_mgr FROM managers WHERE name = 'BHAVANI' LIMIT 1;
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'ABHAY PANDEY' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'ABHAY PANDEY' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('ABHAY PANDEY', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'ABHAY PANDEY' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('ABHAY PANDEY', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'ANIKET' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'ANIKET' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('ANIKET', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'ANIKET' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('ANIKET', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
@@ -579,11 +613,14 @@ BEGIN
         UPDATE card_issuances SET lm_count = 8, cm_count = 0, updated_at = now() WHERE id = v_ci;
     END IF;
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'RUDRA' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'RUDRA' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('RUDRA', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'RUDRA' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('RUDRA', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
@@ -608,35 +645,47 @@ BEGIN
         UPDATE card_issuances SET lm_count = 1, cm_count = 0, updated_at = now() WHERE id = v_ci;
     END IF;
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'ANKIT KUMAR' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'ANKIT KUMAR' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('ANKIT KUMAR', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'ANKIT KUMAR' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('ANKIT KUMAR', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'ARVIND SINGH' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'ARVIND SINGH' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('ARVIND SINGH', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'ARVIND SINGH' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('ARVIND SINGH', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'NARESH' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'NARESH' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('NARESH', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'NARESH' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('NARESH', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'G K TRADERS' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'G K TRADERS' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('G K TRADERS', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'G K TRADERS' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('G K TRADERS', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
@@ -731,11 +780,14 @@ BEGIN
         UPDATE card_issuances SET lm_count = 5, cm_count = 0, updated_at = now() WHERE id = v_ci;
     END IF;
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'BALAJI ENTERPRISES' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'BALAJI ENTERPRISES' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('BALAJI ENTERPRISES', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'BALAJI ENTERPRISES' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('BALAJI ENTERPRISES', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
@@ -837,11 +889,14 @@ BEGIN
         UPDATE card_issuances SET lm_count = 1, cm_count = 0, updated_at = now() WHERE id = v_ci;
     END IF;
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'BALAJI SOLUTIONS WORK' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'BALAJI SOLUTIONS WORK' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('BALAJI SOLUTIONS WORK', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'BALAJI SOLUTIONS WORK' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('BALAJI SOLUTIONS WORK', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
@@ -971,19 +1026,25 @@ BEGIN
         UPDATE card_issuances SET lm_count = 2, cm_count = 0, updated_at = now() WHERE id = v_ci;
     END IF;
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'QUICK SOLUTIONS' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'QUICK SOLUTIONS' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('QUICK SOLUTIONS', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'QUICK SOLUTIONS' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('QUICK SOLUTIONS', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'HIRDESH' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'HIRDESH' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('HIRDESH', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'HIRDESH' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('HIRDESH', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
@@ -1001,27 +1062,36 @@ BEGIN
         UPDATE card_issuances SET lm_count = 1, cm_count = 0, updated_at = now() WHERE id = v_ci;
     END IF;
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'CENTURY CORPORATE SERVICE' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'CENTURY CORPORATE SERVICE' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('CENTURY CORPORATE SERVICE', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'CENTURY CORPORATE SERVICE' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('CENTURY CORPORATE SERVICE', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'SAMARTH ENTERPRISES' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'SAMARTH ENTERPRISES' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('SAMARTH ENTERPRISES', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'SAMARTH ENTERPRISES' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('SAMARTH ENTERPRISES', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'HASMAT' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'HASMAT' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('HASMAT', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'HASMAT' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('HASMAT', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
@@ -1074,19 +1144,25 @@ BEGIN
         UPDATE card_issuances SET lm_count = 11, cm_count = 0, updated_at = now() WHERE id = v_ci;
     END IF;
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'FINANCIAL GLOBAL SERVICE' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'FINANCIAL GLOBAL SERVICE' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('FINANCIAL GLOBAL SERVICE', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'FINANCIAL GLOBAL SERVICE' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('FINANCIAL GLOBAL SERVICE', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'SHIVAM' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'SHIVAM' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('SHIVAM', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'SHIVAM' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('SHIVAM', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
@@ -1125,11 +1201,14 @@ BEGIN
         UPDATE card_issuances SET lm_count = 1, cm_count = 0, updated_at = now() WHERE id = v_ci;
     END IF;
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'INFINITY ENTERPRISES' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'INFINITY ENTERPRISES' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('INFINITY ENTERPRISES', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'INFINITY ENTERPRISES' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('INFINITY ENTERPRISES', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
@@ -1154,43 +1233,58 @@ BEGIN
         UPDATE card_issuances SET lm_count = 1, cm_count = 0, updated_at = now() WHERE id = v_ci;
     END IF;
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'ACCURATE CARDS AND DISTRIBUTION' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'ACCURATE CARDS AND DISTRIBUTION' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('ACCURATE CARDS AND DISTRIBUTION', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'ACCURATE CARDS AND DISTRIBUTION' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('ACCURATE CARDS AND DISTRIBUTION', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'NASEEM AHMAD (KD ENTERPRISES)' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'NASEEM AHMAD (KD ENTERPRISES)' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('NASEEM AHMAD (KD ENTERPRISES)', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'NASEEM AHMAD (KD ENTERPRISES)' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('NASEEM AHMAD (KD ENTERPRISES)', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'VIKRAM SINGH PATEL' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'VIKRAM SINGH PATEL' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('VIKRAM SINGH PATEL', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'VIKRAM SINGH PATEL' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('VIKRAM SINGH PATEL', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'OSR FINANCIAL SERVICES' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'OSR FINANCIAL SERVICES' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('OSR FINANCIAL SERVICES', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'OSR FINANCIAL SERVICES' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('OSR FINANCIAL SERVICES', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'QUANTUMX GLOBAL PRIVATE LIMITED' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'QUANTUMX GLOBAL PRIVATE LIMITED' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('QUANTUMX GLOBAL PRIVATE LIMITED', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'QUANTUMX GLOBAL PRIVATE LIMITED' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('QUANTUMX GLOBAL PRIVATE LIMITED', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
@@ -1264,19 +1358,25 @@ BEGIN
         UPDATE card_issuances SET lm_count = 543, cm_count = 0, updated_at = now() WHERE id = v_ci;
     END IF;
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'PRUDENS TELESERVICES' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'PRUDENS TELESERVICES' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('PRUDENS TELESERVICES', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'PRUDENS TELESERVICES' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('PRUDENS TELESERVICES', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'RAHUL KUMAR MISHRA' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'RAHUL KUMAR MISHRA' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('RAHUL KUMAR MISHRA', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'RAHUL KUMAR MISHRA' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('RAHUL KUMAR MISHRA', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
@@ -1427,11 +1527,14 @@ BEGIN
         UPDATE card_issuances SET lm_count = 206, cm_count = 0, updated_at = now() WHERE id = v_ci;
     END IF;
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'SHAKSHI' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'SHAKSHI' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('SHAKSHI', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'SHAKSHI' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('SHAKSHI', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
@@ -1505,11 +1608,14 @@ BEGIN
         UPDATE card_issuances SET lm_count = 2, cm_count = 0, updated_at = now() WHERE id = v_ci;
     END IF;
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'AED 19 CARD SERVICES PVT LTD' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'AED 19 CARD SERVICES PVT LTD' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('AED 19 CARD SERVICES PVT LTD', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'AED 19 CARD SERVICES PVT LTD' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('AED 19 CARD SERVICES PVT LTD', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
@@ -1541,11 +1647,14 @@ BEGIN
         UPDATE card_issuances SET lm_count = 9, cm_count = 0, updated_at = now() WHERE id = v_ci;
     END IF;
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'VISHAL SHARMA' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'VISHAL SHARMA' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('VISHAL SHARMA', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'VISHAL SHARMA' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('VISHAL SHARMA', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
@@ -1710,51 +1819,69 @@ BEGIN
         UPDATE card_issuances SET lm_count = 347, cm_count = 0, updated_at = now() WHERE id = v_ci;
     END IF;
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'SAGAR' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'SAGAR' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('SAGAR', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'SAGAR' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('SAGAR', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'DEV ASSOCIATES' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'DEV ASSOCIATES' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('DEV ASSOCIATES', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'DEV ASSOCIATES' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('DEV ASSOCIATES', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'SUNNY' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'SUNNY' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('SUNNY', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'SUNNY' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('SUNNY', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'MAYTAWI INDUSTRY PVT LTD' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'MAYTAWI INDUSTRY PVT LTD' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('MAYTAWI INDUSTRY PVT LTD', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'MAYTAWI INDUSTRY PVT LTD' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('MAYTAWI INDUSTRY PVT LTD', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'NAAZ' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'NAAZ' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('NAAZ', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'NAAZ' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('NAAZ', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'TYAGI INFOSIS' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'TYAGI INFOSIS' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('TYAGI INFOSIS', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'TYAGI INFOSIS' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('TYAGI INFOSIS', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
@@ -1814,11 +1941,14 @@ BEGIN
         UPDATE card_issuances SET lm_count = 11, cm_count = 0, updated_at = now() WHERE id = v_ci;
     END IF;
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'NEERAJ KUMAR' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'NEERAJ KUMAR' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('NEERAJ KUMAR', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'NEERAJ KUMAR' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('NEERAJ KUMAR', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
@@ -1899,27 +2029,36 @@ BEGIN
         UPDATE card_issuances SET lm_count = 2, cm_count = 0, updated_at = now() WHERE id = v_ci;
     END IF;
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'RAVI DUBEY' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'RAVI DUBEY' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('RAVI DUBEY', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'RAVI DUBEY' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('RAVI DUBEY', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'NARENDRA' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'NARENDRA' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('NARENDRA', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'NARENDRA' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('NARENDRA', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'JAI JAGANNATH CARDS SERVICES PRIVATE LIMITED' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'JAI JAGANNATH CARDS SERVICES PRIVATE LIMITED' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('JAI JAGANNATH CARDS SERVICES PRIVATE LIMITED', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'JAI JAGANNATH CARDS SERVICES PRIVATE LIMITED' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('JAI JAGANNATH CARDS SERVICES PRIVATE LIMITED', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
@@ -1993,11 +2132,14 @@ BEGIN
         UPDATE card_issuances SET lm_count = 251, cm_count = 0, updated_at = now() WHERE id = v_ci;
     END IF;
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'RIYA' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'RIYA' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('RIYA', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'RIYA' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('RIYA', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
@@ -2029,35 +2171,47 @@ BEGIN
         UPDATE card_issuances SET lm_count = 8, cm_count = 0, updated_at = now() WHERE id = v_ci;
     END IF;
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'RITIK' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'RITIK' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('RITIK', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'RITIK' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('RITIK', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'MANTU RAJPUT' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'MANTU RAJPUT' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('MANTU RAJPUT', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'MANTU RAJPUT' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('MANTU RAJPUT', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'CHETAN' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'CHETAN' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('CHETAN', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'CHETAN' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('CHETAN', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'SHILPA' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'SHILPA' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('SHILPA', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'SHILPA' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('SHILPA', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
@@ -2236,11 +2390,14 @@ BEGIN
         UPDATE card_issuances SET lm_count = 5, cm_count = 0, updated_at = now() WHERE id = v_ci;
     END IF;
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'SANJAY PATEL' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'SANJAY PATEL' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('SANJAY PATEL', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'SANJAY PATEL' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('SANJAY PATEL', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
@@ -2293,11 +2450,14 @@ BEGIN
         UPDATE card_issuances SET lm_count = 32, cm_count = 0, updated_at = now() WHERE id = v_ci;
     END IF;
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'SNEHA SHARMA' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'SNEHA SHARMA' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('SNEHA SHARMA', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'SNEHA SHARMA' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('SNEHA SHARMA', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
@@ -2406,11 +2566,14 @@ BEGIN
         UPDATE card_issuances SET lm_count = 139, cm_count = 0, updated_at = now() WHERE id = v_ci;
     END IF;
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'ANJANI PANDEY' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'ANJANI PANDEY' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('ANJANI PANDEY', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'ANJANI PANDEY' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('ANJANI PANDEY', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
@@ -2428,11 +2591,14 @@ BEGIN
         UPDATE card_issuances SET lm_count = 2, cm_count = 0, updated_at = now() WHERE id = v_ci;
     END IF;
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'AED19 CARD SERVICES PVT LTD' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'AED19 CARD SERVICES PVT LTD' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('AED19 CARD SERVICES PVT LTD', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'AED19 CARD SERVICES PVT LTD' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('AED19 CARD SERVICES PVT LTD', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
@@ -2450,11 +2616,14 @@ BEGIN
         UPDATE card_issuances SET lm_count = 1, cm_count = 0, updated_at = now() WHERE id = v_ci;
     END IF;
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'PRUDENTS' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'PRUDENTS' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('PRUDENTS', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'PRUDENTS' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('PRUDENTS', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
@@ -2472,11 +2641,14 @@ BEGIN
         UPDATE card_issuances SET lm_count = 1, cm_count = 0, updated_at = now() WHERE id = v_ci;
     END IF;
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'SHIVANSHIENTERPRISES' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'SHIVANSHIENTERPRISES' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('SHIVANSHIENTERPRISES', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'SHIVANSHIENTERPRISES' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('SHIVANSHIENTERPRISES', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
@@ -2494,11 +2666,14 @@ BEGIN
         UPDATE card_issuances SET lm_count = 4, cm_count = 0, updated_at = now() WHERE id = v_ci;
     END IF;
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'SUNIL' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'SUNIL' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('SUNIL', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'SUNIL' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('SUNIL', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
@@ -2533,19 +2708,25 @@ BEGIN
     -- Manager: ZEESHAN HAIDER
     SELECT id INTO v_mgr FROM managers WHERE name = 'ZEESHAN HAIDER' LIMIT 1;
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'ATUL' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'ATUL' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('ATUL', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'ATUL' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('ATUL', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'ZEESHAN' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'ZEESHAN' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('ZEESHAN', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'ZEESHAN' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('ZEESHAN', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
@@ -2570,11 +2751,14 @@ BEGIN
         UPDATE card_issuances SET lm_count = 99, cm_count = 0, updated_at = now() WHERE id = v_ci;
     END IF;
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'AFSANA BEGUM' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'AFSANA BEGUM' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('AFSANA BEGUM', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'AFSANA BEGUM' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('AFSANA BEGUM', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
@@ -2592,11 +2776,14 @@ BEGIN
         UPDATE card_issuances SET lm_count = 1, cm_count = 4, updated_at = now() WHERE id = v_ci;
     END IF;
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'ADVENTURIA THRILL INDIA PRIVATE LIMITED' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'ADVENTURIA THRILL INDIA PRIVATE LIMITED' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('ADVENTURIA THRILL INDIA PRIVATE LIMITED', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'ADVENTURIA THRILL INDIA PRIVATE LIMITED' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('ADVENTURIA THRILL INDIA PRIVATE LIMITED', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
@@ -2684,11 +2871,14 @@ BEGIN
         UPDATE card_issuances SET lm_count = 3, cm_count = 0, updated_at = now() WHERE id = v_ci;
     END IF;
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'CREDITLO BUSINESS SOLUTIONS' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'CREDITLO BUSINESS SOLUTIONS' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('CREDITLO BUSINESS SOLUTIONS', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'CREDITLO BUSINESS SOLUTIONS' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('CREDITLO BUSINESS SOLUTIONS', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
@@ -2755,11 +2945,14 @@ BEGIN
         UPDATE card_issuances SET lm_count = 5, cm_count = 0, updated_at = now() WHERE id = v_ci;
     END IF;
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'SALEEM' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'SALEEM' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('SALEEM', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'SALEEM' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('SALEEM', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
@@ -2812,19 +3005,25 @@ BEGIN
         UPDATE card_issuances SET lm_count = 918, cm_count = 0, updated_at = now() WHERE id = v_ci;
     END IF;
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'GAGAN' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'GAGAN' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('GAGAN', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'GAGAN' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('GAGAN', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'CREDBAE' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'CREDBAE' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('CREDBAE', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'CREDBAE' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('CREDBAE', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
@@ -2912,11 +3111,14 @@ BEGIN
         UPDATE card_issuances SET lm_count = 1, cm_count = 0, updated_at = now() WHERE id = v_ci;
     END IF;
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'LAKSHAY RATHORE' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'LAKSHAY RATHORE' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('LAKSHAY RATHORE', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'LAKSHAY RATHORE' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('LAKSHAY RATHORE', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
@@ -2955,27 +3157,36 @@ BEGIN
         UPDATE card_issuances SET lm_count = 2, cm_count = 0, updated_at = now() WHERE id = v_ci;
     END IF;
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'SUBHASH' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'SUBHASH' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('SUBHASH', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'SUBHASH' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('SUBHASH', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'SATENDER' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'SATENDER' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('SATENDER', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'SATENDER' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('SATENDER', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'I DOOR WEALTH MENAGMENT' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'I DOOR WEALTH MENAGMENT' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('I DOOR WEALTH MENAGMENT', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'I DOOR WEALTH MENAGMENT' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('I DOOR WEALTH MENAGMENT', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
@@ -3049,19 +3260,25 @@ BEGIN
         UPDATE card_issuances SET lm_count = 3, cm_count = 0, updated_at = now() WHERE id = v_ci;
     END IF;
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'ASHISH' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'ASHISH' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('ASHISH', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'ASHISH' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('ASHISH', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'GB ENTERPRISE' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'GB ENTERPRISE' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('GB ENTERPRISE', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'GB ENTERPRISE' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('GB ENTERPRISE', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
@@ -3086,35 +3303,47 @@ BEGIN
         UPDATE card_issuances SET lm_count = 2, cm_count = 0, updated_at = now() WHERE id = v_ci;
     END IF;
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'NITIN' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'NITIN' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('NITIN', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'NITIN' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('NITIN', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'MANISH' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'MANISH' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('MANISH', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'MANISH' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('MANISH', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'ETER' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'ETER' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('ETER', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'ETER' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('ETER', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'FARHAD' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'FARHAD' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('FARHAD', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'FARHAD' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('FARHAD', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
@@ -3132,11 +3361,14 @@ BEGIN
         UPDATE card_issuances SET lm_count = 1, cm_count = 0, updated_at = now() WHERE id = v_ci;
     END IF;
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'SOHRAB' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'SOHRAB' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('SOHRAB', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'SOHRAB' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('SOHRAB', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
@@ -3154,19 +3386,25 @@ BEGIN
         UPDATE card_issuances SET lm_count = 9, cm_count = 0, updated_at = now() WHERE id = v_ci;
     END IF;
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'SUMIT Z' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'SUMIT Z' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('SUMIT Z', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'SUMIT Z' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('SUMIT Z', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'AMIRUL' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'AMIRUL' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('AMIRUL', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'AMIRUL' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('AMIRUL', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
@@ -3184,35 +3422,47 @@ BEGIN
         UPDATE card_issuances SET lm_count = 1, cm_count = 0, updated_at = now() WHERE id = v_ci;
     END IF;
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'SAIFUDDIN' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'SAIFUDDIN' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('SAIFUDDIN', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'SAIFUDDIN' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('SAIFUDDIN', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'D FINCARD' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'D FINCARD' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('D FINCARD', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'D FINCARD' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('D FINCARD', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'ASCENT' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'ASCENT' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('ASCENT', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'ASCENT' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('ASCENT', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'TELERING PROCESS PVT LTD( AKASH)' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'TELERING PROCESS PVT LTD( AKASH)' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('TELERING PROCESS PVT LTD( AKASH)', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'TELERING PROCESS PVT LTD( AKASH)' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('TELERING PROCESS PVT LTD( AKASH)', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
@@ -3265,19 +3515,25 @@ BEGIN
         UPDATE card_issuances SET lm_count = 18, cm_count = 9, updated_at = now() WHERE id = v_ci;
     END IF;
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'RAHUL K' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'RAHUL K' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('RAHUL K', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'RAHUL K' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('RAHUL K', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'GULREZ' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'GULREZ' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('GULREZ', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'GULREZ' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('GULREZ', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
@@ -3295,11 +3551,14 @@ BEGIN
         UPDATE card_issuances SET lm_count = 5, cm_count = 0, updated_at = now() WHERE id = v_ci;
     END IF;
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'TELERING PROCESS PVT LTD' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'TELERING PROCESS PVT LTD' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('TELERING PROCESS PVT LTD', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'TELERING PROCESS PVT LTD' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('TELERING PROCESS PVT LTD', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
@@ -3492,19 +3751,25 @@ BEGIN
         UPDATE card_issuances SET lm_count = 26, cm_count = 0, updated_at = now() WHERE id = v_ci;
     END IF;
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'EXTRA' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'EXTRA' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('EXTRA', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'EXTRA' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('EXTRA', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'AFSANA BEGUM/AMIRUL' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'AFSANA BEGUM/AMIRUL' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('AFSANA BEGUM/AMIRUL', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'AFSANA BEGUM/AMIRUL' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('AFSANA BEGUM/AMIRUL', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
@@ -3550,11 +3815,14 @@ BEGIN
         UPDATE card_issuances SET lm_count = 4, cm_count = 0, updated_at = now() WHERE id = v_ci;
     END IF;
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'BHUVNESH' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'BHUVNESH' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('BHUVNESH', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'BHUVNESH' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('BHUVNESH', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
@@ -3572,11 +3840,14 @@ BEGIN
         UPDATE card_issuances SET lm_count = 10, cm_count = 0, updated_at = now() WHERE id = v_ci;
     END IF;
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'SWATI (ZEESHAN)' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'SWATI (ZEESHAN)' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('SWATI (ZEESHAN)', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'SWATI (ZEESHAN)' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('SWATI (ZEESHAN)', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
@@ -3597,11 +3868,14 @@ BEGIN
     -- Manager: BINOD MISHRA
     SELECT id INTO v_mgr FROM managers WHERE name = 'BINOD MISHRA' LIMIT 1;
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'BISHAL PAUL' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'BISHAL PAUL' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('BISHAL PAUL', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'BISHAL PAUL' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('BISHAL PAUL', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
@@ -3682,11 +3956,14 @@ BEGIN
         UPDATE card_issuances SET lm_count = 1, cm_count = 0, updated_at = now() WHERE id = v_ci;
     END IF;
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'ABHIPAY' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'ABHIPAY' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('ABHIPAY', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'ABHIPAY' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('ABHIPAY', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
@@ -3767,11 +4044,14 @@ BEGIN
         UPDATE card_issuances SET lm_count = 1, cm_count = 0, updated_at = now() WHERE id = v_ci;
     END IF;
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'PROSENJIT CHATERJEE' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'PROSENJIT CHATERJEE' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('PROSENJIT CHATERJEE', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'PROSENJIT CHATERJEE' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('PROSENJIT CHATERJEE', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
@@ -3929,11 +4209,14 @@ BEGIN
         UPDATE card_issuances SET lm_count = 14, cm_count = 0, updated_at = now() WHERE id = v_ci;
     END IF;
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'UDYAAM' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'UDYAAM' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('UDYAAM', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'UDYAAM' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('UDYAAM', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
@@ -3944,11 +4227,14 @@ BEGIN
         UPDATE card_issuances SET lm_count = 3, cm_count = 1, updated_at = now() WHERE id = v_ci;
     END IF;
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'SUDIP POUL' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'SUDIP POUL' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('SUDIP POUL', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'SUDIP POUL' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('SUDIP POUL', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
@@ -4120,11 +4406,14 @@ BEGIN
         UPDATE card_issuances SET lm_count = 11, cm_count = 0, updated_at = now() WHERE id = v_ci;
     END IF;
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'RR ASSOCIATES' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'RR ASSOCIATES' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('RR ASSOCIATES', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'RR ASSOCIATES' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('RR ASSOCIATES', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
@@ -4373,11 +4662,14 @@ BEGIN
         UPDATE card_issuances SET lm_count = 9, cm_count = 0, updated_at = now() WHERE id = v_ci;
     END IF;
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'SRABANTI PAUL' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'SRABANTI PAUL' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('SRABANTI PAUL', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'SRABANTI PAUL' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('SRABANTI PAUL', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
@@ -4514,11 +4806,14 @@ BEGIN
         UPDATE card_issuances SET lm_count = 1, cm_count = 0, updated_at = now() WHERE id = v_ci;
     END IF;
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'PARTHO BHATACHARJEE' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'PARTHO BHATACHARJEE' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('PARTHO BHATACHARJEE', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'PARTHO BHATACHARJEE' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('PARTHO BHATACHARJEE', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
@@ -4564,11 +4859,14 @@ BEGIN
         UPDATE card_issuances SET lm_count = 4, cm_count = 0, updated_at = now() WHERE id = v_ci;
     END IF;
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'S K RABI' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'S K RABI' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('S K RABI', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'S K RABI' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('S K RABI', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
@@ -4593,11 +4891,14 @@ BEGIN
         UPDATE card_issuances SET lm_count = 16, cm_count = 0, updated_at = now() WHERE id = v_ci;
     END IF;
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'SECUREPEAK SERVICE PVT LTD' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'SECUREPEAK SERVICE PVT LTD' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('SECUREPEAK SERVICE PVT LTD', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'SECUREPEAK SERVICE PVT LTD' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('SECUREPEAK SERVICE PVT LTD', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
@@ -4776,11 +5077,14 @@ BEGIN
         UPDATE card_issuances SET lm_count = 24, cm_count = 0, updated_at = now() WHERE id = v_ci;
     END IF;
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'AVIK SAHA' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'AVIK SAHA' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('AVIK SAHA', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'AVIK SAHA' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('AVIK SAHA', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
@@ -4819,11 +5123,14 @@ BEGIN
         UPDATE card_issuances SET lm_count = 4, cm_count = 1, updated_at = now() WHERE id = v_ci;
     END IF;
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'ABHISHEK SHARMA' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'ABHISHEK SHARMA' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('ABHISHEK SHARMA', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'ABHISHEK SHARMA' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('ABHISHEK SHARMA', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
@@ -4848,11 +5155,14 @@ BEGIN
         UPDATE card_issuances SET lm_count = 2, cm_count = 1, updated_at = now() WHERE id = v_ci;
     END IF;
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'MADHABI SHOW' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'MADHABI SHOW' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('MADHABI SHOW', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'MADHABI SHOW' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('MADHABI SHOW', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
@@ -4898,11 +5208,14 @@ BEGIN
         UPDATE card_issuances SET lm_count = 0, cm_count = 1, updated_at = now() WHERE id = v_ci;
     END IF;
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'GROWUP FINANCIAL' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'GROWUP FINANCIAL' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('GROWUP FINANCIAL', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'GROWUP FINANCIAL' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('GROWUP FINANCIAL', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
@@ -4941,11 +5254,14 @@ BEGIN
         UPDATE card_issuances SET lm_count = 1, cm_count = 0, updated_at = now() WHERE id = v_ci;
     END IF;
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'FUNDCAP' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'FUNDCAP' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('FUNDCAP', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'FUNDCAP' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('FUNDCAP', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
@@ -4977,11 +5293,14 @@ BEGIN
         UPDATE card_issuances SET lm_count = 12, cm_count = 0, updated_at = now() WHERE id = v_ci;
     END IF;
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'PARTHA BHATTACHARJEE' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'PARTHA BHATTACHARJEE' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('PARTHA BHATTACHARJEE', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'PARTHA BHATTACHARJEE' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('PARTHA BHATTACHARJEE', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
@@ -5002,11 +5321,14 @@ BEGIN
     -- Manager: DIVYAM
     SELECT id INTO v_mgr FROM managers WHERE name = 'DIVYAM' LIMIT 1;
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'AMIT KUMAR' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'AMIT KUMAR' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('AMIT KUMAR', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'AMIT KUMAR' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('AMIT KUMAR', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
@@ -5024,11 +5346,14 @@ BEGIN
         UPDATE card_issuances SET lm_count = 2, cm_count = 3, updated_at = now() WHERE id = v_ci;
     END IF;
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'ATIK AHMED' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'ATIK AHMED' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('ATIK AHMED', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'ATIK AHMED' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('ATIK AHMED', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
@@ -5179,11 +5504,14 @@ BEGIN
         UPDATE card_issuances SET lm_count = 3, cm_count = 0, updated_at = now() WHERE id = v_ci;
     END IF;
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'CRED BAZAR' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'CRED BAZAR' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('CRED BAZAR', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'CRED BAZAR' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('CRED BAZAR', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
@@ -5194,11 +5522,14 @@ BEGIN
         UPDATE card_issuances SET lm_count = 7, cm_count = 0, updated_at = now() WHERE id = v_ci;
     END IF;
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'OWLOTS NEXTGEN PRIVATE LIMITED' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'OWLOTS NEXTGEN PRIVATE LIMITED' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('OWLOTS NEXTGEN PRIVATE LIMITED', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'OWLOTS NEXTGEN PRIVATE LIMITED' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('OWLOTS NEXTGEN PRIVATE LIMITED', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
@@ -5279,11 +5610,14 @@ BEGIN
         UPDATE card_issuances SET lm_count = 140, cm_count = 0, updated_at = now() WHERE id = v_ci;
     END IF;
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'VIKASH SHARMA' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'VIKASH SHARMA' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('VIKASH SHARMA', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'VIKASH SHARMA' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('VIKASH SHARMA', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
@@ -5294,19 +5628,25 @@ BEGIN
         UPDATE card_issuances SET lm_count = 1, cm_count = 0, updated_at = now() WHERE id = v_ci;
     END IF;
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'JASWANT SINGH' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'JASWANT SINGH' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('JASWANT SINGH', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'JASWANT SINGH' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('JASWANT SINGH', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'KAMLAKAR' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'KAMLAKAR' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('KAMLAKAR', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'KAMLAKAR' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('KAMLAKAR', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
@@ -5324,11 +5664,14 @@ BEGIN
         UPDATE card_issuances SET lm_count = 1, cm_count = 0, updated_at = now() WHERE id = v_ci;
     END IF;
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'FAIZAL' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'FAIZAL' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('FAIZAL', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'FAIZAL' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('FAIZAL', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
@@ -5423,19 +5766,25 @@ BEGIN
         UPDATE card_issuances SET lm_count = 121, cm_count = 0, updated_at = now() WHERE id = v_ci;
     END IF;
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'BHASKAR CHATTERJEE' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'BHASKAR CHATTERJEE' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('BHASKAR CHATTERJEE', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'BHASKAR CHATTERJEE' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('BHASKAR CHATTERJEE', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'VIKRAM PUNE' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'VIKRAM PUNE' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('VIKRAM PUNE', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'VIKRAM PUNE' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('VIKRAM PUNE', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
@@ -5467,43 +5816,58 @@ BEGIN
         UPDATE card_issuances SET lm_count = 4, cm_count = 0, updated_at = now() WHERE id = v_ci;
     END IF;
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'SAFIYAR' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'SAFIYAR' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('SAFIYAR', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'SAFIYAR' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('SAFIYAR', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'ATUL PATEL' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'ATUL PATEL' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('ATUL PATEL', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'ATUL PATEL' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('ATUL PATEL', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'KUNAL MODI' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'KUNAL MODI' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('KUNAL MODI', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'KUNAL MODI' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('KUNAL MODI', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'INDERJEET KOYLE' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'INDERJEET KOYLE' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('INDERJEET KOYLE', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'INDERJEET KOYLE' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('INDERJEET KOYLE', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'INTROSPECT FINANCIAL SERVICE' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'INTROSPECT FINANCIAL SERVICE' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('INTROSPECT FINANCIAL SERVICE', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'INTROSPECT FINANCIAL SERVICE' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('INTROSPECT FINANCIAL SERVICE', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
@@ -5556,11 +5920,14 @@ BEGIN
         UPDATE card_issuances SET lm_count = 32, cm_count = 0, updated_at = now() WHERE id = v_ci;
     END IF;
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'VIKAS D' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'VIKAS D' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('VIKAS D', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'VIKAS D' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('VIKAS D', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
@@ -5613,11 +5980,14 @@ BEGIN
         UPDATE card_issuances SET lm_count = 1, cm_count = 0, updated_at = now() WHERE id = v_ci;
     END IF;
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'VIKAS BHADORIA' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'VIKAS BHADORIA' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('VIKAS BHADORIA', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'VIKAS BHADORIA' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('VIKAS BHADORIA', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
@@ -5642,11 +6012,14 @@ BEGIN
         UPDATE card_issuances SET lm_count = 1, cm_count = 0, updated_at = now() WHERE id = v_ci;
     END IF;
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'RAJI BALI' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'RAJI BALI' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('RAJI BALI', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'RAJI BALI' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('RAJI BALI', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
@@ -5657,27 +6030,36 @@ BEGIN
         UPDATE card_issuances SET lm_count = 2, cm_count = 0, updated_at = now() WHERE id = v_ci;
     END IF;
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'KAJAL' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'KAJAL' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('KAJAL', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'KAJAL' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('KAJAL', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'PRIYANKA BASAI' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'PRIYANKA BASAI' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('PRIYANKA BASAI', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'PRIYANKA BASAI' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('PRIYANKA BASAI', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'KHALID SHAIKH' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'KHALID SHAIKH' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('KHALID SHAIKH', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'KHALID SHAIKH' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('KHALID SHAIKH', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
@@ -5688,19 +6070,25 @@ BEGIN
         UPDATE card_issuances SET lm_count = 1, cm_count = 0, updated_at = now() WHERE id = v_ci;
     END IF;
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'BHAVESH' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'BHAVESH' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('BHAVESH', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'BHAVESH' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('BHAVESH', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'MESHIYA HETALBEN TARUNKUMAR' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'MESHIYA HETALBEN TARUNKUMAR' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('MESHIYA HETALBEN TARUNKUMAR', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'MESHIYA HETALBEN TARUNKUMAR' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('MESHIYA HETALBEN TARUNKUMAR', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
@@ -5746,11 +6134,14 @@ BEGIN
         UPDATE card_issuances SET lm_count = 11, cm_count = 0, updated_at = now() WHERE id = v_ci;
     END IF;
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'MILI PRADHAN' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'MILI PRADHAN' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('MILI PRADHAN', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'MILI PRADHAN' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('MILI PRADHAN', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
@@ -5866,35 +6257,47 @@ BEGIN
         UPDATE card_issuances SET lm_count = 1, cm_count = 0, updated_at = now() WHERE id = v_ci;
     END IF;
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'PAPPU PAL' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'PAPPU PAL' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('PAPPU PAL', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'PAPPU PAL' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('PAPPU PAL', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'ARPIT' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'ARPIT' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('ARPIT', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'ARPIT' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('ARPIT', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'VISHAL RAVAT' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'VISHAL RAVAT' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('VISHAL RAVAT', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'VISHAL RAVAT' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('VISHAL RAVAT', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'SURESH' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'SURESH' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('SURESH', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'SURESH' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('SURESH', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
@@ -5905,11 +6308,14 @@ BEGIN
         UPDATE card_issuances SET lm_count = 1, cm_count = 0, updated_at = now() WHERE id = v_ci;
     END IF;
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'UPENDRA KODESA' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'UPENDRA KODESA' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('UPENDRA KODESA', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'UPENDRA KODESA' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('UPENDRA KODESA', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
@@ -5927,11 +6333,14 @@ BEGIN
         UPDATE card_issuances SET lm_count = 1, cm_count = 0, updated_at = now() WHERE id = v_ci;
     END IF;
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'ANSH MANAGEMENT' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'ANSH MANAGEMENT' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('ANSH MANAGEMENT', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'ANSH MANAGEMENT' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('ANSH MANAGEMENT', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
@@ -5949,11 +6358,14 @@ BEGIN
         UPDATE card_issuances SET lm_count = 16, cm_count = 0, updated_at = now() WHERE id = v_ci;
     END IF;
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'HETAL' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'HETAL' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('HETAL', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'HETAL' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('HETAL', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
@@ -5978,11 +6390,14 @@ BEGIN
         UPDATE card_issuances SET lm_count = 11, cm_count = 0, updated_at = now() WHERE id = v_ci;
     END IF;
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'GAJENDRA' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'GAJENDRA' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('GAJENDRA', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'GAJENDRA' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('GAJENDRA', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
@@ -6007,11 +6422,14 @@ BEGIN
         UPDATE card_issuances SET lm_count = 521, cm_count = 0, updated_at = now() WHERE id = v_ci;
     END IF;
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'ABHISHEK' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'ABHISHEK' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('ABHISHEK', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'ABHISHEK' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('ABHISHEK', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
@@ -6029,11 +6447,14 @@ BEGIN
         UPDATE card_issuances SET lm_count = 3, cm_count = 0, updated_at = now() WHERE id = v_ci;
     END IF;
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'ASHISH JANI' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'ASHISH JANI' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('ASHISH JANI', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'ASHISH JANI' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('ASHISH JANI', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
@@ -6054,11 +6475,14 @@ BEGIN
     -- Manager: VINAY PANDEY
     SELECT id INTO v_mgr FROM managers WHERE name = 'VINAY PANDEY' LIMIT 1;
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'SWATI' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'SWATI' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('SWATI', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'SWATI' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('SWATI', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
@@ -6090,11 +6514,14 @@ BEGIN
         UPDATE card_issuances SET lm_count = 1, cm_count = 0, updated_at = now() WHERE id = v_ci;
     END IF;
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'VINEET SHARMA' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'VINEET SHARMA' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('VINEET SHARMA', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'VINEET SHARMA' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('VINEET SHARMA', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
@@ -6175,19 +6602,25 @@ BEGIN
         UPDATE card_issuances SET lm_count = 4, cm_count = 0, updated_at = now() WHERE id = v_ci;
     END IF;
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'ADITYA PRATAP' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'ADITYA PRATAP' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('ADITYA PRATAP', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'ADITYA PRATAP' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('ADITYA PRATAP', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'RIDHVIK FINANCIAL SERVICES' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'RIDHVIK FINANCIAL SERVICES' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('RIDHVIK FINANCIAL SERVICES', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'RIDHVIK FINANCIAL SERVICES' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('RIDHVIK FINANCIAL SERVICES', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
@@ -6303,19 +6736,25 @@ BEGIN
         UPDATE card_issuances SET lm_count = 272, cm_count = 0, updated_at = now() WHERE id = v_ci;
     END IF;
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'ANJALI CHAWLA' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'ANJALI CHAWLA' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('ANJALI CHAWLA', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'ANJALI CHAWLA' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('ANJALI CHAWLA', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'ABHISHEK DUTTA' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'ABHISHEK DUTTA' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('ABHISHEK DUTTA', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'ABHISHEK DUTTA' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('ABHISHEK DUTTA', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
@@ -6347,11 +6786,14 @@ BEGIN
         UPDATE card_issuances SET lm_count = 2, cm_count = 0, updated_at = now() WHERE id = v_ci;
     END IF;
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'FARMAN' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'FARMAN' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('FARMAN', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'FARMAN' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('FARMAN', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
@@ -6418,19 +6860,25 @@ BEGIN
         UPDATE card_issuances SET lm_count = 2, cm_count = 0, updated_at = now() WHERE id = v_ci;
     END IF;
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'SHREE SHYAM SOLUTION' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'SHREE SHYAM SOLUTION' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('SHREE SHYAM SOLUTION', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'SHREE SHYAM SOLUTION' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('SHREE SHYAM SOLUTION', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'SUNITA (BOOSTER SCORE SOLUTIONS PVT LTD)' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'SUNITA (BOOSTER SCORE SOLUTIONS PVT LTD)' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('SUNITA (BOOSTER SCORE SOLUTIONS PVT LTD)', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'SUNITA (BOOSTER SCORE SOLUTIONS PVT LTD)' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('SUNITA (BOOSTER SCORE SOLUTIONS PVT LTD)', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
@@ -6553,19 +7001,25 @@ BEGIN
         UPDATE card_issuances SET lm_count = 2, cm_count = 0, updated_at = now() WHERE id = v_ci;
     END IF;
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'DEEPU RAJPUT' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'DEEPU RAJPUT' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('DEEPU RAJPUT', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'DEEPU RAJPUT' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('DEEPU RAJPUT', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'ARPAN TYAGI' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'ARPAN TYAGI' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('ARPAN TYAGI', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'ARPAN TYAGI' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('ARPAN TYAGI', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
@@ -6590,19 +7044,25 @@ BEGIN
         UPDATE card_issuances SET lm_count = 6, cm_count = 0, updated_at = now() WHERE id = v_ci;
     END IF;
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'ANSHUL CHHIMWAL' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'ANSHUL CHHIMWAL' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('ANSHUL CHHIMWAL', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'ANSHUL CHHIMWAL' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('ANSHUL CHHIMWAL', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'INTERNITY PVT LTD' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'INTERNITY PVT LTD' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('INTERNITY PVT LTD', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'INTERNITY PVT LTD' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('INTERNITY PVT LTD', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
@@ -6613,11 +7073,14 @@ BEGIN
         UPDATE card_issuances SET lm_count = 130, cm_count = 99, updated_at = now() WHERE id = v_ci;
     END IF;
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'ANUBHAV GUPTA' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'ANUBHAV GUPTA' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('ANUBHAV GUPTA', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'ANUBHAV GUPTA' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('ANUBHAV GUPTA', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
@@ -6677,11 +7140,14 @@ BEGIN
         UPDATE card_issuances SET lm_count = 61, cm_count = 0, updated_at = now() WHERE id = v_ci;
     END IF;
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'FINSPARK' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'FINSPARK' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('FINSPARK', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'FINSPARK' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('FINSPARK', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
@@ -6692,19 +7158,25 @@ BEGIN
         UPDATE card_issuances SET lm_count = 19, cm_count = 0, updated_at = now() WHERE id = v_ci;
     END IF;
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'GENEX' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'GENEX' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('GENEX', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'GENEX' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('GENEX', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'PRIYA CHAND' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'PRIYA CHAND' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('PRIYA CHAND', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'PRIYA CHAND' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('PRIYA CHAND', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
@@ -6736,19 +7208,25 @@ BEGIN
         UPDATE card_issuances SET lm_count = 1, cm_count = 0, updated_at = now() WHERE id = v_ci;
     END IF;
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'MD WASIN' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'MD WASIN' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('MD WASIN', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'MD WASIN' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('MD WASIN', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'ARUN KUMAR' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'ARUN KUMAR' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('ARUN KUMAR', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'ARUN KUMAR' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('ARUN KUMAR', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
@@ -6794,11 +7272,14 @@ BEGIN
         UPDATE card_issuances SET lm_count = 71, cm_count = 0, updated_at = now() WHERE id = v_ci;
     END IF;
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'ARMAN RANJAN' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'ARMAN RANJAN' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('ARMAN RANJAN', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'ARMAN RANJAN' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('ARMAN RANJAN', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
@@ -6830,11 +7311,14 @@ BEGIN
         UPDATE card_issuances SET lm_count = 10, cm_count = 0, updated_at = now() WHERE id = v_ci;
     END IF;
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'BHARAT ENTERPRISES (PATHWAY SOLUTION)' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'BHARAT ENTERPRISES (PATHWAY SOLUTION)' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('BHARAT ENTERPRISES (PATHWAY SOLUTION)', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'BHARAT ENTERPRISES (PATHWAY SOLUTION)' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('BHARAT ENTERPRISES (PATHWAY SOLUTION)', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
@@ -7034,11 +7518,14 @@ BEGIN
         UPDATE card_issuances SET lm_count = 112, cm_count = 0, updated_at = now() WHERE id = v_ci;
     END IF;
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'CAPITAL CALL SERVICE' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'CAPITAL CALL SERVICE' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('CAPITAL CALL SERVICE', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'CAPITAL CALL SERVICE' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('CAPITAL CALL SERVICE', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
@@ -7063,19 +7550,25 @@ BEGIN
         UPDATE card_issuances SET lm_count = 2, cm_count = 0, updated_at = now() WHERE id = v_ci;
     END IF;
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'CARD EXPERTISE' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'CARD EXPERTISE' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('CARD EXPERTISE', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'CARD EXPERTISE' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('CARD EXPERTISE', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'CARDS EXPERTS' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'CARDS EXPERTS' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('CARDS EXPERTS', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'CARDS EXPERTS' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('CARDS EXPERTS', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
@@ -7170,11 +7663,14 @@ BEGIN
         UPDATE card_issuances SET lm_count = 2, cm_count = 0, updated_at = now() WHERE id = v_ci;
     END IF;
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'DEBSTER MEDIA PRIVATE LIMITED' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'DEBSTER MEDIA PRIVATE LIMITED' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('DEBSTER MEDIA PRIVATE LIMITED', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'DEBSTER MEDIA PRIVATE LIMITED' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('DEBSTER MEDIA PRIVATE LIMITED', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
@@ -7220,27 +7716,36 @@ BEGIN
         UPDATE card_issuances SET lm_count = 3, cm_count = 0, updated_at = now() WHERE id = v_ci;
     END IF;
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'GREAT INDIA COMMUNICATIONS' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'GREAT INDIA COMMUNICATIONS' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('GREAT INDIA COMMUNICATIONS', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'GREAT INDIA COMMUNICATIONS' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('GREAT INDIA COMMUNICATIONS', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'SNEHALATA/VINAY' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'SNEHALATA/VINAY' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('SNEHALATA/VINAY', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'SNEHALATA/VINAY' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('SNEHALATA/VINAY', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'K S CARDS' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'K S CARDS' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('K S CARDS', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'K S CARDS' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('K S CARDS', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
@@ -7258,11 +7763,14 @@ BEGIN
         UPDATE card_issuances SET lm_count = 2, cm_count = 0, updated_at = now() WHERE id = v_ci;
     END IF;
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'NAINSHU/VINAY' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'NAINSHU/VINAY' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('NAINSHU/VINAY', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'NAINSHU/VINAY' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('NAINSHU/VINAY', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
@@ -7273,11 +7781,14 @@ BEGIN
         UPDATE card_issuances SET lm_count = 17, cm_count = 0, updated_at = now() WHERE id = v_ci;
     END IF;
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'SATYAWAN/VILAS' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'SATYAWAN/VILAS' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('SATYAWAN/VILAS', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'SATYAWAN/VILAS' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('SATYAWAN/VILAS', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
@@ -7288,11 +7799,14 @@ BEGIN
         UPDATE card_issuances SET lm_count = 8, cm_count = 0, updated_at = now() WHERE id = v_ci;
     END IF;
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'KHUSHBOO SINGH' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'KHUSHBOO SINGH' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('KHUSHBOO SINGH', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'KHUSHBOO SINGH' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('KHUSHBOO SINGH', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
@@ -7338,11 +7852,14 @@ BEGIN
         UPDATE card_issuances SET lm_count = 14, cm_count = 0, updated_at = now() WHERE id = v_ci;
     END IF;
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'AMIT KUMAR SHARMA' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'AMIT KUMAR SHARMA' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('AMIT KUMAR SHARMA', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'AMIT KUMAR SHARMA' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('AMIT KUMAR SHARMA', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
@@ -7388,11 +7905,14 @@ BEGIN
         UPDATE card_issuances SET lm_count = 87, cm_count = 0, updated_at = now() WHERE id = v_ci;
     END IF;
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'MONEY MART' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'MONEY MART' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('MONEY MART', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'MONEY MART' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('MONEY MART', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
@@ -7438,11 +7958,14 @@ BEGIN
         UPDATE card_issuances SET lm_count = 12, cm_count = 0, updated_at = now() WHERE id = v_ci;
     END IF;
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'NEHA SAINI' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'NEHA SAINI' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('NEHA SAINI', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'NEHA SAINI' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('NEHA SAINI', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
@@ -7474,35 +7997,47 @@ BEGIN
         UPDATE card_issuances SET lm_count = 18, cm_count = 0, updated_at = now() WHERE id = v_ci;
     END IF;
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'SHAILENDRA PANDEY' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'SHAILENDRA PANDEY' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('SHAILENDRA PANDEY', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'SHAILENDRA PANDEY' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('SHAILENDRA PANDEY', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'SHAHA ZAIDI' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'SHAHA ZAIDI' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('SHAHA ZAIDI', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'SHAHA ZAIDI' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('SHAHA ZAIDI', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'RKP96 CARDS SOLUTION PVT LTD' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'RKP96 CARDS SOLUTION PVT LTD' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('RKP96 CARDS SOLUTION PVT LTD', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'RKP96 CARDS SOLUTION PVT LTD' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('RKP96 CARDS SOLUTION PVT LTD', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'S & P FINANCIAL SOLUTIONS' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'S & P FINANCIAL SOLUTIONS' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('S & P FINANCIAL SOLUTIONS', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'S & P FINANCIAL SOLUTIONS' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('S & P FINANCIAL SOLUTIONS', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
@@ -7653,19 +8188,25 @@ BEGIN
         UPDATE card_issuances SET lm_count = 40, cm_count = 0, updated_at = now() WHERE id = v_ci;
     END IF;
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'SAMEER' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'SAMEER' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('SAMEER', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'SAMEER' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('SAMEER', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'SUKRITI MANDAL' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'SUKRITI MANDAL' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('SUKRITI MANDAL', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'SUKRITI MANDAL' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('SUKRITI MANDAL', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
@@ -7690,11 +8231,14 @@ BEGIN
         UPDATE card_issuances SET lm_count = 76, cm_count = 0, updated_at = now() WHERE id = v_ci;
     END IF;
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'SANJAY SAINI' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'SANJAY SAINI' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('SANJAY SAINI', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'SANJAY SAINI' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('SANJAY SAINI', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
@@ -7873,27 +8417,36 @@ BEGIN
         UPDATE card_issuances SET lm_count = 6, cm_count = 0, updated_at = now() WHERE id = v_ci;
     END IF;
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'MD ATIF' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'MD ATIF' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('MD ATIF', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'MD ATIF' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('MD ATIF', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'POOJA GUPTA' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'POOJA GUPTA' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('POOJA GUPTA', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'POOJA GUPTA' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('POOJA GUPTA', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'TEJPAL SINGH' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'TEJPAL SINGH' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('TEJPAL SINGH', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'TEJPAL SINGH' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('TEJPAL SINGH', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
@@ -7974,19 +8527,25 @@ BEGIN
         UPDATE card_issuances SET lm_count = 1, cm_count = 0, updated_at = now() WHERE id = v_ci;
     END IF;
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'MANOJ' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'MANOJ' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('MANOJ', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'MANOJ' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('MANOJ', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'SKY HEIGHTS OUTSOURCING SOLUTIONS' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'SKY HEIGHTS OUTSOURCING SOLUTIONS' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('SKY HEIGHTS OUTSOURCING SOLUTIONS', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'SKY HEIGHTS OUTSOURCING SOLUTIONS' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('SKY HEIGHTS OUTSOURCING SOLUTIONS', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
@@ -8060,11 +8619,14 @@ BEGIN
         UPDATE card_issuances SET lm_count = 69, cm_count = 0, updated_at = now() WHERE id = v_ci;
     END IF;
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'PREETAM' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'PREETAM' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('PREETAM', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'PREETAM' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('PREETAM', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
@@ -8096,11 +8658,14 @@ BEGIN
         UPDATE card_issuances SET lm_count = 13, cm_count = 0, updated_at = now() WHERE id = v_ci;
     END IF;
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'RN CARD EXPERTISE PRIVATE LIMITED' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'RN CARD EXPERTISE PRIVATE LIMITED' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('RN CARD EXPERTISE PRIVATE LIMITED', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'RN CARD EXPERTISE PRIVATE LIMITED' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('RN CARD EXPERTISE PRIVATE LIMITED', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
@@ -8139,11 +8704,14 @@ BEGIN
         UPDATE card_issuances SET lm_count = 113, cm_count = 0, updated_at = now() WHERE id = v_ci;
     END IF;
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'ZAHID' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'ZAHID' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('ZAHID', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'ZAHID' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('ZAHID', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
@@ -8175,11 +8743,14 @@ BEGIN
         UPDATE card_issuances SET lm_count = 18, cm_count = 0, updated_at = now() WHERE id = v_ci;
     END IF;
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'VIKAS' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'VIKAS' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('VIKAS', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'VIKAS' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('VIKAS', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
@@ -8211,11 +8782,14 @@ BEGIN
         UPDATE card_issuances SET lm_count = 7, cm_count = 0, updated_at = now() WHERE id = v_ci;
     END IF;
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'VARSHA RANI' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'VARSHA RANI' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('VARSHA RANI', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'VARSHA RANI' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('VARSHA RANI', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
@@ -8289,11 +8863,14 @@ BEGIN
         UPDATE card_issuances SET lm_count = 43, cm_count = 0, updated_at = now() WHERE id = v_ci;
     END IF;
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'SANTOSH KUMAR SHARMA' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'SANTOSH KUMAR SHARMA' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('SANTOSH KUMAR SHARMA', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'SANTOSH KUMAR SHARMA' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('SANTOSH KUMAR SHARMA', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
@@ -8346,11 +8923,14 @@ BEGIN
         UPDATE card_issuances SET lm_count = 18, cm_count = 0, updated_at = now() WHERE id = v_ci;
     END IF;
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'SHRESHREY CARD SERVICES PRIVATE LIMITED' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'SHRESHREY CARD SERVICES PRIVATE LIMITED' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('SHRESHREY CARD SERVICES PRIVATE LIMITED', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'SHRESHREY CARD SERVICES PRIVATE LIMITED' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('SHRESHREY CARD SERVICES PRIVATE LIMITED', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
@@ -8396,11 +8976,14 @@ BEGIN
         UPDATE card_issuances SET lm_count = 30, cm_count = 0, updated_at = now() WHERE id = v_ci;
     END IF;
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'UMA SINGH ( SHIVI CARDS SERVICES)' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'UMA SINGH ( SHIVI CARDS SERVICES)' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('UMA SINGH ( SHIVI CARDS SERVICES)', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'UMA SINGH ( SHIVI CARDS SERVICES)' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('UMA SINGH ( SHIVI CARDS SERVICES)', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
@@ -8516,11 +9099,14 @@ BEGIN
         UPDATE card_issuances SET lm_count = 10, cm_count = 0, updated_at = now() WHERE id = v_ci;
     END IF;
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'RUPI BAZAAR FINTECH PVT LTD' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'RUPI BAZAAR FINTECH PVT LTD' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('RUPI BAZAAR FINTECH PVT LTD', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'RUPI BAZAAR FINTECH PVT LTD' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('RUPI BAZAAR FINTECH PVT LTD', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
@@ -8552,11 +9138,14 @@ BEGIN
         UPDATE card_issuances SET lm_count = 5, cm_count = 0, updated_at = now() WHERE id = v_ci;
     END IF;
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'INTERNITY' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'INTERNITY' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('INTERNITY', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'INTERNITY' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('INTERNITY', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
@@ -8567,11 +9156,14 @@ BEGIN
         UPDATE card_issuances SET lm_count = 99, cm_count = 0, updated_at = now() WHERE id = v_ci;
     END IF;
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'AKASH CHAUHAN' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'AKASH CHAUHAN' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('AKASH CHAUHAN', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'AKASH CHAUHAN' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('AKASH CHAUHAN', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
@@ -8582,11 +9174,14 @@ BEGIN
         UPDATE card_issuances SET lm_count = 0, cm_count = 73, updated_at = now() WHERE id = v_ci;
     END IF;
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'AYUSH' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'AYUSH' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('AYUSH', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'AYUSH' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('AYUSH', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
@@ -8604,11 +9199,14 @@ BEGIN
         UPDATE card_issuances SET lm_count = 5, cm_count = 0, updated_at = now() WHERE id = v_ci;
     END IF;
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'KRISHNA' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'KRISHNA' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('KRISHNA', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'KRISHNA' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('KRISHNA', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
@@ -8633,11 +9231,14 @@ BEGIN
         UPDATE card_issuances SET lm_count = 5, cm_count = 0, updated_at = now() WHERE id = v_ci;
     END IF;
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'RAHUL' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'RAHUL' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('RAHUL', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'RAHUL' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('RAHUL', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
@@ -8690,11 +9291,14 @@ BEGIN
         UPDATE card_issuances SET lm_count = 5, cm_count = 0, updated_at = now() WHERE id = v_ci;
     END IF;
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'IMRAN' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'IMRAN' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('IMRAN', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'IMRAN' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('IMRAN', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
@@ -8719,11 +9323,14 @@ BEGIN
         UPDATE card_issuances SET lm_count = 4, cm_count = 0, updated_at = now() WHERE id = v_ci;
     END IF;
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'AKSH CHOUHAN' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'AKSH CHOUHAN' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('AKSH CHOUHAN', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'AKSH CHOUHAN' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('AKSH CHOUHAN', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
@@ -8741,11 +9348,14 @@ BEGIN
         UPDATE card_issuances SET lm_count = 48, cm_count = 0, updated_at = now() WHERE id = v_ci;
     END IF;
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'UNIQE MONEY' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'UNIQE MONEY' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('UNIQE MONEY', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'UNIQE MONEY' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('UNIQE MONEY', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
@@ -8763,11 +9373,14 @@ BEGIN
         UPDATE card_issuances SET lm_count = 49, cm_count = 0, updated_at = now() WHERE id = v_ci;
     END IF;
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'SNEHLATA' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'SNEHLATA' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('SNEHLATA', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'SNEHLATA' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('SNEHLATA', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
@@ -8788,35 +9401,47 @@ BEGIN
     -- Manager: ALKESH SHUKLA
     SELECT id INTO v_mgr FROM managers WHERE name = 'ALKESH SHUKLA' LIMIT 1;
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'ANKIT KHARE' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'ANKIT KHARE' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('ANKIT KHARE', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'ANKIT KHARE' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('ANKIT KHARE', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'AMIT SINGH' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'AMIT SINGH' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('AMIT SINGH', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'AMIT SINGH' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('AMIT SINGH', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'IMAM ALI' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'IMAM ALI' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('IMAM ALI', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'IMAM ALI' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('IMAM ALI', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'ABHISHEK CHANYAL' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'ABHISHEK CHANYAL' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('ABHISHEK CHANYAL', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'ABHISHEK CHANYAL' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('ABHISHEK CHANYAL', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
@@ -8876,19 +9501,25 @@ BEGIN
         UPDATE card_issuances SET lm_count = 2, cm_count = 0, updated_at = now() WHERE id = v_ci;
     END IF;
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'JAIKESH SHUKLA' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'JAIKESH SHUKLA' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('JAIKESH SHUKLA', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'JAIKESH SHUKLA' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('JAIKESH SHUKLA', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'MADHU YADAV' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'MADHU YADAV' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('MADHU YADAV', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'MADHU YADAV' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('MADHU YADAV', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
@@ -8927,11 +9558,14 @@ BEGIN
         UPDATE card_issuances SET lm_count = 2, cm_count = 0, updated_at = now() WHERE id = v_ci;
     END IF;
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'RITU SHUKLA' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'RITU SHUKLA' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('RITU SHUKLA', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'RITU SHUKLA' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('RITU SHUKLA', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
@@ -9040,19 +9674,25 @@ BEGIN
         UPDATE card_issuances SET lm_count = 6, cm_count = 0, updated_at = now() WHERE id = v_ci;
     END IF;
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'ZAID ASKARI' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'ZAID ASKARI' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('ZAID ASKARI', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'ZAID ASKARI' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('ZAID ASKARI', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'UPENDRA KUMAR SINGH' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'UPENDRA KUMAR SINGH' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('UPENDRA KUMAR SINGH', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'UPENDRA KUMAR SINGH' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('UPENDRA KUMAR SINGH', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
@@ -9091,11 +9731,14 @@ BEGIN
         UPDATE card_issuances SET lm_count = 1, cm_count = 0, updated_at = now() WHERE id = v_ci;
     END IF;
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'VIJAY RASTOGI' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'VIJAY RASTOGI' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('VIJAY RASTOGI', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'VIJAY RASTOGI' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('VIJAY RASTOGI', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
@@ -9120,11 +9763,14 @@ BEGIN
         UPDATE card_issuances SET lm_count = 2, cm_count = 0, updated_at = now() WHERE id = v_ci;
     END IF;
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'VIPIN KUMAR TIWARI' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'VIPIN KUMAR TIWARI' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('VIPIN KUMAR TIWARI', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'VIPIN KUMAR TIWARI' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('VIPIN KUMAR TIWARI', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
@@ -9156,11 +9802,14 @@ BEGIN
         UPDATE card_issuances SET lm_count = 1, cm_count = 0, updated_at = now() WHERE id = v_ci;
     END IF;
 
-    SELECT id INTO v_cp FROM channel_partners WHERE name = 'ZAINAB NADEEM' LIMIT 1;
+    SELECT id INTO v_cp FROM channel_partners WHERE name = 'ZAINAB NADEEM' AND manager_id = v_mgr LIMIT 1;
     IF v_cp IS NULL THEN
-        INSERT INTO channel_partners (name, manager_id) VALUES ('ZAINAB NADEEM', v_mgr) RETURNING id INTO v_cp;
-    ELSE
-        UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        SELECT id INTO v_cp FROM channel_partners WHERE name = 'ZAINAB NADEEM' LIMIT 1;
+        IF v_cp IS NULL THEN
+            INSERT INTO channel_partners (name, manager_id) VALUES ('ZAINAB NADEEM', v_mgr) RETURNING id INTO v_cp;
+        ELSE
+            UPDATE channel_partners SET manager_id = v_mgr WHERE id = v_cp;
+        END IF;
     END IF;
         
 
