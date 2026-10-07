@@ -735,26 +735,26 @@
             return cleaned;
         }
 
+        const DEFAULT_SUPABASE_URL = "https://zcsijzfhrsjnmgrtupqd.supabase.co";
+        const DEFAULT_SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inpjc2lqemZocnNqbm1ncnR1cHFkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTEyODExODYsImV4cCI6MjEwNjg1NzE4Nn0.jj4havzFR3ts7_bZGRtMZcg4HFrw20t4ksQYdPRQ_i4";
+
         function initSupabase() {
-            let savedUrl = localStorage.getItem("sb_url") || "https://zcsijzfhrsjnmgrtupqd.supabase.co";
+            let savedUrl = localStorage.getItem("sb_url") || DEFAULT_SUPABASE_URL;
             savedUrl = cleanSupabaseUrl(savedUrl);
             localStorage.setItem("sb_url", savedUrl);
-            const savedKey = localStorage.getItem("sb_key");
 
-            if (savedUrl && savedKey) {
-                try {
-                    supabaseClient = supabase.createClient(savedUrl, savedKey);
-                    updateStatus(true, "Supabase Connected");
-                    loadDatabaseData();
-                    return;
-                } catch (e) {
-                    console.error("Supabase init error:", e);
-                }
+            let savedKey = localStorage.getItem("sb_key") || DEFAULT_SUPABASE_KEY;
+            localStorage.setItem("sb_key", savedKey);
+
+            try {
+                supabaseClient = supabase.createClient(savedUrl, savedKey);
+                updateStatus(true, "Supabase Connected");
+                loadDatabaseData();
+            } catch (e) {
+                console.error("Supabase init error:", e);
+                updateStatus(false, "Connection Error");
+                loadLocalDataFallback();
             }
-
-            // Fallback: Load local JSON initial dataset for immediate testing
-            updateStatus(false, "Demo Mode (Local Data)");
-            loadLocalDataFallback();
         }
 
         function updateStatus(connected, text) {
